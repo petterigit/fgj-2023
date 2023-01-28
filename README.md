@@ -6,7 +6,7 @@ FGJ repo 2023'
 
 Prerequisites
 
-- [Node](https://nodejs.org/en/)
+-   [Node](https://nodejs.org/en/)
 
 Install with
 
@@ -34,7 +34,7 @@ yarn tsc:check
 
 ## Frameworks
 
-- [excaliburjs](https://excaliburjs.com/)
-- [excaliburjs/dev-tools](https://github.com/excaliburjs/dev-tools)
-- [typescript](https://www.typescriptlang.org/)
-- [vite](https://vitejs.dev/)
+-   [excaliburjs](https://excaliburjs.com/)
+-   [excaliburjs/dev-tools](https://github.com/excaliburjs/dev-tools)
+-   [typescript](https://www.typescriptlang.org/)
+-   [vite](https://vitejs.dev/)

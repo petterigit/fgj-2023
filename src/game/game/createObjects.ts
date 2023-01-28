@@ -1,6 +1,6 @@
-import { Engine } from "excalibur";
+import { Engine } from 'excalibur';
 
 export const createObjects = (game: Engine) => {
-  game;
-  return {};
+    game;
+    return {};
 };

@@ -3,30 +3,30 @@
 name: CI
 
 on:
-  push:
-    branches: ["main"]
+    push:
+        branches: ['main']
 
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    build_and_deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Setup Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+            - name: Setup Node 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+            - name: Install dependencies
+              run: yarn --frozen-lockfile
 
-      - name: Build application
-        run: yarn build
+            - name: Build application
+              run: yarn build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@4.1.5
+              with:
+                  branch: gh-pages # The branch the action should deploy to.
+                  folder: dist # The folder the action should deploy.
