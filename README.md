@@ -1,12 +1,14 @@
 # Fägäjii
 
 FGJ repo 2023'
+Gang gang rai rai 🤙🤙
 
 ## Quick start
 
 Prerequisites
 
 -   [Node](https://nodejs.org/en/)
+-   prettier
 
 Install with
 
