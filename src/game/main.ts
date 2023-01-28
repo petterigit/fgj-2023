@@ -6,6 +6,9 @@ import { AllProps, Game, GameObjects } from './types';
 import { createLoader } from './loaders/loaders';
 import { createSounds, Sounds } from './sounds/sounds';
 
+/**
+ * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
+ */
 export const startGame = () => {
     const game: Game = createGame();
 

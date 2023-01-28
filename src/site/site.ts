@@ -1,5 +1,11 @@
 import { gameCanvasID, gameContainerID } from '../consts';
 
+/**
+ * Creates a site to render the game in.
+ * Any layout that can be done through HTML & CSS better than
+ * through excalibur should be made here
+ * @constructs A canvas that excalibur uses to render the game
+ */
 export const createSite = () => {
     const siteMain = document.getElementById('app');
     if (!siteMain) {
