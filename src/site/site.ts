@@ -1,4 +1,4 @@
-import { gameCanvasID, gameContainerID, gameStartButtonID } from '../consts';
+import { gameCanvasID, gameContainerID } from '../consts';
 
 export const createSite = () => {
     const siteMain = document.getElementById('app');
@@ -15,12 +15,20 @@ export const createSite = () => {
     const gameCanvas = document.createElement('canvas');
     gameCanvas.id = gameCanvasID;
 
+    gameContainer.appendChild(gameCanvas);
+
+    siteMain.appendChild(gameContainer);
+
+    /**
+     * HTML start button example
+     * Full example with loaders/loaders.ts & site.css
+     */
+    /*
     const gameButton = document.createElement('button');
     gameButton.id = gameStartButtonID;
     gameButton.className = 'gameStartButton';
     gameButton.textContent = 'Start the game';
-
-    gameContainer.appendChild(gameCanvas);
     gameContainer.appendChild(gameButton);
-    siteMain.appendChild(gameContainer);
+
+  */
 };
