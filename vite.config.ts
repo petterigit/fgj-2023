@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/",
+  base: "/fgj-2023/",
   build: {
     chunkSizeWarningLimit: 1000,
   },
