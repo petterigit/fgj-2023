@@ -34,6 +34,14 @@ Run TSC to check for errors
 yarn tsc:check
 ```
 
+Preview build
+
+Runs both build & preview so you can be sure the project compiles & runs
+
+```
+yarn preview
+```
+
 ## Frameworks
 
 -   [excaliburjs](https://excaliburjs.com/)
