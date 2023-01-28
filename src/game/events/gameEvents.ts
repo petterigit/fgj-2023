@@ -16,5 +16,6 @@ interface Props {
  * @param props Game engine, objects to set events for, and other assets used
  */
 
-// eslint-disable-next-line
-export const initGameEvents = (props: Props) => {};
+export const initGameEvents = (props: Props) => {
+    props;
+};

@@ -1,4 +1,5 @@
 import { Engine } from 'excalibur';
+import { GameObjects } from '../types';
 
 /**
  * Create game objects.
@@ -8,7 +9,7 @@ import { Engine } from 'excalibur';
  * @returns
  */
 
-// eslint-disable-next-line
-export const createObjects = (game: Engine) => {
-    return {};
+export const createObjects = (game: Engine): GameObjects => {
+    game;
+    return [];
 };
