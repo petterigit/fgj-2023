@@ -5,6 +5,11 @@ interface Props {
     sounds: Sounds;
 }
 
+/**
+ * Creates loader for game assets. Further load configuration available as well.
+ * @param props Assets that require a loader
+ * @returns
+ */
 export const createLoader = (props: Props) => {
     const { sounds } = props;
 

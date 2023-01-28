@@ -10,6 +10,11 @@ interface Props {
     sounds: Sounds;
 }
 
-export const initGameEvents = (props: Props) => {
-    props;
-};
+/**
+ * Initializes events for properties.
+ * Done after initializing the objects, so they can be freely used.
+ * @param props Game engine, objects to set events for, and other assets used
+ */
+
+// eslint-disable-next-line
+export const initGameEvents = (props: Props) => {};
