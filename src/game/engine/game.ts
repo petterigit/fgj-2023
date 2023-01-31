@@ -1,4 +1,4 @@
-import { DisplayMode, Engine } from 'excalibur';
+import { DisplayMode, Engine, Resolution } from 'excalibur';
 import { gameCanvasID } from 'consts';
 
 /**
@@ -6,11 +6,11 @@ import { gameCanvasID } from 'consts';
  * Sets game resolution & other settings
  * */
 export const createGame = () => {
-    const displayMode = DisplayMode.FillContainer;
     const canvasElementId = gameCanvasID;
 
     const game = new Engine({
-        displayMode: displayMode,
+        displayMode: DisplayMode.FitScreen,
+        resolution: Resolution.Standard,
         canvasElementId: canvasElementId,
     });
 
