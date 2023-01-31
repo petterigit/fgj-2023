@@ -1,11 +1,11 @@
 import { ImageSource } from 'excalibur';
 
-import niiloImage from 'assets/images/niilo.jpg';
+import duckImage from 'assets/images/duck.jpg';
 
 /**
  * Type annotations for imported images
  */
-type ImageType = 'niiloImage';
+type ImageType = 'duckImage';
 
 export type ImageSources = { [I in ImageType]: ImageSource };
 
@@ -15,7 +15,7 @@ export type ImageSources = { [I in ImageType]: ImageSource };
  */
 export const createImages = (): ImageSources => {
     const images: ImageSources = {
-        niiloImage: new ImageSource(niiloImage),
+        duckImage: new ImageSource(duckImage),
     };
 
     return images;

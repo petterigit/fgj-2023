@@ -1,7 +1,7 @@
 import { Engine } from 'excalibur';
 import { Resources } from 'game/resources';
 import { GameObjects } from 'game/types';
-import { createNiilo } from 'game/objects/niilo';
+import { createDuck } from 'game/objects/duck';
 
 /**
  * Create game objects.
@@ -15,7 +15,7 @@ export const createObjects = (
     game: Engine,
     resources: Resources
 ): GameObjects => {
-    const niilo = createNiilo(resources);
-    game.add(niilo);
-    return [niilo];
+    const duck = createDuck(resources);
+    game.add(duck);
+    return [duck];
 };
