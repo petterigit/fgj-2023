@@ -1,5 +1,5 @@
 import { Engine } from 'excalibur';
-import { Sounds } from './sounds/sounds';
+import { Resources } from './resources';
 
 export type Game = Engine;
 
@@ -9,5 +9,5 @@ export interface GameObjects {}
 export interface AllProps {
     game: Game;
     objects: GameObjects;
-    sounds: Sounds;
+    resources: Resources;
 }

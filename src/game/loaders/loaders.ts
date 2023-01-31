@@ -1,22 +1,18 @@
 import { Loader } from 'excalibur';
-import { Sounds } from '../sounds/sounds';
-
-interface Props {
-    sounds: Sounds;
-}
+import { Resources } from '../resources';
 
 /**
  * Creates loader for game assets. Further load configuration available as well.
  * @param props Assets that require a loader
  * @returns
  */
-export const createLoader = (props: Props) => {
-    const { sounds } = props;
+export const createLoader = (props: Resources) => {
+    const { sounds, images } = props;
 
     /**
      * Loading assets
      */
-    const resources = Object.values({ ...sounds });
+    const resources = Object.values({ ...sounds, ...images });
     const loader = new Loader(resources);
 
     /**

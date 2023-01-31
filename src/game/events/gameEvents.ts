@@ -1,14 +1,4 @@
-import { Engine } from 'excalibur';
-import { Sounds } from '../sounds/sounds';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface GameObjects {}
-
-interface Props {
-    game: Engine;
-    objects: GameObjects;
-    sounds: Sounds;
-}
+import { AllProps } from '../types';
 
 /**
  * Initializes events for properties.
@@ -16,6 +6,6 @@ interface Props {
  * @param props Game engine, objects to set events for, and other assets used
  */
 
-export const initGameEvents = (props: Props) => {
+export const initGameEvents = (props: AllProps) => {
     props;
 };
