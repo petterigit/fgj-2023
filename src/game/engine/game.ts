@@ -1,5 +1,5 @@
 import { DisplayMode, Engine } from 'excalibur';
-import { gameCanvasID } from '../../consts';
+import { gameCanvasID } from 'consts';
 
 /**
  * Initializes the game engine

@@ -1,6 +1,6 @@
 import { ImageSource } from 'excalibur';
 
-import niiloImage from '../../../assets/images/niilo.jpg';
+import niiloImage from 'assets/images/niilo.jpg';
 
 /**
  * Type annotations for imported images

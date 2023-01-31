@@ -1,7 +1,7 @@
 import { Engine } from 'excalibur';
-import { Resources } from '../resources';
-import { GameObjects } from '../types';
-import { createNiilo } from './niilo';
+import { Resources } from 'game/resources';
+import { GameObjects } from 'game/types';
+import { createNiilo } from 'game/objects/niilo';
 
 /**
  * Create game objects.

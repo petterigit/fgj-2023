@@ -1,9 +1,9 @@
 import { DevTool } from '@excaliburjs/dev-tools';
-import { AllProps } from '../types';
+import { GameProps } from 'game/types';
 
 /**
  * Creates excalibur's own dev-tool for the game engine
  */
-export const useDevUtils = (props: AllProps) => {
+export const useDevUtils = (props: GameProps) => {
     new DevTool(props.game);
 };

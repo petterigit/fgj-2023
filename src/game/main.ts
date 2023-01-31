@@ -2,14 +2,14 @@ import { createGame } from './engine/game';
 import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
-import { AllProps, Game, GameObjects } from './types';
+import { Game, GameObjects, GameProps } from './types';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
  */
-export const startGame = () => {
+export const initGame = () => {
     // Creating a game requires:
 
     // 1) Game - An engine that keeps everything going
@@ -22,17 +22,17 @@ export const startGame = () => {
     const objects: GameObjects = createObjects(game, resources);
 
     // These objects are used through this variable
-    const allProps: AllProps = { game, objects, resources };
+    const gameProps: GameProps = { game, objects, resources };
 
     // Game events need to be configured after everything is set
-    initGameEvents(allProps);
+    initGameEvents(gameProps);
 
     // Assets require a loader to be used within the game
     const loader = createLoader(resources);
 
     // DevUtils includes a panel that can be used to access game object properties during runtime
     if (import.meta.env.MODE === 'useDevUtils') {
-        useDevUtils(allProps);
+        useDevUtils(gameProps);
     }
 
     // Finally, calling game.start() loads game assets & starts the game

@@ -1,5 +1,5 @@
-import { startGame } from './game/main';
-import { createSite } from './site/site';
+import { initGame } from 'game/main';
+import { createSite } from 'site/site';
 
 createSite();
-startGame();
+initGame();

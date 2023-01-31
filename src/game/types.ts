@@ -6,7 +6,7 @@ export type Game = Engine;
 // eslint-disable-next-line
 export interface GameObjects {}
 
-export interface AllProps {
+export interface GameProps {
     game: Game;
     objects: GameObjects;
     resources: Resources;

@@ -1,6 +1,6 @@
 import { Sound } from 'excalibur';
 
-import viiskauttaviis from '../../../assets/sounds/viiskauttaviis1.mp3';
+import viiskauttaviis from 'assets/sounds/viiskauttaviis1.mp3';
 
 /**
  * Type annotations for imported sounds

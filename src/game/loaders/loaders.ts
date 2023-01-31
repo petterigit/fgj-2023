@@ -1,5 +1,5 @@
 import { Loader } from 'excalibur';
-import { Resources } from '../resources';
+import { Resources } from 'game/resources';
 
 /**
  * Creates loader for game assets. Further load configuration available as well.

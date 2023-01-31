@@ -1,11 +1,9 @@
-import { Actor, Color, Vector } from 'excalibur';
-import { Resources } from '../../resources';
+import { Actor, Vector } from 'excalibur';
+import { Resources } from 'game/resources';
 
 export const createNiilo = (resources: Resources): Actor => {
     const niilo = new Actor({
-        name: 'player', // optionally assign a name
-        radius: 50,
-        color: Color.Red,
+        name: 'niilo', // optionally assign a name
         pos: new Vector(300, 275),
     });
 

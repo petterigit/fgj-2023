@@ -1,4 +1,4 @@
-import { AllProps } from '../types';
+import { GameProps } from 'game/types';
 
 /**
  * Initializes events for properties.
@@ -6,6 +6,6 @@ import { AllProps } from '../types';
  * @param props Game engine, objects to set events for, and other assets used
  */
 
-export const initGameEvents = (props: AllProps) => {
+export const initGameEvents = (props: GameProps) => {
     props;
 };

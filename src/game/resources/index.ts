@@ -1,5 +1,5 @@
 import { createImages, ImageSources } from './images/images';
-import { createSounds, Sounds } from './sounds/sounds';
+import { createSounds, Sounds } from 'game/resources/sounds/sounds';
 
 export interface Resources {
     sounds: Sounds;
