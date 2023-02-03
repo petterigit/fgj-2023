@@ -1,20 +1,29 @@
-import { Engine } from 'excalibur';
-import { Resources } from './resources';
+import { Engine, ImageSource } from 'excalibur';
+import { createObjects } from './objects/createObjects';
+import { createResources } from './resources';
 
 export type Game = Engine;
-
-// eslint-disable-next-line
-export interface GameObjects {}
-
-export interface GameProps {
-    game: Game;
-    objects: GameObjects;
-    resources: Resources;
-}
 
 export interface SceneProperties {
     width: number;
     height: number;
     resolution: number;
     zValue: number;
+    groundTiles: ImageSource[];
+    detailTiles: ImageSource[];
+    colliderTiles: ImageSource[];
+    getGroundTile(noise: number): ImageSource | null;
+    getDetailTile(noise: number): ImageSource | null;
+    getColliderTile(noise: number): ImageSource | null;
+}
+
+export type Resources = {
+    sounds: ReturnType<typeof createResources>['sounds'];
+    images: ReturnType<typeof createResources>['images'];
+};
+
+export interface GameProps {
+    game: Game;
+    objects: ReturnType<typeof createObjects>;
+    resources: Resources;
 }
