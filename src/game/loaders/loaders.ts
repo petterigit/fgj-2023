@@ -1,6 +1,6 @@
 import { UseDevUtils } from 'consts';
 import { Loader } from 'excalibur';
-import { Resources } from 'game/resources';
+import { Resources } from 'game/types';
 
 /**
  * Creates loader for game assets. Further load configuration available as well.

@@ -2,7 +2,6 @@ import { createGame } from './engine/game';
 import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
-import { Game, GameObjects, GameProps } from './types';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { ImageSource, IsometricMap, randomInRange, vec } from 'excalibur';
@@ -25,11 +24,11 @@ import { Scenario1Properties } from 'scenes/sceneProperties';
  *
  */
 export const initGame = () => {
-    const game: Game = createGame();
+    const game = createGame();
     const resources = createResources();
-    const objects: GameObjects = createObjects(game, resources);
+    const objects = createObjects(game, resources);
 
-    const gameProps: GameProps = { game, objects, resources };
+    const gameProps = { game, objects, resources };
 
     initGameEvents(gameProps);
 
