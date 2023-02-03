@@ -59,7 +59,7 @@ export const initGame = () => {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
 
-        let image: ImageSource | null = null;
+        let image: ImageSource;
         if (rgb.r > 250) {
             image = resources.images.branch1;
         } else if (rgb.r > 150) {
