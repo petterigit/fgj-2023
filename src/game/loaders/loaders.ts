@@ -1,5 +1,6 @@
+import { UseDevUtils } from 'consts';
 import { Loader } from 'excalibur';
-import { Resources } from 'game/resources';
+import { Resources } from 'game/types';
 
 /**
  * Creates loader for game assets. Further load configuration available as well.
@@ -14,6 +15,9 @@ export const createLoader = (props: Resources) => {
      */
     const resources = Object.values({ ...sounds, ...images });
     const loader = new Loader(resources);
+    if (import.meta.env.MODE === UseDevUtils) {
+        loader.suppressPlayButton = true;
+    }
 
     return loader;
 };

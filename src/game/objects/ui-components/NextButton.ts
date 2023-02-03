@@ -1,6 +1,6 @@
 import { Engine, ScreenElement, Vector } from 'excalibur';
-import { Resources } from 'game/resources';
 import { SceneKeys } from 'game/scenes/gamescenes';
+import { Resources } from 'game/types';
 
 export const createNextButton = (
     resources: Resources,

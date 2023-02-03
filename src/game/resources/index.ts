@@ -1,19 +1,13 @@
-import { createImages, ImageSources } from './images/images';
-import { createSounds, Sounds } from 'game/resources/sounds/sounds';
-import { createGraphics, GraphicSources } from './graphics/graphics';
+import { createImages } from './images/images';
+import { createSounds } from 'game/resources/sounds/sounds';
+import { createGraphics } from './graphics/graphics';
 
-export interface Resources {
-    sounds: Sounds;
-    images: ImageSources;
-    graphics: GraphicSources;
-}
+export const createResources = () => {
+    const sounds = createSounds();
+    const images = createImages();
+    const graphics = createGraphics(images);
 
-export const createResources = (): Resources => {
-    const sounds: Sounds = createSounds();
-    const images: ImageSources = createImages();
-    const graphics: GraphicSources = createGraphics(images);
-
-    const resources: Resources = {
+    const resources = {
         sounds: sounds,
         images: images,
         graphics: graphics,

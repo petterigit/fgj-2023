@@ -1,5 +1,5 @@
 import { Actor, Vector } from 'excalibur';
-import { Resources } from 'game/resources';
+import { Resources } from 'game/types';
 
 export const createDuck = (resources: Resources): Actor => {
     const duck = new Actor({
