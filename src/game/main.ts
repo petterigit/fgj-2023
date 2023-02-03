@@ -5,6 +5,7 @@ import { useDevUtils } from './devutils';
 import { Game, GameObjects, GameProps } from './types';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
+import { IsometricMap, vec } from 'excalibur';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -34,6 +35,16 @@ export const initGame = () => {
     if (import.meta.env.MODE === 'useDevUtils') {
         useDevUtils(gameProps);
     }
+
+    const isoMap = new IsometricMap({
+        pos: vec(0, 0),
+        tileWidth: 382,
+        tileHeight: 805,
+        columns: 64,
+        rows: 64,
+    });
+
+    game.currentScene.add(isoMap);
 
     game.start(loader);
 };
