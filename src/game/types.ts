@@ -12,9 +12,9 @@ export interface SceneProperties {
     groundTiles: ImageSource[];
     detailTiles: ImageSource[];
     colliderTiles: ImageSource[];
-    getGroundTile(noise: number): ImageSource;
-    getDetailTile(noise: number): ImageSource;
-    getColliderTile(noise: number): ImageSource;
+    getGroundTile(noise: number): ImageSource | null;
+    getDetailTile(noise: number): ImageSource | null;
+    getColliderTile(noise: number): ImageSource | null;
 }
 
 export type Resources = {

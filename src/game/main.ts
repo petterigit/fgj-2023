@@ -4,10 +4,10 @@ import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { ImageSource, IsometricMap, randomInRange, vec } from 'excalibur';
+import { IsometricMap, vec } from 'excalibur';
 import { generateLevel } from './generators/worldGenerator';
 import { TileProperties, UseDevUtils } from 'consts';
-import { Scenario1Properties } from 'scenes/sceneProperties';
+import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -38,19 +38,21 @@ export const initGame = () => {
         useDevUtils(gameProps);
     }
 
+    const props = Scenario1PropertiesGenerator(resources);
+
     const isoMap = new IsometricMap({
         pos: vec(0, 0),
         tileWidth: TileProperties.width,
         tileHeight: TileProperties.height,
-        columns: Scenario1Properties.height,
-        rows: Scenario1Properties.width,
+        columns: props.height,
+        rows: props.width,
     });
 
     const mapNoise = generateLevel(
         isoMap.tileWidth,
         isoMap.tileHeight,
-        Scenario1Properties.resolution,
-        Scenario1Properties.zValue
+        props.resolution,
+        props.zValue
     );
 
     game.currentScene.add(isoMap);
@@ -58,16 +60,9 @@ export const initGame = () => {
     for (let i = 0; i < isoMap.tiles.length; i++) {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
-
-        let image: ImageSource;
-        if (rgb.r > 250) {
-            image = resources.images.branch1;
-        } else if (rgb.r > 150) {
-            image = resources.images.branch2;
-        } else {
-            image = resources.images.brick1;
-        }
-        tile.addGraphic(image.toSprite());
+        tile.addGraphic(
+            (props.getGroundTile(rgb.r) ?? resources.images.tile1).toSprite()
+        );
     }
 
     game.start(loader);
