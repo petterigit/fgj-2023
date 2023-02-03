@@ -1,13 +1,17 @@
-import { Engine } from 'excalibur';
+import { Engine, Scene } from 'excalibur';
+import { GameObjects } from './objects/createObjects';
 import { Resources } from './resources';
+import { SceneKeys } from './scenes/gamescenes';
 
 export type Game = Engine;
-
-// eslint-disable-next-line
-export interface GameObjects {}
 
 export interface GameProps {
     game: Game;
     objects: GameObjects;
     resources: Resources;
+}
+
+export interface GameScene {
+    key: SceneKeys;
+    scene: Scene;
 }
