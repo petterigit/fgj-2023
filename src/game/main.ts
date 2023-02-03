@@ -7,6 +7,7 @@ import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { ImageSource, IsometricMap, vec } from 'excalibur';
 import { generateLevel } from './generators/worldGenerator';
+import { Scenario1Properties, TileProperties, UseDevUtils } from 'consts';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -33,20 +34,24 @@ export const initGame = () => {
 
     const loader = createLoader(resources);
 
-    if (import.meta.env.MODE === 'useDevUtils') {
+    if (import.meta.env.MODE === UseDevUtils) {
         useDevUtils(gameProps);
     }
 
     const isoMap = new IsometricMap({
-        pos: vec(800, -100),
-        tileWidth: 160,
-        tileHeight: 80,
-        columns: 64,
-        rows: 64,
-        renderFromTopOfGraphic: true
+        pos: vec(800, -2000),
+        tileWidth: TileProperties.width,
+        tileHeight: TileProperties.height,
+        columns: Scenario1Properties.height,
+        rows: Scenario1Properties.width,
     });
 
-    const mapNoise = generateLevel(64, 64, 10, 10);
+    const mapNoise = generateLevel(
+        isoMap.tileWidth,
+        isoMap.tileHeight,
+        Scenario1Properties.resolution,
+        Scenario1Properties.zValue
+    );
 
     game.currentScene.add(isoMap);
 
@@ -54,15 +59,13 @@ export const initGame = () => {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
 
-        let image:ImageSource|null = null;
+        let image: ImageSource | null = null;
         if (rgb.r > 250) {
             image = resources.images.branch1;
         } else if (rgb.r > 150) {
             image = resources.images.branch2;
-
         } else {
             image = resources.images.brick1;
-
         }
         tile.addGraphic(image.toSprite());
     }

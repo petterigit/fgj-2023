@@ -11,3 +11,10 @@ export interface GameProps {
     objects: GameObjects;
     resources: Resources;
 }
+
+export interface SceneProperties {
+    width: number;
+    height: number;
+    resolution: number;
+    zValue: number;
+}
