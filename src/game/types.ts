@@ -1,4 +1,4 @@
-import { Engine } from 'excalibur';
+import { Engine, ImageSource } from 'excalibur';
 import { Resources } from './resources';
 
 export type Game = Engine;
@@ -17,4 +17,10 @@ export interface SceneProperties {
     height: number;
     resolution: number;
     zValue: number;
+    groundTiles: ImageSource[];
+    detailTiles: ImageSource[];
+    colliderTiles: ImageSource[];
+    getGroundTile(noise: number): ImageSource;
+    getDetailTile(noise: number): ImageSource;
+    getColliderTile(noise: number): ImageSource;
 }
