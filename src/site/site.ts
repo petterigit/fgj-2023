@@ -1,4 +1,4 @@
-import { gameCanvasID } from '../consts';
+import { GameCanvasID } from '../consts';
 
 /**
  * Creates a site to render the game in.
@@ -15,7 +15,7 @@ export const createSite = () => {
     siteMain.className = 'siteMain';
 
     const gameCanvas = document.createElement('canvas');
-    gameCanvas.id = gameCanvasID;
+    gameCanvas.id = GameCanvasID;
 
     siteMain.appendChild(gameCanvas);
 };
