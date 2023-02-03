@@ -1,39 +1,43 @@
-import { ImageSource } from 'excalibur';
 import { Resources, SceneProperties } from '../game/types';
 
 export const Scenario1PropertiesGenerator = (
     resources: Resources
-): SceneProperties => ({
-    width: 100,
-    height: 100,
-    resolution: 2,
-    zValue: 10,
-    groundTiles: [
+): SceneProperties => {
+    const groundTiles = [
         resources.images.grass1,
         resources.images.grass2,
         resources.images.grass3,
-        resources.images.grass4,
+        resources.images.brick1,
         resources.images.grass5,
         resources.images.grass6,
         resources.images.grass7,
-    ],
-    detailTiles: [
+    ];
+    const detailTiles = [
         resources.images.leaf1,
         resources.images.leaf2,
         resources.images.leaf3,
-    ],
-    colliderTiles: [],
-    getGroundTile: (noise: number) => {
-        let image: ImageSource;
-        if (noise > 250) {
-            image = resources.images.branch1;
-        } else if (noise > 150) {
-            image = resources.images.branch2;
-        } else {
-            image = resources.images.brick1;
-        }
-        return image;
-    },
-    getDetailTile: () => null,
-    getColliderTile: () => null,
-});
+    ];
+    const colliderTiles = [];
+
+    return {
+        width: 100,
+        height: 100,
+        resolution: 5,
+        zValue: 5,
+        getGroundTile: (noise: number) => {
+            const imageMin = 50;
+            const imageMax = 200;
+            if (noise < imageMin) noise = imageMin;
+            if (noise > imageMax) noise = imageMax;
+            noise -= imageMin;
+            const step = (imageMax - imageMin) / (groundTiles.length - 1);
+            const imageIndex = Math.floor(noise / step);
+            if (imageIndex > 6) {
+                console.log(imageIndex, noise);
+            }
+            return groundTiles[imageIndex];
+        },
+        getDetailTile: () => null,
+        getColliderTile: () => null,
+    };
+};

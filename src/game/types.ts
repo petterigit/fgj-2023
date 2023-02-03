@@ -9,9 +9,6 @@ export interface SceneProperties {
     height: number;
     resolution: number;
     zValue: number;
-    groundTiles: ImageSource[];
-    detailTiles: ImageSource[];
-    colliderTiles: ImageSource[];
     getGroundTile(noise: number): ImageSource | null;
     getDetailTile(noise: number): ImageSource | null;
     getColliderTile(noise: number): ImageSource | null;
