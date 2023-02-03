@@ -6,6 +6,7 @@ import { Game, GameObjects, GameProps } from './types';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { IsometricMap, vec } from 'excalibur';
+import { generateLevel } from './generators/worldGenerator';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -44,7 +45,12 @@ export const initGame = () => {
         rows: 64,
     });
 
+    const mapNoise = generateLevel(64, 64, 10, 10);
+
     game.currentScene.add(isoMap);
+    for (const tile of isoMap.tiles) {
+        tile.addGraphic();
+    }
 
     game.start(loader);
 };
