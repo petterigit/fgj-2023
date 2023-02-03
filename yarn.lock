@@ -995,6 +995,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+quick-perlin-noise-js@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/quick-perlin-noise-js/-/quick-perlin-noise-js-1.0.3.tgz#886f468171b35af57229691365596a54e30e5aa0"
+  integrity sha512-y0UR4DIIiTcLBcPM/oSNl5u2PDMKynapWXDAUHUWbE7tlmG4kXmo4xrzAHxGSq7sfwNfmjSAOh3yn6ZgMyygVw==
+
 regexpp@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
