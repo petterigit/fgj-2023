@@ -5,7 +5,7 @@ import { useDevUtils } from './devutils';
 import { Game, GameObjects, GameProps } from './types';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { IsometricMap, vec } from 'excalibur';
+import { ImageSource, IsometricMap, vec } from 'excalibur';
 import { generateLevel } from './generators/worldGenerator';
 
 /**
@@ -38,18 +38,33 @@ export const initGame = () => {
     }
 
     const isoMap = new IsometricMap({
-        pos: vec(0, 0),
-        tileWidth: 382,
-        tileHeight: 805,
+        pos: vec(800, -100),
+        tileWidth: 160,
+        tileHeight: 80,
         columns: 64,
         rows: 64,
+        renderFromTopOfGraphic: true
     });
 
     const mapNoise = generateLevel(64, 64, 10, 10);
 
     game.currentScene.add(isoMap);
-    for (const tile of isoMap.tiles) {
-        tile.addGraphic();
+
+    for (let i = 0; i < isoMap.tiles.length; i++) {
+        const tile = isoMap.tiles[i];
+        const rgb = mapNoise[i];
+
+        let image:ImageSource|null = null;
+        if (rgb.r > 250) {
+            image = resources.images.branch1;
+        } else if (rgb.r > 150) {
+            image = resources.images.branch2;
+
+        } else {
+            image = resources.images.brick1;
+
+        }
+        tile.addGraphic(image.toSprite());
     }
 
     game.start(loader);

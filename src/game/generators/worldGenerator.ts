@@ -32,5 +32,5 @@ export const generateLevel = (
         }
     }
 
-    console.log(JSON.stringify(map, null, 2));
+    return map;
 };
