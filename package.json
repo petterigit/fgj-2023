@@ -9,7 +9,7 @@
         "dev:utils": "vite --mode useDevUtils",
         "preview": "vite preview",
         "prettier:write": "prettier --write .",
-        "tsc:check": "tsc -p ."
+        "tsc": "tsc -p ."
     },
     "dependencies": {
         "@excaliburjs/dev-tools": "0.27.1",
