@@ -10,21 +10,14 @@ import { Actor } from 'excalibur';
  * @returns created game objects
  */
 
-export const createObjects = (
-    resources: Resources
-): GameObjects => {
-    const gameObjects: GameObjects = 
-    
-    {"duck": createDuck(resources)};
-
-
-
-
-
+export const createObjects = (resources: Resources): GameObjects => {
+    const gameObjects: GameObjects = {
+        duck: createDuck(resources),
+    };
 
     return gameObjects;
 };
 
-type actorNames = "duck"
+type actorNames = 'duck';
 
 export type GameObjects = Record<actorNames, Actor>;

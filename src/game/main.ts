@@ -23,7 +23,6 @@ import { SceneKeys } from './scenes/gamescenes';
  *
  */
 export const initGame = () => {
-
     const resources = createResources();
 
     const game: Game = createGame();
@@ -40,11 +39,12 @@ export const initGame = () => {
         useDevUtils(gameProps);
     }
 
-    const scenes = createScenes(objects);
+    const scenes = createScenes(gameProps);
 
     scenes.forEach(gameScene => {
         game.add(gameScene.key, gameScene.scene);
-    })
+    });
 
+    /* game.goToScene can be used to change scenes *wink* *wink* */
     game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
 };
