@@ -4,9 +4,10 @@ import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { ImageSource, IsometricMap, vec } from 'excalibur';
+import { ImageSource, IsometricMap, randomInRange, vec } from 'excalibur';
 import { generateLevel } from './generators/worldGenerator';
-import { Scenario1Properties, TileProperties, UseDevUtils } from 'consts';
+import { TileProperties, UseDevUtils } from 'consts';
+import { Scenario1Properties } from 'scenes/sceneProperties';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -38,7 +39,7 @@ export const initGame = () => {
     }
 
     const isoMap = new IsometricMap({
-        pos: vec(800, -2000),
+        pos: vec(0, 0),
         tileWidth: TileProperties.width,
         tileHeight: TileProperties.height,
         columns: Scenario1Properties.height,
