@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { CharacterAnimationSpeed } from 'consts';
-import { Animation, Engine } from 'excalibur';
+import { Animation, Engine, vec } from 'excalibur';
 import { createSpriteSheets } from 'game/spriteSheets/createSpriteSheets';
 import { CharacterName, Resources } from 'game/types';
 import { createDuck } from './duck';
@@ -31,6 +31,7 @@ const createCharacters = (spritesheets: CreateSpriteSheets) => {
     Object.entries(spritesheets.characters).forEach(([name, sprites]) => {
         const player = () =>
             new Player({
+                scale: vec(0.5, 0.5),
                 animations: {
                     idle: new Animation({
                         frames: [

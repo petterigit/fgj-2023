@@ -11,14 +11,13 @@ export const generateNoise = (
     height: number,
     resolution: number,
     zValue: number,
-    seed?:number
+    seed?: number
 ) => {
     const map: Rgb[] = new Array(width)
         .fill(0)
         .map(() => ({ r: 0, g: 0, b: 0 }));
 
     const createNoise = noise.create(seed);
-
 
     let i = 0;
     for (let y = 0; y < height; ++y) {
