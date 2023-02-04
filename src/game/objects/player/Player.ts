@@ -4,6 +4,7 @@ import {
     ActorArgs,
     Animation,
     CollisionType,
+    Shape,
     vec,
     Vector,
 } from 'excalibur';
@@ -41,9 +42,12 @@ export class Player extends Actor {
     public stats = PlayerDefaultStats;
 
     constructor(config: PlayerArgs, animations: CreateAnimations) {
+        const collider = Shape.Circle(10);
+        collider.offset = new Vector(0, 16);
+
         super({
             name: 'Player',
-            radius: 60,
+            collider: collider,
             collisionType: CollisionType.Passive,
             ...config,
         });

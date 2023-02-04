@@ -9,6 +9,7 @@ import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 import { UseDevUtils } from 'consts';
 import { SceneKeys } from './scenes/gamescenes';
 import { createAnimations } from './animations/createAnimations';
+import { PostProcessor } from './postProcessor';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -47,6 +48,7 @@ export const initGame = () => {
         game.add(gameScene.key, gameScene.scene);
     });
 
+    // game.graphicsContext.addPostProcessor(new PostProcessor());
     /* game.goToScene can be used to change scenes *wink* *wink* */
     game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
 };
