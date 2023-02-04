@@ -41,12 +41,14 @@ export const createLevel1 = (gameProps: GameProps) => {
         const rgb = mapNoise[i];
         const detailRgb = detailNoise[i];
         tile.addGraphic(
-            props.getGroundTile(rgb.r) ?? gameProps.resources.images.duckImage.toSprite()
+            props.getGroundTile(rgb.r) ??
+                gameProps.resources.images.duckImage.toSprite()
         );
         const detailTile = props.getDetailTile(detailRgb.b);
         if (detailTile) {
             tile.addGraphic(detailTile);
         }
     }
+
     return scene;
 };

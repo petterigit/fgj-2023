@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { CharacterAnimationSpeed } from 'consts';
 import { Animation, Engine } from 'excalibur';
-import { Resources } from 'game/types';
+import { createSpriteSheets } from 'game/spriteSheets/createSpriteSheets';
+import { CharacterName, Resources } from 'game/types';
 import { createDuck } from './duck';
 import { Player } from './player/Player';
 
@@ -11,59 +14,117 @@ import { Player } from './player/Player';
  * @returns created game objects
  */
 
-export const createObjects = (game: Engine, resources: Resources) => {
+type CreateSpriteSheets = ReturnType<typeof createSpriteSheets>;
+
+export const createObjects = (
+    _game: Engine,
+    resources: Resources,
+    spritesheets: CreateSpriteSheets
+) => {
     const duck = createDuck(resources);
-    const player = new Player({
-        animations: {
-            idle: new Animation({
-                frames: [
-                    {
-                        graphic: resources.images.backward.toSprite(),
-                        duration: 1000,
-                    },
-                    {
-                        graphic: resources.images.backwardActive.toSprite(),
-                        duration: 1000,
-                    },
-                ],
-            }),
-            left: new Animation({
-                frames: [
-                    {
-                        graphic: resources.images.forward.toSprite(),
-                        duration: 1000,
-                    },
-                ],
-            }),
-            right: new Animation({
-                frames: [
-                    {
-                        graphic: resources.images.forwardActive.toSprite(),
-                        duration: 1000,
-                    },
-                ],
-            }),
-            up: new Animation({
-                frames: [
-                    {
-                        graphic: resources.images.groundSet.toSprite(),
-                        duration: 1000,
-                    },
-                ],
-            }),
-            down: new Animation({
-                frames: [
-                    {
-                        graphic: resources.images.duckImage.toSprite(),
-                        duration: 1000,
-                    },
-                ],
-            }),
-        },
+    const characters = createCharacters(spritesheets);
+    return { duck, characters } as const;
+};
+
+const createCharacters = (spritesheets: CreateSpriteSheets) => {
+    const characters: Record<string, () => Player> = {};
+    Object.entries(spritesheets.characters).forEach(([name, sprites]) => {
+        const player = () =>
+            new Player({
+                animations: {
+                    idle: new Animation({
+                        frames: [
+                            {
+                                graphic: sprites.getSprite(1, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                        ],
+                    }),
+                    left: new Animation({
+                        frames: [
+                            {
+                                graphic: sprites.getSprite(1, 1)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(0, 1)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(1, 1)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(2, 1)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                        ],
+                    }),
+                    right: new Animation({
+                        frames: [
+                            {
+                                graphic: sprites.getSprite(1, 2)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(0, 2)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(1, 2)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(2, 2)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                        ],
+                    }),
+                    up: new Animation({
+                        frames: [
+                            {
+                                graphic: sprites.getSprite(1, 3)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(0, 3)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(1, 3)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(2, 3)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                        ],
+                    }),
+                    down: new Animation({
+                        frames: [
+                            {
+                                graphic: sprites.getSprite(1, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(0, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(1, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
+                                graphic: sprites.getSprite(2, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                        ],
+                    }),
+                },
+            });
+
+        characters[name] = player;
     });
 
-    game.add(duck);
-    game.add(player);
-
-    return { duck, player };
+    return characters as Record<CharacterName, () => Player>;
 };

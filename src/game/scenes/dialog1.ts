@@ -7,10 +7,11 @@ export const createDialog1 = (game: Engine, resources: Resources) => {
     const dialogScene = new Scene();
 
     const dialogueBox = createDialogBox(
-        ['Here is text one', 'Here is text two'],
+        ['Somebody took my lollypop', 'It is time to take revenge'],
         () => {
             game.goToScene(SceneKeys.Level1);
         },
+        resources.graphics.duck,
         resources
     );
 

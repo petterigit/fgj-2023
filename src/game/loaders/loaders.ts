@@ -1,4 +1,3 @@
-import { UseDevUtils } from 'consts';
 import { Loader } from 'excalibur';
 import { Resources } from 'game/types';
 
@@ -15,9 +14,7 @@ export const createLoader = (props: Resources) => {
      */
     const resources = Object.values({ ...sounds, ...images });
     const loader = new Loader(resources);
-    if (import.meta.env.MODE === UseDevUtils) {
-        loader.suppressPlayButton = true;
-    }
+    loader.suppressPlayButton = true;
 
     return loader;
 };

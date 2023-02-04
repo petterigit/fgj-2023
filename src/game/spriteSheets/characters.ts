@@ -8,9 +8,15 @@ export const createCharacter = (
     SpriteSheet.fromImageSource({
         image: resources.images[`character${characterName}`],
         grid: {
-            rows: 3,
-            columns: 4,
-            spriteHeight: 32,
-            spriteWidth: 32,
+            rows: 4,
+            columns: 3,
+            spriteHeight: 48,
+            spriteWidth: 48,
+        },
+        spacing: {
+            margin: {
+                x: 0,
+                y: 0,
+            },
         },
     });
