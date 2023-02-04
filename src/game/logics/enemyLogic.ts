@@ -34,7 +34,7 @@ export function enemyLogic(
     if (isPlayerClose(x, y)) {
         return {
             input: getDirection(x, y),
-            actions: { meleeAttack },
+            actions: { meleeAttack, dash },
             speed: 75,
         };
     }
