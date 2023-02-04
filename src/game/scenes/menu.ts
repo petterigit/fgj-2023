@@ -59,13 +59,33 @@ export const createMenu = (props: GameProps) => {
         }),
     });
 
+    const keysLabel = new Label({
+        text: 'Esc returns to menu',
+        pos: new Vector(800, 750),
+        font: new Font({
+            size: 20,
+            family: 'sans-serif',
+            style: FontStyle.Normal,
+            bold: false,
+            textAlign: TextAlign.Center,
+            baseAlign: BaseAlign.Alphabetic,
+            direction: Direction.LeftToRight,
+            shadow: {
+                blur: 2,
+                offset: new Vector(3, 3),
+                color: Color.Black,
+            },
+        }),
+    });
+
     scene.scene.add(titleLabel);
     scene.scene.add(startGameLabel);
+    scene.scene.add(keysLabel);
 
     const nextButton = createNextButton(
         props.resources,
         () => props.game.goToScene(SceneKeys.Level1),
-        new Vector(800, 800)
+        new Vector(700, 800)
     );
 
     scene.scene.add(nextButton);
