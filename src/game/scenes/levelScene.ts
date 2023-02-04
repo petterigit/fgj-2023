@@ -3,12 +3,14 @@
 import { TileProperties } from 'consts';
 import { Actor, Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
+import { playerLogic } from 'game/logics/playerLogic';
+import { Player } from 'game/objects/player/Player';
 import { GameProps } from 'game/types';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 
 // Tile map theme === Enum
 export const createLevelScene = (
-    player: Actor,
+    player: Player,
     enemyType: unknown,
     tileMapTheme: unknown,
     gameProps: GameProps
@@ -22,6 +24,9 @@ export const createLevelScene = (
 
     // Add player function here (if needed)
     scene.add(player);
+    player.AddLogic(playerLogic);
+    scene.camera.strategy.elasticToActor(player, 0.1, 0.1);
+    scene.camera.zoom = 4;
 
     // Create enemies function here
 

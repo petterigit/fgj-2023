@@ -4,12 +4,11 @@ import {
     ActorArgs,
     Animation,
     CollisionType,
-    Input,
     vec,
     Vector,
 } from 'excalibur';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
-import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
+import { PlayerPreUpdateLogic } from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
