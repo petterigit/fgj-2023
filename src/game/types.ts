@@ -58,7 +58,7 @@ export type TreeType =
     | 'Green3'
     | 'Green4'
     | 'Green5'
-    | 'Green6'
+    | 'Green6';
 
 export type CharacterName =
     | 'Lavender'

@@ -76,6 +76,15 @@ export const endLevel = (
 const createTileMap = (gameProps: GameProps, scene: Scene) => {
     const props = Scenario1PropertiesGenerator(gameProps);
 
+    const greenTrees = [
+        gameProps.objects.trees.Green1,
+        gameProps.objects.trees.Green2,
+        gameProps.objects.trees.Green3,
+        gameProps.objects.trees.Green4,
+        gameProps.objects.trees.Green5,
+        gameProps.objects.trees.Green6,
+    ]
+
     const isoMap = new TileMap({
         pos: vec(0, 0),
         tileWidth: TileProperties.width,
@@ -83,6 +92,7 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
         columns: props.height,
         rows: props.width,
     });
+    isoMap.z = -1;
 
     const mapNoise = generateNoise(
         isoMap.columns,
@@ -115,10 +125,11 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
 
     for (const index of detailIndexes) {
         const tile = isoMap.tiles[index];
-        const tree = gameProps.objects.trees.Green2(tile.pos);
+        const tree = sample(greenTrees)(tile.pos);
         scene.add(tree);
     }
-    isoMap.z = -1;
 
     return isoMap;
 };
+
+const sample = <T,>(arr:Array<T>) => arr[Math.floor(Math.random() * arr.length)];
