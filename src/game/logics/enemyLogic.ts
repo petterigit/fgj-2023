@@ -3,6 +3,8 @@ import { Engine, randomInRange, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
 
+export const bossLogic = enemyLogic;
+
 export function enemyLogic(): PlayerPreUpdateLogic {
     let player: Player | undefined | null = null;
     let battleMode = false;

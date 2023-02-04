@@ -37,7 +37,9 @@ export function meleeAttack(
     swoosh.on('collisionstart', event => {
         if (
             event.other.id === this.id ||
-            (event.other.name !== 'Player' && event.other.name !== 'enemy')
+            (event.other.name !== 'Player' &&
+                event.other.name !== 'enemy' &&
+                event.other.name !== 'boss')
         ) {
             return;
         }

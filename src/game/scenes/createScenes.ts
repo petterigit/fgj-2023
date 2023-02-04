@@ -56,13 +56,15 @@ export const createScenes = (props: GameProps): GameScene[] => {
             }),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Teacher,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Bob,
             undefined,
             props,
             scene1Props,
+            SceneKeys.Dialog2,
             sounds.gameMusicLoop
         ),
     };
@@ -105,13 +107,15 @@ export const createScenes = (props: GameProps): GameScene[] => {
             }),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Tryhard,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Gobbo,
             undefined,
             props,
             scene2Props,
+            SceneKeys.Dialog3,
             sounds.gameMusicLoop
         ),
     };
@@ -142,13 +146,15 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.objects.characters.Gobbo(),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Lavender,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Berry,
             undefined,
             props,
             scene1Props,
+            SceneKeys.Dialog1,
             sounds.gameMusicLoop
         ),
     };
