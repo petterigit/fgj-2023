@@ -10,7 +10,9 @@
             { "blankLine": "always", "prev": "var", "next": "return" }
         ],
         "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-unused-imports": "off"
+        "@typescript-eslint/no-unused-imports": "off",
+        "no-useless-escape": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
     },
     "ignorePatterns": ["vite.config.ts"]
 }

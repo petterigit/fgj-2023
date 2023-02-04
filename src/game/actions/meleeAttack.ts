@@ -3,7 +3,7 @@ import { Actor, CollisionType, Engine, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { CreateAnimations } from 'game/types';
-import { vectorDirectionToRadians } from 'util';
+import { vectorDirectionToRadians } from '../engine/physics/vectors';
 
 export function meleeAttack(
     this: Player,
@@ -25,10 +25,8 @@ export function meleeAttack(
 
     const animation = animations.melee();
     if (
-        (this.currentDirection.x === Vector.Up.x &&
-            this.currentDirection.y === Vector.Up.y) ||
-        (this.currentDirection.x === Vector.Down.x &&
-            this.currentDirection.y === Vector.Down.y)
+        this.currentDirection.equals(Vector.Up) ||
+        this.currentDirection.equals(Vector.Down)
     ) {
         animation.flipVertical = true;
     }
@@ -40,14 +38,14 @@ export function meleeAttack(
         if (
             event.other.id === this.id ||
             (event.other.name !== 'Player' && event.other.name !== 'enemy')
-        )
+        ) {
             return;
+        }
+
         console.log('Hitted', event.other.id);
         AudioManager.playSound('viisKauttaViis');
         const target = event.other as Player;
         target.stats.health -= this.stats.attack;
-        console.log(target.stats.health);
-        console.log(target.name);
     });
 
     swoosh.actions.delay(MeleeAttack.duration).die();

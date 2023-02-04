@@ -67,6 +67,7 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
             textAlign: TextAlign.Center,
             baseAlign: BaseAlign.Alphabetic,
             direction: Direction.LeftToRight,
+            lineWidth: 100,
             shadow: {
                 blur: 2,
                 offset: new Vector(3, 3),

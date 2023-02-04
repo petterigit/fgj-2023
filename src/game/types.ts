@@ -81,6 +81,8 @@ export interface AnimatedPlayer {
     down: Animation;
 }
 
+export type PlayerPreUpdateLogicGenerator = () => PlayerPreUpdateLogic;
+
 export type PlayerPreUpdateLogic = (
     this: Player,
     engine: Engine,
