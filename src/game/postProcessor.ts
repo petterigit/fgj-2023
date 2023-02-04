@@ -1,7 +1,7 @@
 import * as ex from 'excalibur';
 
 export class PostProcessor implements ex.PostProcessor {
-  private _shader: ex.ScreenShader
+  private _shader: ex.ScreenShader | null = null;
   initialize(gl: WebGLRenderingContext): void {
     this._shader = new ex.ScreenShader(
       `#version 300 es
@@ -24,10 +24,10 @@ export class PostProcessor implements ex.PostProcessor {
   }
 
   getLayout(): ex.VertexLayout {
-    return this._shader.getLayout()
+    return this._shader!.getLayout()
   }
 
   getShader(): ex.Shader {
-    return this._shader.getShader()
+    return this._shader!.getShader()
   }
 }

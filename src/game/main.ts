@@ -9,7 +9,7 @@ import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 import { UseDevUtils } from 'consts';
 import { SceneKeys } from './scenes/gamescenes';
 import { createAnimations } from './animations/createAnimations';
-import { PostProcessor } from './postProcessor';
+//import { PostProcessor } from './postProcessor';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
