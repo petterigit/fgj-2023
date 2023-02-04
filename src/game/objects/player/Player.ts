@@ -1,4 +1,4 @@
-import { ActorSpeed, MeleeAttack, PlayerDefaultStats } from 'consts';
+import { MeleeAttack, PlayerDefaultStats } from 'consts';
 import {
     Actor,
     ActorArgs,
