@@ -1,6 +1,9 @@
-import { Engine, ImageSource } from 'excalibur';
+import { Engine, ImageSource, Scene } from 'excalibur';
 import { createObjects } from './objects/createObjects';
-import { createResources } from './resources';
+import { createGraphics } from './resources/graphics/graphics';
+import { createImages } from './resources/images/images';
+import { createSounds } from './resources/sounds/sounds';
+import { SceneKeys } from './scenes/gamescenes';
 
 export type Game = Engine;
 
@@ -15,12 +18,18 @@ export interface SceneProperties {
 }
 
 export type Resources = {
-    sounds: ReturnType<typeof createResources>['sounds'];
-    images: ReturnType<typeof createResources>['images'];
+    sounds: ReturnType<typeof createSounds>;
+    images: ReturnType<typeof createImages>;
+    graphics: ReturnType<typeof createGraphics>;
 };
 
 export interface GameProps {
     game: Game;
     objects: ReturnType<typeof createObjects>;
     resources: Resources;
+}
+
+export interface GameScene {
+    key: SceneKeys;
+    scene: Scene;
 }
