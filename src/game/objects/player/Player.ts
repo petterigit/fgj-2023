@@ -4,11 +4,11 @@ import {
     ActorArgs,
     Animation,
     CollisionType,
-    Input,
     vec,
     Vector,
 } from 'excalibur';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
+import { PlayerPreUpdateLogic } from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -27,6 +27,7 @@ export class Player extends Actor {
     protected animation: PlayerAnimation;
     private dashTime = 0;
     private dashCooldown = 0;
+    private preUpdateLogic: PlayerPreUpdateLogic | null = null;
 
     constructor(config: PlayerArgs) {
         super({
@@ -38,6 +39,10 @@ export class Player extends Actor {
 
         this.animations = config.animations;
         this.animation = PlayerAnimation.Left;
+    }
+
+    public AddLogic(logic: PlayerPreUpdateLogic) {
+        this.preUpdateLogic = logic;
     }
 
     public onInitialize() {
@@ -62,6 +67,9 @@ export class Player extends Actor {
     onPreUpdate(engine: ex.Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
+        const props = this.preUpdateLogic?.(engine, delta);
+        if (!props) return;
+
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
         }
@@ -70,30 +78,8 @@ export class Player extends Actor {
             this.dashTime -= delta;
         }
 
-        let newX = 0;
-        let newY = 0;
-
-        newX = 0;
-        newY = 0;
-
-        if (engine.input.keyboard.isHeld(Input.Keys.Left)) {
-            newX = -1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.Right)) {
-            newX = 1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.Up)) {
-            newY = -1;
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.Down)) {
-            newY = 1;
-        }
-
         this.normalizeAndSetVelocity(
-            vec(newX, newY),
+            vec(props.input.x, props.input.y),
             this.dashTime > 0 ? 500 : undefined
         );
 
