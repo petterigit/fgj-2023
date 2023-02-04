@@ -50,5 +50,9 @@ export const createLevel1 = (gameProps: GameProps) => {
         }
     }
 
+    const child = gameProps.objects.characters.Berry();
+
+    scene.scene.add(child);
+    scene.scene.camera.strategy.elasticToActor(child, 0.9, 0.1);
     return scene;
 };
