@@ -1,5 +1,5 @@
 import { TileProperties } from 'consts';
-import { Actor, Scene, TileMap, vec } from 'excalibur';
+import { Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
 import { Player } from 'game/objects/player/Player';
