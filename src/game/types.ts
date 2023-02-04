@@ -37,3 +37,15 @@ export interface GameScene {
     key: SceneKeys;
     scene: Scene;
 }
+
+export type CharacterName =
+    | 'Lavender'
+    | 'Shroom'
+    | 'Gobbo'
+    | 'Furry'
+    | 'Tryhard'
+    | 'Bob'
+    | 'AnimeProtagonist'
+    | 'Blondie'
+    | 'Berry'
+    | 'Teacher';
