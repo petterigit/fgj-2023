@@ -104,6 +104,10 @@ export class Player extends Actor {
     onPreUpdate(engine: ex.Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
+        const props = this.preUpdateLogic?.(engine, delta);
+
+        if (!props) return;
+
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
         }
@@ -116,9 +120,6 @@ export class Player extends Actor {
             this.meleeAttackCurrentCooldown -= delta;
         }
 
-        const props = this.preUpdateLogic?.(engine, delta);
-        if (!props) return;
-
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
             this.dashTime > 0 ? 500 : undefined
@@ -126,17 +127,17 @@ export class Player extends Actor {
 
         const oldAnimation = this.animation;
         const angle = this.vel.toAngle();
-        const pi = 3.14;
+        const pi = Math.PI;
 
         if (this.vel.x === 0 && this.vel.y === 0) {
             this.animation = PlayerAnimation.Idle;
-        } else if (angle > -pi / 4 && angle < pi / 4) {
+        } else if (angle >= -pi / 4 && angle <= pi / 4) {
             this.animation = PlayerAnimation.Right;
             this.currentDirection = Vector.Right;
         } else if (angle > (-3 * pi) / 4 && angle < -pi / 4) {
             this.animation = PlayerAnimation.Up;
             this.currentDirection = Vector.Up;
-        } else if (angle < (-3 * pi) / 4 || angle > (3 * pi) / 4) {
+        } else if (angle <= (-3 * pi) / 4 || angle >= (3 * pi) / 4) {
             this.animation = PlayerAnimation.Left;
             this.currentDirection = Vector.Left;
         } else if (angle > pi / 4 && angle < (3 * pi) / 4) {
