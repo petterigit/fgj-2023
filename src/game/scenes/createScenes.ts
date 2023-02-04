@@ -60,7 +60,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
             ['The bad teacher did something bad', 'Time to take revenge'],
-            props.resources.images.characterTryhard.toSprite(),
+            props.resources.images.portraitBob.toSprite(),
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
             props.game,
@@ -71,7 +71,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const level2 = {
         key: SceneKeys.Level2,
         scene: createLevelScene(
-            props.objects.characters.Berry({
+            props.objects.characters.Bob({
                 ...playerDefaultProps,
                 pos: new Vector(16 * 20, 16 * 20),
             }),
