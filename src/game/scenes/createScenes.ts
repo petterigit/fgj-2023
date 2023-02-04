@@ -70,7 +70,22 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const dialog2 = {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
-            ['The bad teacher did something bad', 'Time to take revenge'],
+            [
+                'Allow me to introduce myself, I am Bobby.',
+                'A man of simple origins but with a steadfast resolve.',
+                'I recently bore witness to a most distasteful spectacle.',
+                'A fish man who saw fit to instill fear and trepidation in the hearts of innocent children.',
+                'Such an act is wholly unacceptable and will not be tolerated under my watch.',
+                "I am not intimidated by the fish man's physical prowess.",
+                'I believe in the power of principle and justice.',
+                'I shall stand in defiance of his unjust actions.',
+                'I ensure that the children of this community are protected from his nefarious machinations.',
+                'I am determined to bring the fish man to heel.',
+                'And make him answer for his reprehensible behavior.',
+                'He shall learn that one cannot use their strength to bully and oppress others with impunity.',
+                'Therefore, I caution the fish man, for I am coming for him.',
+                'And when I find him, he shall rue the day he ever thought to threaten the innocent.',
+            ],
             props.resources.images.portraitBob.toSprite(),
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
@@ -104,7 +119,14 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const dialog3 = {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
-            ['The bad child did something bad', 'Time to take revenge'],
+            [
+                "I'm the fish man, fierce and grand, Ruler of the seas and ocean land.",
+                "A pearl was stolen, this I can't condone,  And I'll make sure the thief atones.",
+                "Not cruel or mean, just upholding right,  Bringing balance to the ocean's sight.",
+                "With strength and might, I'll make them see,  The error of their ways, just wait and see.",
+                "So child, beware, I'm on your track,  And when I find you, you'll feel the smack!",
+                "For thieving's wrong, and this you'll learn,  And regret will be your constant yearn.",
+            ],
             props.resources.images.portraitKala.toSprite(),
             props.resources.images.characterBerry.toSprite(),
             SceneKeys.Level3,
