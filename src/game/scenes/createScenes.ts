@@ -95,7 +95,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 'And when I find him, he shall rue the day he ever thought to threaten the innocent.',
             ],
             props.resources.images.portraitBob.toSprite(),
-            props.resources.images.characterTeacher.toSprite(),
+            props.resources.images.characterGobbo.toSprite(),
             SceneKeys.Level2,
             props.game,
             props.resources,
