@@ -6,6 +6,7 @@ import forwardActive from 'assets/images/forward-active.png';
 import backward from 'assets/images/backward.png';
 import backwardActive from 'assets/images/backward-active.png';
 import groundSet from 'assets/tilesets/Forest/Ground Tileset.png';
+import treeSet from 'assets/tilesets/Forest/Trees.png';
 import character1 from 'assets/characters/Fantasy/Character_001.png';
 import character2 from 'assets/characters/Fantasy/Character_002.png';
 import character3 from 'assets/characters/Fantasy/Character_003.png';
@@ -29,6 +30,7 @@ export const createImages = () => {
         backward: new ImageSource(backward),
         backwardActive: new ImageSource(backwardActive),
         groundSet: new ImageSource(groundSet),
+        treeSet: new ImageSource(treeSet),
         characterLavender: new ImageSource(character1),
         characterShroom: new ImageSource(character2),
         characterGobbo: new ImageSource(character3),
