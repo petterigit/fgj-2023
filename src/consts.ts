@@ -6,6 +6,6 @@ export const GameCanvasID = `game-canvas-${Math.random() * 10000}`;
 export const UseDevUtils = 'useDevUtils';
 
 export const TileProperties = {
-    width: 160,
-    height: 80,
+    width: 16,
+    height: 16,
 };

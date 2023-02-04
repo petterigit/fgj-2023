@@ -1,14 +1,13 @@
-import { Engine, ScreenElement, Vector } from 'excalibur';
-import { SceneKeys } from 'game/scenes/gamescenes';
+import { ScreenElement, Vector } from 'excalibur';
 import { Resources } from 'game/types';
 
 export const createNextButton = (
     resources: Resources,
-    game: Engine,
-    sceneToNavigate: SceneKeys
+    onClick: () => void,
+    pos: Vector
 ) => {
     const element = new ScreenElement({
-        pos: new Vector(400, 800),
+        pos: pos,
         scale: new Vector(1, 1),
 
         // pls remember these need to be set so the graphic actually has width & height that can be clicked at
@@ -23,7 +22,7 @@ export const createNextButton = (
     element.graphics.add('hover', resources.graphics.forwardActive);
 
     element.on('pointerup', () => {
-        game.goToScene(sceneToNavigate);
+        onClick();
     });
 
     element.on('pointerenter', () => {

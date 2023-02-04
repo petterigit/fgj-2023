@@ -1,24 +1,10 @@
-import { randomIntInRange } from 'excalibur';
-import { Resources, SceneProperties } from '../game/types';
+import { GameProps, SceneProperties } from '../game/types';
 
 export const Scenario1PropertiesGenerator = (
-    resources: Resources
+    props: GameProps
 ): SceneProperties => {
-    const groundTiles = [
-        resources.images.grass1,
-        resources.images.grass2,
-        resources.images.grass3,
-        resources.images.brick1,
-        resources.images.grass5,
-        resources.images.grass6,
-        resources.images.grass7,
-    ];
-    const detailTiles = [
-        resources.images.leaf1,
-        resources.images.leaf2,
-        resources.images.leaf3,
-    ];
-    // const colliderTiles = [];
+    const groundTiles = props.spriteSheets.ground;
+    const detailTiles = props.spriteSheets.ground;
 
     return {
         width: 100,
@@ -33,13 +19,16 @@ export const Scenario1PropertiesGenerator = (
             if (noise < imageMin) noise = imageMin;
             if (noise > imageMax) noise = imageMax;
             noise -= imageMin;
-            const step = (imageMax - imageMin) / (groundTiles.length - 1);
+            /*
+
+            const step = (imageMax - imageMin) / (groundTiles. - 1);
             const imageIndex = Math.floor(noise / step);
-            return groundTiles[imageIndex];
+            */
+            return groundTiles.getSprite(0, 0);
         },
         getDetailTile: (noise: number) => {
             if (noise > 180) {
-                return detailTiles[randomIntInRange(0, detailTiles.length)];
+                return detailTiles.getSprite(3, 0);
             }
             return null;
         },
