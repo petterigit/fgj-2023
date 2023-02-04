@@ -84,7 +84,7 @@ export const createMenu = (props: GameProps) => {
 
     const nextButton = createNextButton(
         props.resources,
-        () => props.game.goToScene(SceneKeys.Level1),
+        () => props.game.goToScene(SceneKeys.Dialog1),
         new Vector(700, 800)
     );
 
