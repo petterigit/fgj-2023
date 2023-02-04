@@ -1,4 +1,4 @@
-import { ActorSpeed, MeleeAttack } from 'consts';
+import { ActorSpeed, MeleeAttack, PlayerDefaultStats } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -35,6 +35,7 @@ export class Player extends Actor {
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
     public meleeAttackReset = true;
+    public stats = PlayerDefaultStats;
 
     constructor(config: PlayerArgs, animations: CreateAnimations) {
         super({
@@ -47,6 +48,35 @@ export class Player extends Actor {
         this.animations = config.animations;
         this.animation = PlayerAnimation.Left;
         this.animationProps = animations;
+    }
+
+    /**
+     * Levels character up. Should be called after each level (or whenever wanted..)
+     * @returns A level up message for what stats was incresed & how much
+     */
+    public LevelUp() {
+        const random = Math.random() * 3;
+
+        // Todo: Level up by x amount of previous stat instead of fixed
+        if (1 > random && random > 0) {
+            const attackIncrease = 1;
+            this.stats.attack = this.stats.attack + attackIncrease;
+            return 'Attack was increased by 1!';
+        }
+
+        if (2 > random && random > 1) {
+            const healthIncrease = 10;
+            this.stats.health = this.stats.health + healthIncrease;
+            return 'Health was increased by 10!';
+        }
+
+        if (3 > random && random > 2) {
+            const speedIncrease = 15;
+            this.stats.speed = this.stats.speed + speedIncrease;
+            return 'Speed was increased by 15!';
+        } else {
+            return 'Level up!';
+        }
     }
 
     public AddLogic(logic: PlayerPreUpdateLogic) {
@@ -75,6 +105,10 @@ export class Player extends Actor {
     onPreUpdate(engine: ex.Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
+        const props = this.preUpdateLogic?.(engine, delta);
+
+        if (!props) return;
+
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
         }
@@ -87,9 +121,6 @@ export class Player extends Actor {
             this.meleeAttackCurrentCooldown -= delta;
         }
 
-        const props = this.preUpdateLogic?.(engine, delta);
-        if (!props) return;
-
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
             this.dashTime > 0 ? 500 : undefined
@@ -97,17 +128,17 @@ export class Player extends Actor {
 
         const oldAnimation = this.animation;
         const angle = this.vel.toAngle();
-        const pi = 3.14;
+        const pi = Math.PI;
 
         if (this.vel.x === 0 && this.vel.y === 0) {
             this.animation = PlayerAnimation.Idle;
-        } else if (angle > -pi / 4 && angle < pi / 4) {
+        } else if (angle >= -pi / 4 && angle <= pi / 4) {
             this.animation = PlayerAnimation.Right;
             this.currentDirection = Vector.Right;
         } else if (angle > (-3 * pi) / 4 && angle < -pi / 4) {
             this.animation = PlayerAnimation.Up;
             this.currentDirection = Vector.Up;
-        } else if (angle < (-3 * pi) / 4 || angle > (3 * pi) / 4) {
+        } else if (angle <= (-3 * pi) / 4 || angle >= (3 * pi) / 4) {
             this.animation = PlayerAnimation.Left;
             this.currentDirection = Vector.Left;
         } else if (angle > pi / 4 && angle < (3 * pi) / 4) {

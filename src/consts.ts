@@ -20,3 +20,9 @@ export const MeleeAttack = {
     duration: 200,
     cooldown: 200,
 };
+
+export const PlayerDefaultStats = {
+    health: 100,
+    attack: 10,
+    speed: 200,
+};
