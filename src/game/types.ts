@@ -1,5 +1,6 @@
 import { Actor, Engine, Scene, Sprite, Vector } from 'excalibur';
 import { createAnimations } from './animations/createAnimations';
+import { Rgb } from './generators/worldGenerator';
 import { createObjects } from './objects/createObjects';
 import { Player } from './objects/player/Player';
 import { createGraphics } from './resources/graphics/graphics';
@@ -35,7 +36,7 @@ export interface SceneProperties {
     zValue: number;
     detailZValue: number;
     getGroundTile(noise: number): Sprite | null;
-    getDetailTile(pos: Vector): Actor | null;
+    getDetailTile(noise: Rgb, pos: Vector): Actor | null;
     getColliderTile(pos: ColliderPos): Sprite | null;
     onDeath?: SceneKeys;
 }
@@ -57,6 +58,13 @@ export interface GameScene {
     key: SceneKeys;
     scene: Scene;
 }
+export type RockType =
+    | 'Rock1'
+    | 'Rock2'
+    | 'Rock3'
+    | 'Rock4'
+    | 'Rock5'
+    | 'Rock6'
 
 export type TreeType =
     | 'Yellow1'
