@@ -3,11 +3,10 @@ import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createScenes } from './scenes/createScenes';
-import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { UseDevUtils } from 'consts';
 import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
+import { UseDevUtils } from 'consts';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -46,7 +45,5 @@ export const initGame = () => {
     });
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
-    game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
-
     game.start(loader);
 };
