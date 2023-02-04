@@ -4,6 +4,7 @@ import { Resources } from 'game/types';
 import { SceneKeys } from './gamescenes';
 
 export const createDialogScene = (
+    characterName: string,
     dialogTexts: string[],
     dialogSprite: Sprite,
     dialogMotiveSprite: Sprite,
@@ -15,6 +16,7 @@ export const createDialogScene = (
     const scene = new Scene();
 
     const dialogueBox = createDialogBox(
+        characterName,
         dialogTexts,
         () => {
             game.goToScene(nextScene);

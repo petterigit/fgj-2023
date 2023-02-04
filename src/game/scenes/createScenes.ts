@@ -22,6 +22,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const dialog1 = {
         key: SceneKeys.Dialog1,
         scene: createDialogScene(
+            'Berry',
             [
                 "I can't believe it, just a few moments ago I was enjoying my lollipop in the park.",
                 'Then a stranger came and took it away from me, just like that.',
@@ -39,7 +40,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 "And when I find you, you'll regret ever taking my lollipop.",
             ],
             props.resources.images.portraitBerry.toSprite(),
-            props.resources.images.characterTryhard.toSprite(),
+            props.resources.images.berryMotive.toSprite(),
             SceneKeys.Level1,
             props.game,
             props.resources,
@@ -76,6 +77,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const dialog2 = {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
+            'Bobby',
             [
                 'Allow me to introduce myself, I am Bobby.',
                 'A man of simple origins but with a steadfast resolve.',
@@ -130,6 +132,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const dialog3 = {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
+            'Fish man',
             [
                 "I'm the fish man, fierce and grand, Ruler of the seas and ocean land.",
                 "A pearl was stolen, this I can't condone,  And I'll make sure the thief atones.",
