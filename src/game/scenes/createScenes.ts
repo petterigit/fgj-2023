@@ -23,7 +23,12 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Level1,
         scene: createLevelScene(
             props.objects.characters.Berry(),
-            undefined,
+            [
+                props.objects.characters.Blondie(),
+                props.objects.characters.Bob(),
+                props.objects.characters.Furry(),
+                props.objects.characters.Shroom(),
+            ],
             undefined,
             props
         ),

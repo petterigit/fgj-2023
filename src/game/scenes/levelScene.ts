@@ -1,8 +1,9 @@
 // enemyType === Enum
 
 import { TileProperties } from 'consts';
-import { Actor, Scene, TileMap, vec } from 'excalibur';
+import { Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
+import { enemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
 import { Player } from 'game/objects/player/Player';
 import { GameProps } from 'game/types';
@@ -11,7 +12,7 @@ import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 // Tile map theme === Enum
 export const createLevelScene = (
     player: Player,
-    enemyType: unknown,
+    enemyType: Player[],
     tileMapTheme: unknown,
     gameProps: GameProps
 ) => {
@@ -29,8 +30,15 @@ export const createLevelScene = (
     scene.camera.zoom = 4;
 
     // Create enemies function here
-
-    // Scene add enemies here
+    for (const enemy of enemyType) {
+        scene.add(enemy);
+        enemy.pos = vec(
+            Math.floor(Math.random() * (500 - 0 + 1) + 0),
+            Math.floor(Math.random() * (500 - 0 + 1) + 0)
+        );
+        enemy.AddLogic(enemyLogic);
+        console.log(enemy);
+    }
 
     return scene;
 };

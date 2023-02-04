@@ -28,6 +28,7 @@ export class Player extends Actor {
     private dashTime = 0;
     private dashCooldown = 0;
     private preUpdateLogic: PlayerPreUpdateLogic | null = null;
+    public timer = 0;
 
     constructor(config: PlayerArgs) {
         super({
@@ -41,7 +42,7 @@ export class Player extends Actor {
         this.animation = PlayerAnimation.Left;
     }
 
-    public AddLogic(logic: PlayerPreUpdateLogic) {
+    public AddLogic(logic: PlayerPreUpdateLogic | null) {
         this.preUpdateLogic = logic;
     }
 
@@ -80,7 +81,7 @@ export class Player extends Actor {
 
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
-            this.dashTime > 0 ? 500 : undefined
+            props.speed
         );
 
         const oldAnimation = this.animation;
