@@ -1,6 +1,10 @@
 import { ImageSource } from 'excalibur';
 
 import duckImage from 'assets/images/duck.jpg';
+import forward from 'assets/images/forward.png';
+import forwardActive from 'assets/images/forward-active.png';
+import backward from 'assets/images/backward.png';
+import backwardActive from 'assets/images/backward-active.png';
 import branch1 from 'assets/tilesets/black_and_white_horror/branch1.png';
 import branch2 from 'assets/tilesets/black_and_white_horror/branch2.png';
 import brick1 from 'assets/tilesets/black_and_white_horror/brick1.png';
@@ -59,6 +63,10 @@ import wood1 from 'assets/tilesets/black_and_white_horror/wood1.png';
 export const createImages = () => {
     const images = {
         duckImage: new ImageSource(duckImage),
+        forward: new ImageSource(forward),
+        forwardActive: new ImageSource(forwardActive),
+        backward: new ImageSource(backward),
+        backwardActive: new ImageSource(backwardActive),
         branch1: new ImageSource(branch1),
         branch2: new ImageSource(branch2),
         brick1: new ImageSource(brick1),

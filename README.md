@@ -3,6 +3,8 @@
 FGJ repo 2023'
 Gang gang rai rai 🤙🤙
 
+touch
+
 En suostu readme dokumentointiin kun koodikanta on jotain alle 500 riviä. Käykää lukemassa kommentoin kaiken. Äksdee.
 
 ## Quick start

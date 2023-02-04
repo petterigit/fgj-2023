@@ -2,6 +2,8 @@ import { createGame } from './engine/game';
 import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
+import { createScenes } from './scenes/createScenes';
+import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { IsometricMap, TileMap, vec } from 'excalibur';
@@ -38,6 +40,14 @@ export const initGame = () => {
         useDevUtils(gameProps);
     }
 
+    const scenes = createScenes(gameProps);
+
+    scenes.forEach(gameScene => {
+        game.add(gameScene.key, gameScene.scene);
+    });
+
+    /* game.goToScene can be used to change scenes *wink* *wink* */
+    game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
     const props = Scenario1PropertiesGenerator(resources);
 
     const isoMap = new TileMap({
@@ -61,6 +71,7 @@ export const initGame = () => {
         props.detailZValue
     );
 
+    // SHOULD BE IN MENU SCENE LOL REFACTOR
     game.currentScene.add(isoMap);
 
     for (let i = 0; i < isoMap.tiles.length; i++) {
