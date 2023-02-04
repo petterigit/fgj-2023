@@ -51,7 +51,11 @@ export function meleeAttack(
 
         console.log('Hitted', event.other.id);
         AudioManager.playSound('viisKauttaViis');
-        // this.scene.camera.shake(5, 10, 500);
+        this.scene.camera.shake(
+            MeleeAttack.screenshakeDistance,
+            MeleeAttack.screenshakeDistance,
+            MeleeAttack.screenshakeDuration
+        );
         const target = event.other as Player;
         target.stats.health -= this.stats.attack;
         blood.pos = target.center;

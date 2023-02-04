@@ -19,6 +19,8 @@ export const MeleeAttack = {
     height: 20,
     duration: 200,
     cooldown: 200,
+    screenshakeDistance: 5,
+    screenshakeDuration: 100,
 };
 
 export const PlayerDefaultStats = {
