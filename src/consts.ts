@@ -36,8 +36,10 @@ export const EnemyDefaultStats = {
 export const EnemyLogic = {
     minStateChangeCooldown: 0,
     maxStateChangeCooldown: 5000,
-    minAttackCooldown: 50,
-    maxAttackCooldown: 5000,
+    minMeleeAttackCooldown: 50,
+    maxMeleeAttackCooldown: 5000,
+    minPreMeleeAttackWait: 500,
+    maxPreMeleeAttackWait: 2000,
     minWanderCooldown: 50,
     maxWanderCooldown: 5000,
     chanceToStayStill: 0.3,

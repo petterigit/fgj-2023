@@ -1,6 +1,6 @@
 import { Vector } from 'excalibur';
 import { SceneKeys } from 'game/scenes/gamescenes';
-import { GameProps, SceneProperties } from '../game/types';
+import { ColliderPos, GameProps, SceneProperties } from '../game/types';
 
 export const Scenario1PropertiesGenerator = (
     props: GameProps
@@ -10,6 +10,7 @@ export const Scenario1PropertiesGenerator = (
     const imageMin = 50;
     const imageMax = 200;
     const step = (imageMax - imageMin) / (2);
+    const cliff = props.spriteSheets.cliff;
 
     const greenTrees = [
         props.objects.trees.Green1,
@@ -38,7 +39,14 @@ export const Scenario1PropertiesGenerator = (
         getDetailTile: (pos: Vector) => {
             return sample(greenTrees)(pos);
         },
-        getColliderTile: () => groundTiles.getSprite(20, 1),
+        getColliderTile: (pos: ColliderPos) => {
+            switch (pos) {
+                case ColliderPos.sideBottom:
+                    return cliff.getSprite(2, 1)!
+                default:
+                    return cliff.getSprite(2, 1)!
+            }
+        },
     };
 };
 
@@ -50,6 +58,9 @@ export const Scenario2PropertiesGenerator = (
     const imageMin = 50;
     const imageMax = 200;
     const step = (imageMax - imageMin) / (2);
+    const cliff = props.spriteSheets.cliff;
+
+
 
     const redTrees = [
         props.objects.trees.Red1,
@@ -78,7 +89,14 @@ export const Scenario2PropertiesGenerator = (
         getDetailTile: (pos: Vector) => {
             return sample(redTrees)(pos);
         },
-        getColliderTile: () => groundTiles.getSprite(20, 1),
+        getColliderTile: (pos: ColliderPos) => {
+            switch (pos) {
+                case ColliderPos.sideBottom:
+                    return cliff.getSprite(2, 1)!
+                default:
+                    return cliff.getSprite(2, 1)!
+            }
+        },
     };
 };
 

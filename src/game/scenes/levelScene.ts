@@ -5,7 +5,7 @@ import { playerLogic } from 'game/logics/playerLogic';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
-import { GameProps, Resources, SceneProperties } from 'game/types';
+import { ColliderPos, GameProps, Resources, SceneProperties } from 'game/types';
 import { SceneKeys } from './gamescenes';
 
 // enemyType === Enum
@@ -144,7 +144,7 @@ const createTileMap = (
             currentCol >= 19 &&
             currentCol <= 119
         ) {
-            tile.addGraphic(sceneProps.getColliderTile(rgb.r)!);
+            tile.addGraphic(sceneProps.getColliderTile(ColliderPos.sideBottom)!);
             tile.solid = true;
         }
     }
