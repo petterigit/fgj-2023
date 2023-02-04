@@ -1,14 +1,6 @@
 import { TileProperties } from 'consts';
-import {
-    ActorArgs,
-    Engine,
-    randomInRange,
-    Scene,
-    TileMap,
-    vec,
-} from 'excalibur';
+import { ActorArgs, Engine, Scene, Sound, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
-import { newEnemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
@@ -23,7 +15,8 @@ export const createLevelScene = (
     enemyType: ((args?: ActorArgs | undefined) => Player)[],
     tileMapTheme: unknown,
     gameProps: GameProps,
-    sceneProps: SceneProperties
+    sceneProps: SceneProperties,
+    sound?: Sound
 ) => {
     const scene = new Scene();
 
@@ -44,6 +37,15 @@ export const createLevelScene = (
     // Create enemies function here
     for (const enemy of enemyType) {
         createEnemy(enemy, 5, scene);
+    }
+
+    if (sound) {
+        scene.on('activate', () => {
+            sound.play();
+        });
+        scene.on('deactivate', () => {
+            sound.stop();
+        });
     }
 
     // Placeholder end level func

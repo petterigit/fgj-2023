@@ -1,4 +1,5 @@
 import { ActorArgs, CollisionType, Vector } from 'excalibur';
+import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { GameProps, GameScene } from 'game/types';
 import {
     Scenario1PropertiesGenerator,
@@ -10,7 +11,9 @@ import { createLevelScene } from './levelScene';
 import { createMenu } from './menu';
 
 export const createScenes = (props: GameProps): GameScene[] => {
-    const menu = createMenu(props);
+    const sounds = AudioManager.getSounds();
+
+    const menu = createMenu(props, sounds.menuMusicLoop);
     const playerDefaultProps: ActorArgs = {
         collisionType: CollisionType.Active,
     };
@@ -38,7 +41,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterTryhard.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -58,7 +62,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             ],
             undefined,
             props,
-            scene1Props
+            scene1Props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -70,7 +75,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -90,7 +96,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             ],
             undefined,
             props,
-            scene2Props
+            scene2Props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -102,7 +109,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterBerry.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -118,7 +126,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             ],
             undefined,
             props,
-            scene1Props
+            scene1Props,
+            sounds.gameMusicLoop
         ),
     };
 

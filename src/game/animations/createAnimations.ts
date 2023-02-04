@@ -30,5 +30,16 @@ export const createAnimations = (spritesheets: CreateSpriteSheets) => {
                 ],
                 strategy: AnimationStrategy.End,
             }),
+        blood: () =>
+            new Animation({
+                frames: new Array(24).fill(0).map((_, i) => ({
+                    graphic: spritesheets.effects.blood.getSprite(
+                        i % 6,
+                        Math.floor(i / 6)
+                    )!,
+                    duration: 20,
+                })),
+                strategy: AnimationStrategy.End,
+            }),
     } as const;
 };
