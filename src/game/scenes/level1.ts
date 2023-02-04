@@ -11,7 +11,7 @@ export const createLevel1 = (gameProps: GameProps) => {
         scene: new Scene(),
     };
 
-    const props = Scenario1PropertiesGenerator(gameProps.resources);
+    const props = Scenario1PropertiesGenerator(gameProps);
 
     const isoMap = new TileMap({
         pos: vec(0, 0),
@@ -41,13 +41,11 @@ export const createLevel1 = (gameProps: GameProps) => {
         const rgb = mapNoise[i];
         const detailRgb = detailNoise[i];
         tile.addGraphic(
-            (
-                props.getGroundTile(rgb.r) ?? gameProps.resources.images.tile1
-            ).toSprite()
+            props.getGroundTile(rgb.r) ?? gameProps.resources.images.duckImage.toSprite()
         );
         const detailTile = props.getDetailTile(detailRgb.b);
         if (detailTile) {
-            tile.addGraphic(detailTile.toSprite());
+            tile.addGraphic(detailTile);
         }
     }
     return scene;
