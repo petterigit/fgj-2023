@@ -1,7 +1,7 @@
 import { TileProperties } from 'consts';
 import { Engine, Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
-import { enemyLogic } from 'game/logics/enemyLogic';
+import { enemyLogic, newEnemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
@@ -37,7 +37,7 @@ export const createLevelScene = (
             Math.floor(Math.random() * (500 - 0 + 1) + 0),
             Math.floor(Math.random() * (500 - 0 + 1) + 0)
         );
-        enemy.AddLogic(enemyLogic);
+        enemy.AddStatefulLogic(newEnemyLogic);
     }
 
     // Placeholder end level func
