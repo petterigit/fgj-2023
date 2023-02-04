@@ -44,10 +44,11 @@ export const createLevelScene = (
 
     // Idk where it goes, uncomment to test
 
+    /*
     scene.once('predraw', () =>
         endLevel(player, gameProps.game, SceneKeys.Level2, gameProps.resources)
     );
-
+*/
     return scene;
 };
 

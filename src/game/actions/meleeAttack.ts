@@ -1,6 +1,7 @@
 import { MeleeAttack } from 'consts';
 import { Actor, CollisionType, Engine, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
+import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { CreateAnimations } from 'game/types';
 import { vectorDirectionToRadians } from '../engine/physics/vectors';
 
@@ -41,6 +42,8 @@ export function meleeAttack(
             return;
         }
 
+        console.log('Hitted', event.other.id);
+        AudioManager.playSound('viisKauttaViis');
         const target = event.other as Player;
         target.stats.health -= this.stats.attack;
     });

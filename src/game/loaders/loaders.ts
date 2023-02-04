@@ -1,4 +1,5 @@
 import { Loader } from 'excalibur';
+import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { Resources } from 'game/types';
 
 /**
@@ -7,7 +8,8 @@ import { Resources } from 'game/types';
  * @returns
  */
 export const createLoader = (props: Resources) => {
-    const { sounds, images } = props;
+    const { images } = props;
+    const sounds = AudioManager.getSounds();
 
     /**
      * Loading assets
