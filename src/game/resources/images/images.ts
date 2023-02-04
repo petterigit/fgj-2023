@@ -25,6 +25,7 @@ import melee from 'assets/images/Melee/melee.png';
 import dark from 'assets/images/dark.png';
 import blood from 'assets/images/blood.png';
 import portraitKala from 'assets/images/kala.png';
+import berryMotive from 'assets/images/bad_bobby.png';
 
 /**
  * Create images. Probably same process for other static assets.
@@ -57,6 +58,7 @@ export const createImages = () => {
         melee: new ImageSource(melee),
         dark: new ImageSource(dark),
         blood: new ImageSource(blood),
+        berryMotive: new ImageSource(berryMotive),
     } as const;
 
     return images;
