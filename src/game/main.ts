@@ -46,6 +46,4 @@ export const initGame = () => {
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
     game.start(loader);
-
-    game.start(loader);
 };
