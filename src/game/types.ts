@@ -4,7 +4,6 @@ import { createObjects } from './objects/createObjects';
 import { Player } from './objects/player/Player';
 import { createGraphics } from './resources/graphics/graphics';
 import { createImages } from './resources/images/images';
-import { createSounds } from './resources/sounds/sounds';
 import { SceneKeys } from './scenes/gamescenes';
 import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 
@@ -25,7 +24,6 @@ export interface SceneProperties {
 }
 
 export type Resources = {
-    sounds: ReturnType<typeof createSounds>;
     images: ReturnType<typeof createImages>;
     graphics: ReturnType<typeof createGraphics>;
 };

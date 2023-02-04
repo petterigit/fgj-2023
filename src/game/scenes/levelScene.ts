@@ -44,10 +44,11 @@ export const createLevelScene = (
 
     // Idk where it goes, uncomment to test
 
+    /*
     scene.once('predraw', () =>
         endLevel(player, gameProps.game, SceneKeys.Level2, gameProps.resources)
     );
-
+*/
     return scene;
 };
 
@@ -148,6 +149,8 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
     for (const index of detailIndexes) {
         const tile = isoMap.tiles[index];
         const tree = sample(greenTrees)(tile.pos);
+
+        tree.z = 100;
         scene.add(tree);
     }
 
