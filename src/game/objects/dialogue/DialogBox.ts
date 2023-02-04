@@ -39,6 +39,15 @@ export const createDialogBox = (
 
     characterElement.graphics.use(characterSprite);
 
+    const motiveElement = new ScreenElement({
+        pos: new Vector(0, -660),
+        scale: new Vector(1.1, 1.1),
+    });
+
+    motiveElement.graphics.use(motiveSprite);
+
+    motiveElement.graphics.opacity = 0;
+
     const dialogTextContainer = new ScreenElement({
         pos: new Vector(50, 150),
     });
@@ -49,17 +58,28 @@ export const createDialogBox = (
         resources,
         () => {
             textIndex++;
-            if (dialogTexts.length <= textIndex) {
+
+            // Last text, show motive picture
+
+            if (textIndex === dialogTexts.length - 1) {
+                motiveElement.graphics.opacity = 1;
+                characterElement.graphics.opacity = 0;
+            }
+
+            // End scene
+            if (textIndex === dialogTexts.length) {
                 // Just in case the dialog box wouldn't be destroyed after done..
                 // No return on purpose to default the text
                 onEnd();
                 textIndex = 0;
             }
+
             dialogTextContainer.graphics.use(dialogTexts[textIndex]);
         },
         new Vector(700, 75)
     );
 
+    element.addChild(motiveElement);
     element.addChild(characterElement);
     element.addChild(dialogTextContainer);
     element.addChild(nextButton);
