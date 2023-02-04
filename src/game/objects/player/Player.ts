@@ -9,7 +9,7 @@ import {
 } from 'excalibur';
 import { meleeAttack } from 'game/actions/meleeAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
-import { PlayerPreUpdateLogic } from 'game/types';
+import { CreateAnimations, PlayerPreUpdateLogic } from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -26,6 +26,7 @@ const enum PlayerAnimation {
 export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
+    protected animationProps: CreateAnimations;
     private preUpdateLogic: PlayerPreUpdateLogic | null = null;
     public currentDirection: Vector = Vector.Down;
     public dashTime = 0;
@@ -35,7 +36,7 @@ export class Player extends Actor {
     public meleeAttackCurrentCooldown = 0;
     public meleeAttackReset = true;
 
-    constructor(config: PlayerArgs) {
+    constructor(config: PlayerArgs, animations: CreateAnimations) {
         super({
             name: 'Player',
             radius: 60,
@@ -45,6 +46,7 @@ export class Player extends Actor {
 
         this.animations = config.animations;
         this.animation = PlayerAnimation.Left;
+        this.animationProps = animations;
     }
 
     public AddLogic(logic: PlayerPreUpdateLogic) {
@@ -127,7 +129,7 @@ export class Player extends Actor {
             this.meleeAttackCurrentCooldown <= 0
         ) {
             const boundMeleeAttack = meleeAttack.bind(this);
-            boundMeleeAttack(engine);
+            boundMeleeAttack(engine, this.animationProps);
             this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
             this.meleeAttackReset = false;
         }

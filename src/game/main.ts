@@ -8,6 +8,7 @@ import { createResources } from './resources';
 import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 import { UseDevUtils } from 'consts';
 import { SceneKeys } from './scenes/gamescenes';
+import { createAnimations } from './animations/createAnimations';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -27,9 +28,10 @@ export const initGame = () => {
     const game = createGame();
     const resources = createResources();
     const spriteSheets = createSpriteSheets(resources);
-    const objects = createObjects(game, resources, spriteSheets);
+    const animations = createAnimations(spriteSheets);
+    const objects = createObjects(game, resources, spriteSheets, animations);
 
-    const gameProps = { game, objects, resources, spriteSheets };
+    const gameProps = { game, objects, resources, spriteSheets, animations };
 
     initGameEvents(gameProps);
 

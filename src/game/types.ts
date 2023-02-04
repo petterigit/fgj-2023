@@ -1,4 +1,5 @@
 import { Engine, Scene, Sprite, Vector } from 'excalibur';
+import { createAnimations } from './animations/createAnimations';
 import { createObjects } from './objects/createObjects';
 import { Player } from './objects/player/Player';
 import { createGraphics } from './resources/graphics/graphics';
@@ -9,6 +10,7 @@ import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 
 export type Game = Engine;
 export type CreateSpriteSheets = ReturnType<typeof createSpriteSheets>;
+export type CreateAnimations = ReturnType<typeof createAnimations>;
 
 export interface SceneProperties {
     width: number;
@@ -32,7 +34,8 @@ export interface GameProps {
     game: Game;
     objects: ReturnType<typeof createObjects>;
     resources: Resources;
-    spriteSheets: ReturnType<typeof createSpriteSheets>;
+    spriteSheets: CreateSpriteSheets;
+    animations: CreateAnimations;
 }
 
 export interface GameScene {
@@ -58,7 +61,7 @@ export type TreeType =
     | 'Green3'
     | 'Green4'
     | 'Green5'
-    | 'Green6'
+    | 'Green6';
 
 export type CharacterName =
     | 'Lavender'

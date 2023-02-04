@@ -17,6 +17,6 @@ export const MeleeAttack = {
     offset: 10,
     width: 20,
     height: 20,
-    duration: 10,
+    duration: 200,
     cooldown: 200,
 };

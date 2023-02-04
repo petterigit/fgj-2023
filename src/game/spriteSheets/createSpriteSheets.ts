@@ -1,11 +1,13 @@
 import { Resources } from 'game/types';
 import { createCharacter } from './characters';
+import { createMelee } from './effects';
 import { createTrees } from './forestTrees';
 import { createGround } from './ground';
 
 export const createSpriteSheets = (resources: Resources) => {
     const groundSheet = createGround(resources);
-    const treesSheet = createTrees( resources);
+    const treesSheet = createTrees(resources);
+    const melee = createMelee(resources);
     const Lavender = createCharacter('Lavender', resources);
     const Shroom = createCharacter('Shroom', resources);
     const Gobbo = createCharacter('Gobbo', resources);
@@ -18,6 +20,9 @@ export const createSpriteSheets = (resources: Resources) => {
     const Teacher = createCharacter('Teacher', resources);
     return {
         ground: groundSheet,
+        effects: {
+            melee,
+        },
         trees: {
             Yellow1: treesSheet.getSprite(0, 0),
             Yellow2: treesSheet.getSprite(1, 0),

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Engine } from 'excalibur';
-import { CreateSpriteSheets, Resources } from 'game/types';
+import { CreateAnimations, CreateSpriteSheets, Resources } from 'game/types';
 import { createCharacters } from './characters';
 import { createDuck } from './duck';
 import { createTrees } from './environment/trees';
@@ -13,15 +13,14 @@ import { createTrees } from './environment/trees';
  * @returns created game objects
  */
 
-
 export const createObjects = (
     _game: Engine,
     resources: Resources,
-    spritesheets: CreateSpriteSheets
+    spritesheets: CreateSpriteSheets,
+    animations: CreateAnimations
 ) => {
     const duck = createDuck(resources);
-    const characters = createCharacters(spritesheets);
+    const characters = createCharacters(spritesheets, animations);
     const trees = createTrees(spritesheets);
     return { duck, characters, trees } as const;
 };
-
