@@ -5,6 +5,7 @@ import {
     Animation,
     CollisionType,
     Shape,
+    Engine,
     vec,
     Vector,
 } from 'excalibur';
@@ -39,7 +40,7 @@ export class Player extends Actor {
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
     public meleeAttackReset = true;
-    public stats = PlayerDefaultStats;
+    public stats = { ...PlayerDefaultStats };
 
     constructor(config: PlayerArgs, animations: CreateAnimations) {
         const collider = Shape.Circle(10);
@@ -109,7 +110,7 @@ export class Player extends Actor {
         this.graphics.use(this.animations[this.animation]);
     }
 
-    onPreUpdate(engine: ex.Engine, delta: number) {
+    onPreUpdate(engine: Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
         const props = this.preUpdateLogic?.(engine, delta);
@@ -172,6 +173,14 @@ export class Player extends Actor {
             boundMeleeAttack(engine, this.animationProps);
             this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
             this.meleeAttackReset = false;
+        }
+    }
+
+    onPostUpdate(engine: Engine, delta: number) {
+        super.onPostUpdate(engine, delta);
+        if (this.stats.health <= 0) {
+            this.kill();
+            return;
         }
     }
 }

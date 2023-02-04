@@ -36,7 +36,16 @@ export function meleeAttack(
     swoosh.graphics.use(animation);
 
     swoosh.on('collisionstart', event => {
+        if (
+            event.other.id === this.id ||
+            (event.other.name !== 'Player' && event.other.name !== 'enemy')
+        )
+            return;
         console.log('Hitted', event.other.id);
+        const target = event.other as Player;
+        target.stats.health -= this.stats.attack;
+        console.log(target.stats.health);
+        console.log(target.name);
     });
 
     swoosh.actions.delay(MeleeAttack.duration).die();
