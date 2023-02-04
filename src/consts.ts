@@ -18,4 +18,5 @@ export const MeleeAttack = {
     width: 200,
     height: 200,
     duration: 10,
+    cooldown: 200,
 };

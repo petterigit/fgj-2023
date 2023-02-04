@@ -67,4 +67,7 @@ export type PlayerPreUpdateLogic = (
 
 export interface PlayerPreUpdateLogicProps {
     input: Vector;
+    actions: {
+        meleeAttack: boolean;
+    };
 }

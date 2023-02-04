@@ -1,4 +1,4 @@
-import { ActorSpeed } from 'consts';
+import { ActorSpeed, MeleeAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -7,8 +7,9 @@ import {
     vec,
     Vector,
 } from 'excalibur';
+import { meleeAttack } from 'game/actions/meleeAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
-import { LookDirection, PlayerPreUpdateLogic } from 'game/types';
+import { PlayerPreUpdateLogic } from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -25,10 +26,14 @@ const enum PlayerAnimation {
 export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
-    public currentDirection: Vector = Vector.Down;
-    private dashTime = 0;
-    private dashCooldown = 0;
     private preUpdateLogic: PlayerPreUpdateLogic | null = null;
+    public currentDirection: Vector = Vector.Down;
+    public dashTime = 0;
+    public dashCooldown = 0;
+
+    public meleeAttackCooldown = MeleeAttack.cooldown;
+    public meleeAttackCurrentCooldown = 0;
+    public meleeAttackReset = true;
 
     constructor(config: PlayerArgs) {
         super({
@@ -68,9 +73,6 @@ export class Player extends Actor {
     onPreUpdate(engine: ex.Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
-        const props = this.preUpdateLogic?.(engine, delta);
-        if (!props) return;
-
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
         }
@@ -78,6 +80,13 @@ export class Player extends Actor {
         if (this.dashTime > 0) {
             this.dashTime -= delta;
         }
+
+        if (this.meleeAttackCurrentCooldown > 0) {
+            this.meleeAttackCurrentCooldown -= delta;
+        }
+
+        const props = this.preUpdateLogic?.(engine, delta);
+        if (!props) return;
 
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
@@ -106,6 +115,21 @@ export class Player extends Actor {
 
         if (oldAnimation !== this.animation) {
             this.setAnimation();
+        }
+
+        if (!props.actions.meleeAttack) {
+            this.meleeAttackReset = true;
+        }
+
+        if (
+            props.actions.meleeAttack &&
+            this.meleeAttackReset &&
+            this.meleeAttackCurrentCooldown <= 0
+        ) {
+            const boundMeleeAttack = meleeAttack.bind(this);
+            boundMeleeAttack(engine);
+            this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
+            this.meleeAttackReset = false;
         }
     }
 }
