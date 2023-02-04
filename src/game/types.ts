@@ -1,9 +1,10 @@
-import { Engine, ImageSource, Scene } from 'excalibur';
+import { Engine, ImageSource, Scene, Sprite } from 'excalibur';
 import { createObjects } from './objects/createObjects';
 import { createGraphics } from './resources/graphics/graphics';
 import { createImages } from './resources/images/images';
 import { createSounds } from './resources/sounds/sounds';
 import { SceneKeys } from './scenes/gamescenes';
+import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 
 export type Game = Engine;
 
@@ -11,13 +12,12 @@ export interface SceneProperties {
     width: number;
     height: number;
     resolution: number;
+    detailResolution: number;
     zValue: number;
-    groundTiles: ImageSource[];
-    detailTiles: ImageSource[];
-    colliderTiles: ImageSource[];
-    getGroundTile(noise: number): ImageSource | null;
-    getDetailTile(noise: number): ImageSource | null;
-    getColliderTile(noise: number): ImageSource | null;
+    detailZValue: number;
+    getGroundTile(noise: number): Sprite | null;
+    getDetailTile(noise: number): Sprite | null;
+    getColliderTile(noise: number): Sprite | null;
 }
 
 export type Resources = {
@@ -30,6 +30,7 @@ export interface GameProps {
     game: Game;
     objects: ReturnType<typeof createObjects>;
     resources: Resources;
+    spriteSheets: ReturnType<typeof createSpriteSheets>;
 }
 
 export interface GameScene {

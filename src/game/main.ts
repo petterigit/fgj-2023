@@ -6,10 +6,8 @@ import { createScenes } from './scenes/createScenes';
 import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { IsometricMap, vec } from 'excalibur';
-import { generateLevel } from './generators/worldGenerator';
-import { TileProperties, UseDevUtils } from 'consts';
-import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
+import { UseDevUtils } from 'consts';
+import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -29,8 +27,9 @@ export const initGame = () => {
     const game = createGame();
     const resources = createResources();
     const objects = createObjects(game, resources);
+    const spriteSheets = createSpriteSheets(resources);
 
-    const gameProps = { game, objects, resources };
+    const gameProps = { game, objects, resources, spriteSheets };
 
     initGameEvents(gameProps);
 
@@ -48,33 +47,6 @@ export const initGame = () => {
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
     game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
-    const props = Scenario1PropertiesGenerator(resources);
-
-    const isoMap = new IsometricMap({
-        pos: vec(0, 0),
-        tileWidth: TileProperties.width,
-        tileHeight: TileProperties.height,
-        columns: props.height,
-        rows: props.width,
-    });
-
-    const mapNoise = generateLevel(
-        isoMap.tileWidth,
-        isoMap.tileHeight,
-        props.resolution,
-        props.zValue
-    );
-
-    // SHOULD BE IN MENU SCENE LOL REFACTOR
-    game.currentScene.add(isoMap);
-
-    for (let i = 0; i < isoMap.tiles.length; i++) {
-        const tile = isoMap.tiles[i];
-        const rgb = mapNoise[i];
-        tile.addGraphic(
-            (props.getGroundTile(rgb.r) ?? resources.images.tile1).toSprite()
-        );
-    }
 
     game.start(loader);
 };

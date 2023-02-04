@@ -1,12 +1,12 @@
 import * as noise from 'quick-perlin-noise-js';
 
-interface Rgb {
+export interface Rgb {
     r: number;
     g: number;
     b: number;
 }
 
-export const generateLevel = (
+export const generateNoise = (
     width: number,
     height: number,
     resolution: number,
