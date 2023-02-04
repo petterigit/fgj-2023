@@ -14,7 +14,8 @@
     "dependencies": {
         "@excaliburjs/dev-tools": "0.27.1",
         "excalibur": "0.27.0",
-        "quick-perlin-noise-js": "^1.0.3"
+        "quick-perlin-noise-js": "^1.0.3",
+        "react-riichi-mahjong-tiles": "^1.1.0"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "5.49.0",
