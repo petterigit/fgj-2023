@@ -5,15 +5,15 @@ import {
 } from 'game/types';
 import { Player } from './player/Player';
 import { CharacterAnimationSpeed } from 'consts';
-import { Animation, vec } from 'excalibur';
+import { ActorArgs, Animation, vec } from 'excalibur';
 
 export const createCharacters = (
     spritesheets: CreateSpriteSheets,
     animations: CreateAnimations
 ) => {
-    const characters: Record<string, () => Player> = {};
+    const characters: Record<string, (args?: ActorArgs) => Player> = {};
     Object.entries(spritesheets.characters).forEach(([name, sprites]) => {
-        const player = () =>
+        const player = (args?: ActorArgs) =>
             new Player(
                 {
                     scale: vec(0.5, 0.5),
@@ -107,6 +107,7 @@ export const createCharacters = (
                             ],
                         }),
                     },
+                    ...args,
                 },
                 animations
             );
@@ -114,5 +115,5 @@ export const createCharacters = (
         characters[name] = player;
     });
 
-    return characters as Record<CharacterName, () => Player>;
+    return characters as Record<CharacterName, (args?: ActorArgs) => Player>;
 };

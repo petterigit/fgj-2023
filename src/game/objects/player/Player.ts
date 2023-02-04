@@ -32,6 +32,8 @@ export class Player extends Actor {
     public currentDirection: Vector = Vector.Down;
     public dashTime = 0;
     public dashCooldown = 0;
+    public timer = 0;
+    public player: Actor | undefined = undefined;
 
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
@@ -80,7 +82,7 @@ export class Player extends Actor {
         }
     }
 
-    public AddLogic(logic: PlayerPreUpdateLogic) {
+    public AddLogic(logic: PlayerPreUpdateLogic | null) {
         this.preUpdateLogic = logic;
     }
 
@@ -120,7 +122,7 @@ export class Player extends Actor {
 
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
-            this.dashTime > 0 ? 500 : undefined
+            props.speed
         );
 
         const oldAnimation = this.animation;
