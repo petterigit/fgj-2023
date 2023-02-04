@@ -1,13 +1,14 @@
 import { MeleeAttack, RangedAttack } from 'consts';
-import { Actor, CollisionType, Engine, vec } from 'excalibur';
+import { Actor, CollisionType, Engine, RotationType, vec } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { AudioManager } from 'game/resources/sounds/audiomanager';
-import { CreateAnimations, Projectile } from 'game/types';
+import { CreateAnimations, CreateSpriteSheets, Projectile } from 'game/types';
 
 export function rangedAttack(
     this: Player,
     engine: Engine,
     animations: CreateAnimations,
+    spritesheets: CreateSpriteSheets,
     target?: Actor
 ) {
     // AI Autoaim
@@ -25,21 +26,26 @@ export function rangedAttack(
     }) as Projectile;
     projectile.sender = this.id;
 
-    projectile.graphics.use(animations.melee());
+    const rock = spritesheets.rocks.Rock2!;
+    rock.scale = vec(0.3, 0.3);
+    projectile.graphics.use(rock);
 
     projectile.on('collisionstart', event => {
         if (event.other.id === projectile.sender) {
             return;
         }
 
-        const blood = new Actor({
-            pos: event.other.center,
-            scale: vec(0.5, 0.5),
-        });
-        blood.graphics.use(animations.blood());
-        blood.actions.delay(500).die();
+        if (event.other.name === 'enemy' || event.other.name === 'boss') {
+            const blood = new Actor({
+                pos: event.other.center,
+                scale: vec(0.5, 0.5),
+            });
+            blood.graphics.use(animations.blood());
+            blood.actions.delay(500).die();
+            engine.currentScene.add(blood);
+            AudioManager.playRandomHitSound();
+        }
 
-        AudioManager.playRandomHitSound();
         engine.currentScene.camera.shake(
             MeleeAttack.screenshakeDistance,
             MeleeAttack.screenshakeDistance,
@@ -49,10 +55,16 @@ export function rangedAttack(
         if (target.stats != null) {
             target.stats.health -= this.stats.attack;
         }
-        engine.currentScene.add(blood);
+        projectile.kill();
     });
 
-    projectile.actions.delay(RangedAttack.duration).die();
+    projectile.actions
+        .rotateTo(
+            RangedAttack.rotateSpeed,
+            RangedAttack.rotateSpeed,
+            RotationType.Clockwise
+        )
+        .die();
 
     AudioManager.playRandomWhooshSound();
     engine.currentScene.add(projectile);

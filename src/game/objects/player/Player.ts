@@ -15,6 +15,7 @@ import { rangedAttack } from 'game/actions/rangedAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 import {
     CreateAnimations,
+    CreateSpriteSheets,
     PlayerPreUpdateLogic,
     PlayerPreUpdateLogicGenerator,
 } from 'game/types';
@@ -35,6 +36,7 @@ export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
     protected animationProps: CreateAnimations;
+    protected spritesheetProps: CreateSpriteSheets;
     private preUpdateLogic:
         | PlayerPreUpdateLogic
         | PlayerPreUpdateLogicGenerator
@@ -53,7 +55,11 @@ export class Player extends Actor {
 
     public stats = { ...PlayerDefaultStats };
 
-    constructor(config: PlayerArgs, animations: CreateAnimations) {
+    constructor(
+        config: PlayerArgs,
+        animations: CreateAnimations,
+        spritesheets: CreateSpriteSheets
+    ) {
         const collider = Shape.Circle(10);
         collider.offset = new Vector(0, 16);
 
@@ -67,6 +73,7 @@ export class Player extends Actor {
         this.animations = config.animations;
         this.animation = PlayerAnimation.Left;
         this.animationProps = animations;
+        this.spritesheetProps = spritesheets;
     }
 
     /**
@@ -213,7 +220,11 @@ export class Player extends Actor {
             this.rangedAttackCurrentCooldown <= 0
         ) {
             const boundRangedAttack = rangedAttack.bind(this);
-            boundRangedAttack(engine, this.animationProps);
+            boundRangedAttack(
+                engine,
+                this.animationProps,
+                this.spritesheetProps
+            );
             this.rangedAttackCurrentCooldown = this.rangedAttackCooldown;
             this.rangedAttackReset = false;
         }

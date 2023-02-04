@@ -27,8 +27,8 @@ export const RangedAttack = {
     width: 5,
     height: 5,
     velocity: 200,
-    duration: 1000,
     cooldown: 1500,
+    rotateSpeed: Math.PI * 4, // Two rounds in 1 second
 };
 
 export const PlayerDefaultStats = {
