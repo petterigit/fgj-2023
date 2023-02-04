@@ -4,6 +4,7 @@ import { GameProps, GameScene } from 'game/types';
 import {
     Scenario1PropertiesGenerator,
     Scenario2PropertiesGenerator,
+    Scenario3PropertiesGenerator,
 } from 'scenes/sceneProperties';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
@@ -146,6 +147,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
         ),
     };
 
+    const scene3Props = Scenario3PropertiesGenerator(props);
     const level3 = {
         key: SceneKeys.Level3,
         scene: createLevelScene(
@@ -165,7 +167,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.objects.characters.Berry,
             undefined,
             props,
-            scene1Props,
+            scene3Props,
             SceneKeys.Dialog1,
             sounds.gameMusicLoop
         ),
