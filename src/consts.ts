@@ -24,7 +24,13 @@ export const MeleeAttack = {
 export const PlayerDefaultStats = {
     health: 100,
     attack: 10,
-    speed: 200,
+    speed: 100,
+};
+
+export const EnemyDefaultStats = {
+    health: 30,
+    attack: 10,
+    speed: 30,
 };
 
 export const EnemyLogic = {
