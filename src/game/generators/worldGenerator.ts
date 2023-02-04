@@ -6,7 +6,7 @@ export interface Rgb {
     b: number;
 }
 
-export const generateLevel = (
+export const generateNoise = (
     width: number,
     height: number,
     resolution: number,

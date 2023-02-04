@@ -6,10 +6,7 @@ import { createScenes } from './scenes/createScenes';
 import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { IsometricMap, TileMap, vec } from 'excalibur';
-import { generateLevel as generateNoise } from './generators/worldGenerator';
-import { TileProperties, UseDevUtils } from 'consts';
-import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
+import { UseDevUtils } from 'consts';
 
 /**
  * Creates the game, adds game objects to the game, loads assets, toggles dev utils for the game, and finally, starts the game
@@ -48,44 +45,6 @@ export const initGame = () => {
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
     game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
-    const props = Scenario1PropertiesGenerator(resources);
-
-    const isoMap = new TileMap({
-        pos: vec(0, 0),
-        tileWidth: TileProperties.width,
-        tileHeight: TileProperties.height,
-        columns: props.height,
-        rows: props.width,
-    });
-
-    const mapNoise = generateNoise(
-        isoMap.columns,
-        isoMap.rows,
-        props.resolution,
-        props.zValue
-    );
-    const detailNoise = generateNoise(
-        isoMap.columns,
-        isoMap.rows,
-        props.detailResolution,
-        props.detailZValue
-    );
-
-    // SHOULD BE IN MENU SCENE LOL REFACTOR
-    game.currentScene.add(isoMap);
-
-    for (let i = 0; i < isoMap.tiles.length; i++) {
-        const tile = isoMap.tiles[i];
-        const rgb = mapNoise[i];
-        const detailRgb = detailNoise[i];
-        tile.addGraphic(
-            (props.getGroundTile(rgb.r) ?? resources.images.tile1).toSprite()
-        );
-        const detailTile = props.getDetailTile(detailRgb.b);
-        if (detailTile) {
-            tile.addGraphic(detailTile.toSprite());
-        }
-    }
 
     game.start(loader);
 };

@@ -4,7 +4,7 @@ import { createMenu } from './menu';
 
 export const createScenes = (props: GameProps): GameScene[] => {
     const menu = createMenu(props);
-    const level1 = createLevel1();
+    const level1 = createLevel1(props);
 
     return [menu, level1];
 };
