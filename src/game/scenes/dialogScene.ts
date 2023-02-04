@@ -1,4 +1,4 @@
-import { Sprite, Engine, Scene } from 'excalibur';
+import { Sprite, Engine, Scene, Sound } from 'excalibur';
 import { createDialogBox } from 'game/objects/dialogue/DialogBox';
 import { Resources } from 'game/types';
 import { SceneKeys } from './gamescenes';
@@ -9,7 +9,8 @@ export const createDialogScene = (
     dialogMotiveSprite: Sprite,
     nextScene: SceneKeys,
     game: Engine,
-    resources: Resources
+    resources: Resources,
+    sound?: Sound
 ) => {
     const scene = new Scene();
 

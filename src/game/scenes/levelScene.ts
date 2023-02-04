@@ -1,5 +1,5 @@
 import { TileProperties } from 'consts';
-import { Engine, Scene, TileMap, vec } from 'excalibur';
+import { Engine, Scene, Sound, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { enemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
@@ -15,7 +15,8 @@ export const createLevelScene = (
     player: Player,
     enemyType: Player[],
     tileMapTheme: unknown,
-    gameProps: GameProps
+    gameProps: GameProps,
+    sound?: Sound
 ) => {
     const scene = new Scene();
 
@@ -38,6 +39,10 @@ export const createLevelScene = (
             Math.floor(Math.random() * (500 - 0 + 1) + 0)
         );
         enemy.AddLogic(enemyLogic);
+    }
+
+    if (sound) {
+        sound.play();
     }
 
     // Placeholder end level func
