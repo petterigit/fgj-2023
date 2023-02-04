@@ -108,9 +108,11 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
     scene.scene.add(nextButton);
 
     if (sound) {
-        sound.play();
+        scene.scene.on('activate', () => {
+            sound.play();
+        });
         scene.scene.on('deactivate', () => {
-            sound?.stop();
+            sound.stop();
         });
     }
 

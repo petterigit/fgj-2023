@@ -1,4 +1,5 @@
 import { ActorArgs, CollisionType, Vector } from 'excalibur';
+import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { GameProps, GameScene } from 'game/types';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
@@ -6,7 +7,9 @@ import { createLevelScene } from './levelScene';
 import { createMenu } from './menu';
 
 export const createScenes = (props: GameProps): GameScene[] => {
-    const menu = createMenu(props);
+    const sounds = AudioManager.getSounds();
+
+    const menu = createMenu(props, sounds.menuMusicLoop);
     const playerDefaultProps: ActorArgs = {
         collisionType: CollisionType.Active,
     };
@@ -34,7 +37,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterTryhard.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -52,7 +56,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -64,7 +69,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -82,7 +88,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -94,7 +101,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterBerry.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -109,7 +117,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            sounds.gameMusicLoop
         ),
     };
 
