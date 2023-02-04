@@ -1,4 +1,4 @@
-import { vec } from 'excalibur';
+import { vec, Vector } from 'excalibur';
 
 export function normalizeAndScale(
     x: number,
@@ -16,3 +16,19 @@ export function normalizeAndScale(
 
     return vec(newX, newY);
 }
+
+export const vectorDirectionToRadians = (vector: Vector): number => {
+    if (vector.equals(Vector.Up)) {
+        return Math.PI / 2;
+    }
+    if (vector.equals(Vector.Down)) {
+        return (3 * Math.PI) / 2;
+    }
+    if (vector.equals(Vector.Left)) {
+        return Math.PI;
+    }
+    if (vector.equals(Vector.Right)) {
+        return 0;
+    }
+    return 0;
+};
