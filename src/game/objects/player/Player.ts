@@ -1,4 +1,4 @@
-import { ACTOR_SPEED } from 'consts';
+import { ActorSpeed, MeleeAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -7,6 +7,7 @@ import {
     vec,
     Vector,
 } from 'excalibur';
+import { meleeAttack } from 'game/actions/meleeAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 import { PlayerPreUpdateLogic } from 'game/types';
 
@@ -25,9 +26,14 @@ const enum PlayerAnimation {
 export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
-    private dashTime = 0;
-    private dashCooldown = 0;
     private preUpdateLogic: PlayerPreUpdateLogic | null = null;
+    public currentDirection: Vector = Vector.Down;
+    public dashTime = 0;
+    public dashCooldown = 0;
+
+    public meleeAttackCooldown = MeleeAttack.cooldown;
+    public meleeAttackCurrentCooldown = 0;
+    public meleeAttackReset = true;
 
     constructor(config: PlayerArgs) {
         super({
@@ -50,7 +56,7 @@ export class Player extends Actor {
         this.graphics.use(animation);
     }
 
-    normalizeAndSetVelocity(velocity: Vector, length = ACTOR_SPEED) {
+    normalizeAndSetVelocity(velocity: Vector, length = ActorSpeed) {
         const normalizedVector = normalizeAndScale(
             velocity.x,
             velocity.y,
@@ -67,9 +73,6 @@ export class Player extends Actor {
     onPreUpdate(engine: ex.Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
-        const props = this.preUpdateLogic?.(engine, delta);
-        if (!props) return;
-
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
         }
@@ -77,6 +80,13 @@ export class Player extends Actor {
         if (this.dashTime > 0) {
             this.dashTime -= delta;
         }
+
+        if (this.meleeAttackCurrentCooldown > 0) {
+            this.meleeAttackCurrentCooldown -= delta;
+        }
+
+        const props = this.preUpdateLogic?.(engine, delta);
+        if (!props) return;
 
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
@@ -91,16 +101,35 @@ export class Player extends Actor {
             this.animation = PlayerAnimation.Idle;
         } else if (angle > -pi / 4 && angle < pi / 4) {
             this.animation = PlayerAnimation.Right;
+            this.currentDirection = Vector.Right;
         } else if (angle > (-3 * pi) / 4 && angle < -pi / 4) {
             this.animation = PlayerAnimation.Up;
+            this.currentDirection = Vector.Up;
         } else if (angle < (-3 * pi) / 4 || angle > (3 * pi) / 4) {
             this.animation = PlayerAnimation.Left;
+            this.currentDirection = Vector.Left;
         } else if (angle > pi / 4 && angle < (3 * pi) / 4) {
             this.animation = PlayerAnimation.Down;
+            this.currentDirection = Vector.Down;
         }
 
         if (oldAnimation !== this.animation) {
             this.setAnimation();
+        }
+
+        if (!props.actions.meleeAttack) {
+            this.meleeAttackReset = true;
+        }
+
+        if (
+            props.actions.meleeAttack &&
+            this.meleeAttackReset &&
+            this.meleeAttackCurrentCooldown <= 0
+        ) {
+            const boundMeleeAttack = meleeAttack.bind(this);
+            boundMeleeAttack(engine);
+            this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
+            this.meleeAttackReset = false;
         }
     }
 }

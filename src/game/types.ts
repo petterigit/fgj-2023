@@ -8,6 +8,7 @@ import { SceneKeys } from './scenes/gamescenes';
 import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 
 export type Game = Engine;
+export type CreateSpriteSheets = ReturnType<typeof createSpriteSheets>;
 
 export interface SceneProperties {
     width: number;
@@ -39,6 +40,26 @@ export interface GameScene {
     scene: Scene;
 }
 
+export type TreeType =
+    | 'Yellow1'
+    | 'Yellow2'
+    | 'Yellow3'
+    | 'Yellow4'
+    | 'Yellow5'
+    | 'Yellow6'
+    | 'Red1'
+    | 'Red2'
+    | 'Red3'
+    | 'Red4'
+    | 'Red5'
+    | 'Red6'
+    | 'Green1'
+    | 'Green2'
+    | 'Green3'
+    | 'Green4'
+    | 'Green5'
+    | 'Green6'
+
 export type CharacterName =
     | 'Lavender'
     | 'Shroom'
@@ -67,4 +88,7 @@ export type PlayerPreUpdateLogic = (
 
 export interface PlayerPreUpdateLogicProps {
     input: Vector;
+    actions: {
+        meleeAttack: boolean;
+    };
 }

@@ -17,7 +17,7 @@ export const createLevelScene = (
     const scene = new Scene();
 
     // Change this function to create Tile map
-    const isoMap = createTileMap(gameProps);
+    const isoMap = createTileMap(gameProps, scene);
 
     scene.add(isoMap);
 
@@ -34,7 +34,7 @@ export const createLevelScene = (
     return scene;
 };
 
-const createTileMap = (gameProps: GameProps) => {
+const createTileMap = (gameProps: GameProps, scene: Scene) => {
     const props = Scenario1PropertiesGenerator(gameProps);
 
     const isoMap = new TileMap({
@@ -58,19 +58,24 @@ const createTileMap = (gameProps: GameProps) => {
         props.detailZValue
     );
 
+
     for (let i = 0; i < isoMap.tiles.length; i++) {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
-        const detailRgb = detailNoise[i];
         tile.addGraphic(
             props.getGroundTile(rgb.r) ??
-                gameProps.resources.images.duckImage.toSprite()
+            gameProps.resources.images.duckImage.toSprite()
         );
-        const detailTile = props.getDetailTile(detailRgb.b);
-        if (detailTile) {
-            tile.addGraphic(detailTile);
-        }
     }
+
+    const detailIndexes = detailNoise.reduce((arr, next, i) => { return next.b > 200 ? [...arr, i] : arr; }, [0]);
+
+    for (const index of detailIndexes) {
+        const tile = isoMap.tiles[index];
+        const tree = gameProps.objects.trees.Green2(tile.pos)
+        scene.add(tree);
+    }
+    isoMap.z = -1;
 
     return isoMap;
 };
