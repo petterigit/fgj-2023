@@ -109,7 +109,8 @@ export const createCharacters = (
                     },
                     ...args,
                 },
-                animations
+                animations,
+                spritesheets
             );
 
         characters[name] = player;
