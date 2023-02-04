@@ -46,5 +46,5 @@ export const initGame = () => {
     });
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
-    game.start(loader).then(() => game.goToScene(SceneKeys.Level1));
+    game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
 };
