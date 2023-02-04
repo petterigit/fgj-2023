@@ -19,6 +19,8 @@ export const MeleeAttack = {
     height: 20,
     duration: 200,
     cooldown: 200,
+    screenshakeDistance: 5,
+    screenshakeDuration: 100,
 };
 
 export const PlayerDefaultStats = {
@@ -47,4 +49,8 @@ export const EnemyLogic = {
     normalSpeed: 30,
     detectionRange: 150,
     hitRange: 20,
+    dashChance: 0.01,
+    minDashCooldown: 2000,
+    maxDashCooldown: 10000,
+    dashSpeed: 5000,
 };

@@ -9,23 +9,34 @@ export function playerLogic(
 ): PlayerPreUpdateLogicProps {
     let newX = 0,
         newY = 0;
-
     let meleeAttack = false;
     let dash = false;
 
-    if (engine.input.keyboard.isHeld(Input.Keys.Left)) {
+    if (
+        engine.input.keyboard.isHeld(Input.Keys.Left) ||
+        engine.input.keyboard.isHeld(Input.Keys.A)
+    ) {
         newX = -1;
     }
 
-    if (engine.input.keyboard.isHeld(Input.Keys.Right)) {
+    if (
+        engine.input.keyboard.isHeld(Input.Keys.Right) ||
+        engine.input.keyboard.isHeld(Input.Keys.D)
+    ) {
         newX = 1;
     }
 
-    if (engine.input.keyboard.isHeld(Input.Keys.Up)) {
+    if (
+        engine.input.keyboard.isHeld(Input.Keys.Up) ||
+        engine.input.keyboard.isHeld(Input.Keys.W)
+    ) {
         newY = -1;
     }
 
-    if (engine.input.keyboard.isHeld(Input.Keys.Down)) {
+    if (
+        engine.input.keyboard.isHeld(Input.Keys.Down) ||
+        engine.input.keyboard.isHeld(Input.Keys.S)
+    ) {
         newY = 1;
     }
 
@@ -33,7 +44,10 @@ export function playerLogic(
         meleeAttack = true;
     }
 
-    if (engine.input.keyboard.isHeld(Input.Keys.D)) {
+    if (
+        engine.input.keyboard.isHeld(Input.Keys.ShiftLeft) ||
+        engine.input.keyboard.isHeld(Input.Keys.ShiftRight)
+    ) {
         dash = true;
     }
 
