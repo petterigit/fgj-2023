@@ -1,4 +1,4 @@
-import { ActorArgs, CollisionType, Vector } from 'excalibur';
+import { ActorArgs, CollisionType, randomInRange, vec } from 'excalibur';
 import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { GameProps, GameScene } from 'game/types';
 import {
@@ -52,7 +52,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Berry({
                 ...playerDefaultProps,
-                pos: new Vector(16 * 20, 16 * 20),
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
             }),
             [
                 props.objects.characters.Blondie,
@@ -86,7 +89,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Bob({
                 ...playerDefaultProps,
-                pos: new Vector(16 * 20, 16 * 20),
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
             }),
             [
                 props.objects.characters.Blondie,
@@ -117,7 +123,13 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const level3 = {
         key: SceneKeys.Level3,
         scene: createLevelScene(
-            props.objects.characters.Gobbo(),
+            props.objects.characters.Gobbo({
+                ...playerDefaultProps,
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
+            }),
             [
                 props.objects.characters.Blondie,
                 props.objects.characters.Bob,
