@@ -1,8 +1,16 @@
 import { TileProperties } from 'consts';
-import { Engine, Scene, TileMap, vec } from 'excalibur';
+import {
+    ActorArgs,
+    Engine,
+    randomInRange,
+    Scene,
+    TileMap,
+    vec,
+} from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
-import { enemyLogic, newEnemyLogic } from 'game/logics/enemyLogic';
+import { newEnemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
+import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
 import { GameProps, Resources, SceneProperties } from 'game/types';
@@ -12,13 +20,12 @@ import { SceneKeys } from './gamescenes';
 // Tile map theme === Enum
 export const createLevelScene = (
     player: Player,
-    enemyType: Player[],
+    enemyType: ((args?: ActorArgs | undefined) => Player)[],
     tileMapTheme: unknown,
     gameProps: GameProps,
     sceneProps: SceneProperties
 ) => {
     const scene = new Scene();
-
 
     // Change this function to create Tile map
     const isoMap = createTileMap(gameProps, scene, sceneProps);
@@ -31,17 +38,12 @@ export const createLevelScene = (
     scene.camera.strategy.elasticToActor(player, 0.1, 0.1);
     scene.camera.zoom = 4;
 
-    player.onPostKill = (_scene) =>
+    player.onPostKill = _scene =>
         handleEndGame(gameProps.game, gameProps.resources, sceneProps.onDeath);
 
     // Create enemies function here
     for (const enemy of enemyType) {
-        scene.add(enemy);
-        enemy.pos = vec(
-            Math.floor(Math.random() * (500 - 0 + 1) + 0),
-            Math.floor(Math.random() * (500 - 0 + 1) + 0)
-        );
-        enemy.AddStatefulLogic(newEnemyLogic);
+        createEnemy(enemy, 5, scene);
     }
 
     // Placeholder end level func
@@ -57,14 +59,13 @@ export const createLevelScene = (
     return scene;
 };
 
-
 export const handleEndGame = (
     game: Engine,
     resources: Resources,
     nextScene: SceneKeys = SceneKeys.Menu
 ) => {
-    game.goToScene(nextScene)
-}
+    game.goToScene(nextScene);
+};
 
 /**
  * Utility to end level
@@ -94,10 +95,11 @@ export const endLevel = (
     game.currentScene.add(levelUpElement);
 };
 
-const createTileMap = (gameProps: GameProps, scene: Scene,
-    sceneProps: SceneProperties) => {
-
-
+const createTileMap = (
+    gameProps: GameProps,
+    scene: Scene,
+    sceneProps: SceneProperties
+) => {
     const isoMap = new TileMap({
         pos: vec(0, 0),
         tileWidth: TileProperties.width,
@@ -127,7 +129,7 @@ const createTileMap = (gameProps: GameProps, scene: Scene,
         const currentRow = Math.floor(i / sceneProps.width);
         tile.addGraphic(
             sceneProps.getGroundTile(rgb.r) ??
-            gameProps.resources.images.duckImage.toSprite()
+                gameProps.resources.images.duckImage.toSprite()
         );
 
         if (
@@ -163,4 +165,3 @@ const createTileMap = (gameProps: GameProps, scene: Scene,
 
     return isoMap;
 };
-

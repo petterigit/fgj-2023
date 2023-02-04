@@ -1,6 +1,9 @@
 import { ActorArgs, CollisionType, Vector } from 'excalibur';
 import { GameProps, GameScene } from 'game/types';
-import { Scenario1PropertiesGenerator, Scenario2PropertiesGenerator } from 'scenes/sceneProperties';
+import {
+    Scenario1PropertiesGenerator,
+    Scenario2PropertiesGenerator,
+} from 'scenes/sceneProperties';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
 import { createLevelScene } from './levelScene';
@@ -48,10 +51,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 pos: new Vector(16 * 20, 16 * 20),
             }),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
             props,
@@ -80,10 +83,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 pos: new Vector(16 * 20, 16 * 20),
             }),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
             props,
@@ -108,10 +111,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Berry(),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
             props,
