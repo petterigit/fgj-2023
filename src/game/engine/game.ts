@@ -1,6 +1,7 @@
 import { Color, DisplayMode, Engine, Loader, Resolution } from 'excalibur';
 import { GameCanvasID } from 'consts';
 import { SceneKeys } from 'game/scenes/gamescenes';
+import { KeyEvent } from 'excalibur/build/dist/Input/Keyboard';
 
 /**
  * Initializes the game engine
@@ -8,6 +9,12 @@ import { SceneKeys } from 'game/scenes/gamescenes';
  * */
 export const createGame = () => {
     const game = new Game();
+
+    game.input.keyboard.on('press', (event: KeyEvent) => {
+        if (event.key === 'Escape') {
+            game.goToScene(SceneKeys.Menu);
+        }
+    });
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
     // game.start = (loader: Loader) => {
