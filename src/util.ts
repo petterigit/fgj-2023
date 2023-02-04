@@ -1,4 +1,4 @@
-import { Vector } from 'excalibur';
+import { Vector, VectorView } from 'excalibur';
 
 export const vectorDirectionToRadians = (vector: Vector): number => {
     if (vector.x === Vector.Up.x && vector.y === Vector.Up.y) {

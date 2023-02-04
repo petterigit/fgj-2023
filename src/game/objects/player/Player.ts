@@ -7,6 +7,7 @@ import {
     vec,
     Vector,
 } from 'excalibur';
+import { dash } from 'game/actions/dash';
 import { meleeAttack } from 'game/actions/meleeAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 import { CreateAnimations, PlayerPreUpdateLogic } from 'game/types';
@@ -88,7 +89,7 @@ export class Player extends Actor {
         this.graphics.use(animation);
     }
 
-    normalizeAndSetVelocity(velocity: Vector, length = ActorSpeed) {
+    normalizeAndSetVelocity(velocity: Vector, length = this.stats.speed) {
         const normalizedVector = normalizeAndScale(
             velocity.x,
             velocity.y,
@@ -111,10 +112,6 @@ export class Player extends Actor {
 
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
-        }
-
-        if (this.dashTime > 0) {
-            this.dashTime -= delta;
         }
 
         if (this.meleeAttackCurrentCooldown > 0) {
@@ -152,6 +149,12 @@ export class Player extends Actor {
 
         if (!props.actions.meleeAttack) {
             this.meleeAttackReset = true;
+        }
+
+        if (props.actions.dash && this.dashCooldown <= 0) {
+            const boundDash = dash.bind(this);
+            boundDash();
+            this.dashCooldown = 500;
         }
 
         if (

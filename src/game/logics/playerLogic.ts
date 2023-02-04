@@ -9,7 +9,9 @@ export function playerLogic(
 ): PlayerPreUpdateLogicProps {
     let newX = 0,
         newY = 0;
+
     let meleeAttack = false;
+    let dash = false;
 
     if (engine.input.keyboard.isHeld(Input.Keys.Left)) {
         newX = -1;
@@ -31,5 +33,9 @@ export function playerLogic(
         meleeAttack = true;
     }
 
-    return { input: vec(newX, newY), actions: { meleeAttack } };
+    if (engine.input.keyboard.isHeld(Input.Keys.D)) {
+        dash = true;
+    }
+
+    return { input: vec(newX, newY), actions: { meleeAttack, dash } };
 }

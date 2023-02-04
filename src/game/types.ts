@@ -93,5 +93,6 @@ export interface PlayerPreUpdateLogicProps {
     input: Vector;
     actions: {
         meleeAttack: boolean;
+        dash: boolean;
     };
 }
