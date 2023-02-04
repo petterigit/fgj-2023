@@ -101,7 +101,18 @@ export const endLevel = (
     nextScene: SceneKeys,
     resources: Resources
 ) => {
-    console.log('End the level');
+    /* Ei ole koskaan ollut näin helppoa pysäyttää sceneä
+    
+        ( poistaa legit aivan kaiken herranjestas auttakaa )
+        ( ja keksikää oikea tapa
+             a) pysäyttää skene
+             b) aloittaa & re-inittiaa se kun mennään uudestaan tasolle
+        )
+        
+    */
+    game.currentScene.entities.forEach(entity => {
+        entity.active = false;
+    });
     const levelUpMessage = player.LevelUp();
 
     // Show level up message here

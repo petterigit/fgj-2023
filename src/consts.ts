@@ -59,4 +59,5 @@ export const EnemyLogic = {
     minDashCooldown: 2000,
     maxDashCooldown: 10000,
     dashSpeed: 5000,
+    navigationDirectionThreshold: 5,
 };
