@@ -14,9 +14,9 @@ export const CharacterAnimationSpeed = 100; // milliseconds per frame
 export const ActorSpeed = 200;
 
 export const MeleeAttack = {
-    offset: 50,
-    width: 200,
-    height: 200,
+    offset: 10,
+    width: 20,
+    height: 20,
     duration: 10,
     cooldown: 200,
 };
