@@ -21,12 +21,12 @@ export class Player extends Actor {
         super({
             name: 'Player',
             radius: 60,
-            collisionType: CollisionType.Active,
+            collisionType: CollisionType.Passive,
             ...config,
         });
 
         this.animations = config.animations;
-        this.animation = PlayerAnimation.Idle;
+        this.animation = PlayerAnimation.Left;
     }
 
     public onInitialize() {

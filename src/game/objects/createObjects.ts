@@ -43,6 +43,10 @@ const createCharacters = (spritesheets: CreateSpriteSheets) => {
                     left: new Animation({
                         frames: [
                             {
+                                graphic: sprites.getSprite(1, 1)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
                                 graphic: sprites.getSprite(0, 1)!,
                                 duration: CharacterAnimationSpeed,
                             },
@@ -58,6 +62,10 @@ const createCharacters = (spritesheets: CreateSpriteSheets) => {
                     }),
                     right: new Animation({
                         frames: [
+                            {
+                                graphic: sprites.getSprite(1, 2)!,
+                                duration: CharacterAnimationSpeed,
+                            },
                             {
                                 graphic: sprites.getSprite(0, 2)!,
                                 duration: CharacterAnimationSpeed,
@@ -75,6 +83,10 @@ const createCharacters = (spritesheets: CreateSpriteSheets) => {
                     up: new Animation({
                         frames: [
                             {
+                                graphic: sprites.getSprite(1, 3)!,
+                                duration: CharacterAnimationSpeed,
+                            },
+                            {
                                 graphic: sprites.getSprite(0, 3)!,
                                 duration: CharacterAnimationSpeed,
                             },
@@ -90,6 +102,10 @@ const createCharacters = (spritesheets: CreateSpriteSheets) => {
                     }),
                     down: new Animation({
                         frames: [
+                            {
+                                graphic: sprites.getSprite(1, 0)!,
+                                duration: CharacterAnimationSpeed,
+                            },
                             {
                                 graphic: sprites.getSprite(0, 0)!,
                                 duration: CharacterAnimationSpeed,

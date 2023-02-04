@@ -50,9 +50,5 @@ export const createLevel1 = (gameProps: GameProps) => {
         }
     }
 
-    const teacher = gameProps.objects.characters.Teacher();
-    teacher.pos = vec(500, 500);
-    teacher.scale = vec(10, 10);
-    scene.scene.add(teacher);
     return scene;
 };
