@@ -1,11 +1,10 @@
-// enemyType === Enum
-
 import { TileProperties } from 'consts';
 import { Actor, Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { GameProps } from 'game/types';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 
+// enemyType === Enum
 // Tile map theme === Enum
 export const createLevelScene = (
     player: Actor,
