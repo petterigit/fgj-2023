@@ -23,8 +23,7 @@ export enum ColliderPos {
     verticalBottomRight,
     verticalRight,
     verticalTopRight,
-    verticalTop
-
+    verticalTop,
 }
 
 export interface SceneProperties {
@@ -110,7 +109,9 @@ export interface PlayerPreUpdateLogicProps {
     input: Vector;
     actions: {
         meleeAttack: boolean;
+        rangedAttack: boolean;
         dash: boolean;
     };
     speed?: number;
 }
+export type Projectile = Actor & { sender: number };

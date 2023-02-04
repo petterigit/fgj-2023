@@ -1,4 +1,4 @@
-import { MeleeAttack, PlayerDefaultStats } from 'consts';
+import { MeleeAttack, PlayerDefaultStats, RangedAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -11,6 +11,7 @@ import {
 } from 'excalibur';
 import { dash } from 'game/actions/dash';
 import { meleeAttack } from 'game/actions/meleeAttack';
+import { rangedAttack } from 'game/actions/rangedAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 import {
     CreateAnimations,
@@ -45,6 +46,11 @@ export class Player extends Actor {
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
     public meleeAttackReset = true;
+
+    public rangedAttackCooldown = RangedAttack.cooldown;
+    public rangedAttackCurrentCooldown = 0;
+    public rangedAttackReset = true;
+
     public stats = { ...PlayerDefaultStats };
 
     constructor(config: PlayerArgs, animations: CreateAnimations) {
@@ -140,6 +146,18 @@ export class Player extends Actor {
             this.meleeAttackCurrentCooldown -= delta;
         }
 
+        if (this.rangedAttackCurrentCooldown > 0) {
+            this.rangedAttackCurrentCooldown -= delta;
+        }
+
+        if (!props.actions.meleeAttack) {
+            this.meleeAttackReset = true;
+        }
+
+        if (!props.actions.rangedAttack) {
+            this.rangedAttackReset = true;
+        }
+
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
             props.speed
@@ -169,10 +187,6 @@ export class Player extends Actor {
             this.setAnimation();
         }
 
-        if (!props.actions.meleeAttack) {
-            this.meleeAttackReset = true;
-        }
-
         if (props.actions.dash && this.dashCooldown <= 0) {
             const boundDash = dash.bind(this);
             boundDash();
@@ -191,6 +205,17 @@ export class Player extends Actor {
             boundMeleeAttack(engine, this.animationProps);
             this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
             this.meleeAttackReset = false;
+        }
+
+        if (
+            props.actions.rangedAttack &&
+            this.rangedAttackReset &&
+            this.rangedAttackCurrentCooldown <= 0
+        ) {
+            const boundRangedAttack = rangedAttack.bind(this);
+            boundRangedAttack(engine, this.animationProps);
+            this.rangedAttackCurrentCooldown = this.rangedAttackCooldown;
+            this.rangedAttackReset = false;
         }
     }
 

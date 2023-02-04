@@ -9,8 +9,9 @@ export function playerLogic(
 ): PlayerPreUpdateLogicProps {
     let newX = 0,
         newY = 0;
-    let meleeAttack = false;
-    let dash = false;
+    let meleeAttack = false,
+        rangedAttack = false,
+        dash = false;
 
     if (
         engine.input.keyboard.isHeld(Input.Keys.Left) ||
@@ -44,6 +45,10 @@ export function playerLogic(
         meleeAttack = true;
     }
 
+    if (engine.input.keyboard.isHeld(Input.Keys.E)) {
+        rangedAttack = true;
+    }
+
     if (
         engine.input.keyboard.isHeld(Input.Keys.ShiftLeft) ||
         engine.input.keyboard.isHeld(Input.Keys.ShiftRight)
@@ -51,5 +56,8 @@ export function playerLogic(
         dash = true;
     }
 
-    return { input: vec(newX, newY), actions: { meleeAttack, dash } };
+    return {
+        input: vec(newX, newY),
+        actions: { meleeAttack, dash, rangedAttack },
+    };
 }
