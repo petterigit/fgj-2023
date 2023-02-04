@@ -1,4 +1,12 @@
-import { Actor, ActorArgs, Animation, CollisionType, Vector } from 'excalibur';
+import {
+    Actor,
+    ActorArgs,
+    Animation,
+    CollisionType,
+    Input,
+    vec,
+    Vector,
+} from 'excalibur';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 
 interface PlayerArgs extends ActorArgs {
@@ -16,6 +24,8 @@ const enum PlayerAnimation {
 export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
+    private dashTime = 0;
+    private dashCooldown = 0;
 
     constructor(config: PlayerArgs) {
         super({
@@ -34,19 +44,6 @@ export class Player extends Actor {
         this.graphics.use(animation);
     }
 
-    // getAnimation(sprites: Sprite[], duration = 80) {
-    //     const frames: Frame[] = [];
-
-    //     for (let i = 0, len = sprites.length; i < len; i++) {
-    //         frames.push({
-    //             graphic: sprites[i],
-    //             duration: duration,
-    //         });
-    //     }
-
-    //     return new Animation({ frames });
-    // }
-
     normalizeAndSetVelocity(velocity: Vector, length = 350) {
         const normalizedVector = normalizeAndScale(
             velocity.x,
@@ -61,7 +58,44 @@ export class Player extends Actor {
         this.graphics.use(this.animations[this.animation]);
     }
 
-    onPreUpdate() {
+    onPreUpdate(engine: ex.Engine, delta: number) {
+        super.onPreUpdate(engine, delta);
+
+        if (this.dashCooldown > 0) {
+            this.dashCooldown -= delta;
+        }
+
+        if (this.dashTime > 0) {
+            this.dashTime -= delta;
+        }
+
+        let newX = 0;
+        let newY = 0;
+
+        newX = 0;
+        newY = 0;
+
+        if (engine.input.keyboard.isHeld(Input.Keys.Left)) {
+            newX = -1;
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.Right)) {
+            newX = 1;
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.Up)) {
+            newY = -1;
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.Down)) {
+            newY = 1;
+        }
+
+        this.normalizeAndSetVelocity(
+            vec(newX, newY),
+            this.dashTime > 0 ? 500 : undefined
+        );
+
         const oldAnimation = this.animation;
         const angle = this.vel.toAngle();
         const pi = 3.14;
