@@ -1,6 +1,7 @@
 import { TileProperties } from 'consts';
 import { Engine, Scene, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
+import { enemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
@@ -12,7 +13,7 @@ import { SceneKeys } from './gamescenes';
 // Tile map theme === Enum
 export const createLevelScene = (
     player: Player,
-    enemyType: unknown,
+    enemyType: Player[],
     tileMapTheme: unknown,
     gameProps: GameProps
 ) => {
@@ -30,8 +31,14 @@ export const createLevelScene = (
     scene.camera.zoom = 4;
 
     // Create enemies function here
-
-    // Scene add enemies here
+    for (const enemy of enemyType) {
+        scene.add(enemy);
+        enemy.pos = vec(
+            Math.floor(Math.random() * (500 - 0 + 1) + 0),
+            Math.floor(Math.random() * (500 - 0 + 1) + 0)
+        );
+        enemy.AddLogic(enemyLogic);
+    }
 
     // Placeholder end level func
 
@@ -83,7 +90,7 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
         gameProps.objects.trees.Green4,
         gameProps.objects.trees.Green5,
         gameProps.objects.trees.Green6,
-    ]
+    ];
 
     const isoMap = new TileMap({
         pos: vec(0, 0),
@@ -132,4 +139,5 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
     return isoMap;
 };
 
-const sample = <T,>(arr:Array<T>) => arr[Math.floor(Math.random() * arr.length)];
+const sample = <T>(arr: Array<T>) =>
+    arr[Math.floor(Math.random() * arr.length)];

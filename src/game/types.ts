@@ -87,11 +87,12 @@ export type PlayerPreUpdateLogic = (
     this: Player,
     engine: Engine,
     delta: number
-) => PlayerPreUpdateLogicProps;
+) => PlayerPreUpdateLogicProps | null;
 
 export interface PlayerPreUpdateLogicProps {
     input: Vector;
     actions: {
         meleeAttack: boolean;
     };
+    speed?: number;
 }

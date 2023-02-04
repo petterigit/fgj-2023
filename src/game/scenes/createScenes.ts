@@ -23,7 +23,12 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Level1,
         scene: createLevelScene(
             props.objects.characters.Berry(),
-            undefined,
+            [
+                props.objects.characters.Blondie({ name: 'enemy' }),
+                props.objects.characters.Bob({ name: 'enemy' }),
+                props.objects.characters.Furry({ name: 'enemy' }),
+                props.objects.characters.Shroom({ name: 'enemy' }),
+            ],
             undefined,
             props
         ),
@@ -45,7 +50,12 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Level2,
         scene: createLevelScene(
             props.objects.characters.Berry(),
-            undefined,
+            [
+                props.objects.characters.Blondie({ name: 'enemy' }),
+                props.objects.characters.Bob({ name: 'enemy' }),
+                props.objects.characters.Furry({ name: 'enemy' }),
+                props.objects.characters.Shroom({ name: 'enemy' }),
+            ],
             undefined,
             props
         ),
@@ -67,7 +77,12 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Level3,
         scene: createLevelScene(
             props.objects.characters.Berry(),
-            undefined,
+            [
+                props.objects.characters.Blondie({ name: 'enemy' }),
+                props.objects.characters.Bob({ name: 'enemy' }),
+                props.objects.characters.Furry({ name: 'enemy' }),
+                props.objects.characters.Shroom({ name: 'enemy' }),
+            ],
             undefined,
             props
         ),
