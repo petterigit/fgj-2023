@@ -35,6 +35,12 @@ export const EnemyDefaultStats = {
     speed: 30,
 };
 
+export const BossDefaultStats = {
+    health: EnemyDefaultStats.health * 2,
+    attack: EnemyDefaultStats.attack * 2,
+    speed: EnemyDefaultStats.speed * 2,
+};
+
 export const EnemyLogic = {
     minStateChangeCooldown: 0,
     maxStateChangeCooldown: 5000,

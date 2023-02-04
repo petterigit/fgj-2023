@@ -1,9 +1,10 @@
-import { ActorArgs, CollisionType, Vector } from 'excalibur';
+import { ActorArgs, CollisionType, randomInRange, vec } from 'excalibur';
 import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { GameProps, GameScene } from 'game/types';
 import {
     Scenario1PropertiesGenerator,
     Scenario2PropertiesGenerator,
+    Scenario3PropertiesGenerator,
 } from 'scenes/sceneProperties';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
@@ -52,17 +53,22 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Berry({
                 ...playerDefaultProps,
-                pos: new Vector(16 * 20, 16 * 20),
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
             }),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Teacher,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Bob,
             undefined,
             props,
             scene1Props,
+            SceneKeys.Dialog2,
             sounds.gameMusicLoop
         ),
     };
@@ -101,17 +107,22 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Bob({
                 ...playerDefaultProps,
-                pos: new Vector(16 * 20, 16 * 20),
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
             }),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Tryhard,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Gobbo,
             undefined,
             props,
             scene2Props,
+            SceneKeys.Dialog3,
             sounds.gameMusicLoop
         ),
     };
@@ -136,19 +147,28 @@ export const createScenes = (props: GameProps): GameScene[] => {
         ),
     };
 
+    const scene3Props = Scenario3PropertiesGenerator(props);
     const level3 = {
         key: SceneKeys.Level3,
         scene: createLevelScene(
-            props.objects.characters.Gobbo(),
+            props.objects.characters.Gobbo({
+                ...playerDefaultProps,
+                pos: vec(
+                    Math.floor(randomInRange(300, 1900)),
+                    Math.floor(randomInRange(300, 1900))
+                ),
+            }),
             [
                 props.objects.characters.Blondie,
-                props.objects.characters.Bob,
+                props.objects.characters.Lavender,
                 props.objects.characters.Furry,
                 props.objects.characters.Shroom,
             ],
+            props.objects.characters.Berry,
             undefined,
             props,
-            scene1Props,
+            scene3Props,
+            SceneKeys.Dialog1,
             sounds.gameMusicLoop
         ),
     };

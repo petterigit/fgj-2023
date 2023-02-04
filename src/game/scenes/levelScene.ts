@@ -10,6 +10,7 @@ import {
 } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
+import { createBoss } from 'game/objects/enemy/createBoss';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
@@ -21,9 +22,11 @@ import { SceneKeys } from './gamescenes';
 export const createLevelScene = (
     player: Player,
     enemyType: ((args?: ActorArgs | undefined) => Player)[],
+    bossType: (args?: ActorArgs | undefined) => Player,
     tileMapTheme: unknown,
     gameProps: GameProps,
     sceneProps: SceneProperties,
+    nextScene: SceneKeys,
     sound?: Sound
 ) => {
     const scene = new Scene();
@@ -46,6 +49,15 @@ export const createLevelScene = (
     for (const enemy of enemyType) {
         createEnemy(enemy, 5, scene);
     }
+
+    createBoss(
+        bossType,
+        scene,
+        nextScene,
+        player,
+        gameProps.game,
+        gameProps.resources
+    );
 
     if (sound) {
         scene.on('activate', () => {

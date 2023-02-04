@@ -13,8 +13,8 @@ export const createEnemy = (
         scene.add(enemy);
         enemy.stats = { ...EnemyDefaultStats };
         enemy.pos = vec(
-            Math.floor(randomInRange(500, 1000)),
-            Math.floor(randomInRange(500, 1000))
+            Math.floor(randomInRange(300, 1900)),
+            Math.floor(randomInRange(300, 1900))
         );
         enemy.AddStatefulLogic(enemyLogic);
     }
