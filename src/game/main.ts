@@ -26,8 +26,8 @@ import { UseDevUtils } from 'consts';
 export const initGame = () => {
     const game = createGame();
     const resources = createResources();
-    const objects = createObjects(game, resources);
     const spriteSheets = createSpriteSheets(resources);
+    const objects = createObjects(game, resources, spriteSheets);
 
     const gameProps = { game, objects, resources, spriteSheets };
 

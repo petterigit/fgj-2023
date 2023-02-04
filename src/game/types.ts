@@ -49,3 +49,11 @@ export type CharacterName =
     | 'Blondie'
     | 'Berry'
     | 'Teacher';
+
+export interface AnimatedPlayer {
+    idle: Animation;
+    left: Animation;
+    right: Animation;
+    up: Animation;
+    down: Animation;
+}

@@ -28,5 +28,5 @@ export const createSpriteSheets = (resources: Resources) => {
             berry,
             teacher,
         },
-    };
+    } as const;
 };

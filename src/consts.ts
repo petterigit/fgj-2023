@@ -9,3 +9,5 @@ export const TileProperties = {
     width: 16,
     height: 16,
 };
+
+export const CharacterAnimationSpeed = 500; // milliseconds per frame
