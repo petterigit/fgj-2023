@@ -3,7 +3,6 @@ import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createScenes } from './scenes/createScenes';
-import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { UseDevUtils } from 'consts';
@@ -46,7 +45,7 @@ export const initGame = () => {
     });
 
     /* game.goToScene can be used to change scenes *wink* *wink* */
-    game.start(loader).then(() => game.goToScene(SceneKeys.Menu));
+    game.start(loader);
 
     game.start(loader);
 };
