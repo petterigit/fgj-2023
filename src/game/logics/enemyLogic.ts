@@ -11,7 +11,7 @@ export function enemyLogic(
     let x: number;
     let y: number;
     let meleeAttack = false;
-    let dash = false;
+    const dash = false;
     if (!this.player) {
         this.player = this.scene.actors.find(actor => actor.name === 'Player')!;
     }
