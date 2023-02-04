@@ -4,7 +4,7 @@ import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { IsometricMap, vec } from 'excalibur';
+import { IsometricMap, TileMap, vec } from 'excalibur';
 import { generateLevel } from './generators/worldGenerator';
 import { TileProperties, UseDevUtils } from 'consts';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
@@ -40,7 +40,7 @@ export const initGame = () => {
 
     const props = Scenario1PropertiesGenerator(resources);
 
-    const isoMap = new IsometricMap({
+    const isoMap = new TileMap({
         pos: vec(0, 0),
         tileWidth: TileProperties.width,
         tileHeight: TileProperties.height,
