@@ -105,9 +105,9 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
             ['The bad child did something bad', 'Time to take revenge'],
-            props.resources.images.characterTeacher.toSprite(),
+            props.resources.images.portraitKala.toSprite(),
             props.resources.images.characterBerry.toSprite(),
-            SceneKeys.Level1,
+            SceneKeys.Level3,
             props.game,
             props.resources,
             sounds.gameMusicLoop
@@ -117,7 +117,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const level3 = {
         key: SceneKeys.Level3,
         scene: createLevelScene(
-            props.objects.characters.Berry(),
+            props.objects.characters.Gobbo(),
             [
                 props.objects.characters.Blondie,
                 props.objects.characters.Bob,
