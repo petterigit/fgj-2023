@@ -25,13 +25,19 @@ export function newEnemyLogic(): PlayerPreUpdateLogic {
     );
     let currentWanderCooldown = wanderCooldown;
 
+    const dashCooldown = randomInRange(
+        EnemyLogic.minDashCooldown,
+        EnemyLogic.maxDashCooldown
+    );
+    let currentDashCooldown = dashCooldown;
+
     return function (
         this: Player,
         engine: Engine,
         delta: number
     ): PlayerPreUpdateLogicProps | null {
         let meleeAttack = false;
-        const dash = false;
+        let dash = false;
 
         // Get player from scene
         if (!player) {
@@ -57,6 +63,9 @@ export function newEnemyLogic(): PlayerPreUpdateLogic {
         if (currentWanderCooldown > 0) {
             currentWanderCooldown -= delta;
         }
+        if (currentDashCooldown > 0) {
+            currentDashCooldown -= delta;
+        }
 
         // Switch modes
         if (currentChangeStateCooldown < 0) {
@@ -79,10 +88,19 @@ export function newEnemyLogic(): PlayerPreUpdateLogic {
                 this.meleeAttackReset = true;
                 meleeAttack = true;
             }
+            if (
+                currentDashCooldown < 0 &&
+                isPlayerClose(x, y, EnemyLogic.detectionRange)
+            ) {
+                if (Math.random() < EnemyLogic.dashChance) {
+                    currentDashCooldown = dashCooldown;
+                    dash = true;
+                }
+            }
             return {
                 input: getDirection(x, y),
                 actions: { meleeAttack, dash },
-                speed: EnemyLogic.chaseSpeed,
+                speed: dash ? EnemyLogic.dashSpeed : EnemyLogic.chaseSpeed,
             };
         }
 
