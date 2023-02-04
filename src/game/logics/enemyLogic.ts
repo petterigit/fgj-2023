@@ -3,7 +3,7 @@ import { Engine, randomInRange, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
 
-export function newEnemyLogic(): PlayerPreUpdateLogic {
+export function enemyLogic(): PlayerPreUpdateLogic {
     let player: Player | undefined | null = null;
     let battleMode = false;
 
@@ -14,14 +14,20 @@ export function newEnemyLogic(): PlayerPreUpdateLogic {
     let currentChangeStateCooldown = changeStateCooldown;
 
     const meleeAttackCooldown = randomInRange(
-        EnemyLogic.minAttackCooldown,
-        EnemyLogic.maxAttackCooldown
+        EnemyLogic.minMeleeAttackCooldown,
+        EnemyLogic.maxMeleeAttackCooldown
     );
     let currentAttackCooldown = meleeAttackCooldown;
 
+    const meleeAttackWaitDuration = randomInRange(
+        EnemyLogic.minPreMeleeAttackWait,
+        EnemyLogic.maxPreMeleeAttackWait
+    );
+    let currentMeleeAttackWaitDuration = meleeAttackWaitDuration;
+
     const wanderCooldown = randomInRange(
-        EnemyLogic.minAttackCooldown,
-        EnemyLogic.maxAttackCooldown
+        EnemyLogic.minMeleeAttackCooldown,
+        EnemyLogic.maxMeleeAttackCooldown
     );
     let currentWanderCooldown = wanderCooldown;
 
@@ -80,13 +86,21 @@ export function newEnemyLogic(): PlayerPreUpdateLogic {
 
         // Handle battle mode
         if (battleMode) {
+            const isInMeleeRange = isPlayerClose(x, y, EnemyLogic.hitRange);
             if (
-                currentAttackCooldown < 0 &&
-                isPlayerClose(x, y, EnemyLogic.hitRange)
+                !isInMeleeRange &&
+                currentMeleeAttackWaitDuration < meleeAttackWaitDuration
             ) {
-                currentAttackCooldown = meleeAttackCooldown;
-                this.meleeAttackReset = true;
-                meleeAttack = true;
+                currentMeleeAttackWaitDuration += delta;
+            }
+            if (currentAttackCooldown < 0 && isInMeleeRange) {
+                if (currentMeleeAttackWaitDuration < 0) {
+                    currentAttackCooldown = meleeAttackCooldown;
+                    this.meleeAttackReset = true;
+                    meleeAttack = true;
+                } else {
+                    currentMeleeAttackWaitDuration -= delta;
+                }
             }
             if (
                 currentDashCooldown < 0 &&
