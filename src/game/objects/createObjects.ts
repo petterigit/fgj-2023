@@ -18,11 +18,11 @@ export const createObjects = (game: Engine, resources: Resources) => {
             idle: new Animation({
                 frames: [
                     {
-                        graphic: resources.images.branch1.toSprite(),
+                        graphic: resources.images.backward.toSprite(),
                         duration: 1000,
                     },
                     {
-                        graphic: resources.images.branch2.toSprite(),
+                        graphic: resources.images.backwardActive.toSprite(),
                         duration: 1000,
                     },
                 ],
@@ -30,7 +30,7 @@ export const createObjects = (game: Engine, resources: Resources) => {
             left: new Animation({
                 frames: [
                     {
-                        graphic: resources.images.pebble1.toSprite(),
+                        graphic: resources.images.forward.toSprite(),
                         duration: 1000,
                     },
                 ],
@@ -38,7 +38,7 @@ export const createObjects = (game: Engine, resources: Resources) => {
             right: new Animation({
                 frames: [
                     {
-                        graphic: resources.images.brick1.toSprite(),
+                        graphic: resources.images.forwardActive.toSprite(),
                         duration: 1000,
                     },
                 ],
@@ -46,7 +46,7 @@ export const createObjects = (game: Engine, resources: Resources) => {
             up: new Animation({
                 frames: [
                     {
-                        graphic: resources.images.fire1.toSprite(),
+                        graphic: resources.images.groundSet.toSprite(),
                         duration: 1000,
                     },
                 ],
@@ -54,7 +54,7 @@ export const createObjects = (game: Engine, resources: Resources) => {
             down: new Animation({
                 frames: [
                     {
-                        graphic: resources.images.flower1.toSprite(),
+                        graphic: resources.images.duckImage.toSprite(),
                         duration: 1000,
                     },
                 ],

@@ -1,4 +1,4 @@
-import { Engine, ImageSource, Scene, Sprite } from 'excalibur';
+import { Engine, Scene, Sprite } from 'excalibur';
 import { createObjects } from './objects/createObjects';
 import { createGraphics } from './resources/graphics/graphics';
 import { createImages } from './resources/images/images';
