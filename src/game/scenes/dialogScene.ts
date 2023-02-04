@@ -31,7 +31,7 @@ export const createDialogScene = (
             sound.play();
         });
         scene.on('deactivate', () => {
-            sound.stop();
+            sound.pause();
         });
     }
 
