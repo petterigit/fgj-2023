@@ -5,9 +5,9 @@ export const Scenario1PropertiesGenerator = (
 ): SceneProperties => {
     const groundTiles = props.spriteSheets.ground;
     const detailTiles = props.spriteSheets.ground;
-            const imageMin = 50;
-            const imageMax = 200;
-            const step = (imageMax - imageMin) / (2);
+    const imageMin = 50;
+    const imageMax = 200;
+    const step = (imageMax - imageMin) / 2;
     return {
         width: 100,
         height: 100,
@@ -17,11 +17,10 @@ export const Scenario1PropertiesGenerator = (
         detailZValue: 6,
         getGroundTile: (noise: number) => {
             if (noise <= imageMin) noise = imageMin;
-            if (noise >= imageMax) noise = (imageMax-1);
+            if (noise >= imageMax) noise = imageMax - 1;
             noise -= imageMin;
             const imageIndex = Math.floor(noise / step);
-            if (imageIndex === 2)
-            console.log(imageIndex)
+            if (imageIndex === 2) console.log(imageIndex);
             return groundTiles.getSprite(imageIndex * 11 + 1, 1);
         },
         getDetailTile: (noise: number) => {
