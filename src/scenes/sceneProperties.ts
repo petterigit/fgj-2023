@@ -3,7 +3,6 @@ import { GameProps, SceneProperties } from '../game/types';
 export const Scenario1PropertiesGenerator = (
     props: GameProps
 ): SceneProperties => {
-
     const groundTiles = props.spriteSheets.ground;
     const detailTiles = props.spriteSheets.ground;
 
