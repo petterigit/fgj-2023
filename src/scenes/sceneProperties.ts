@@ -23,7 +23,7 @@ export const Scenario1PropertiesGenerator = (
         width: 100,
         height: 100,
         resolution: 5,
-        zValue: 5,
+        zValue: 10,
         getGroundTile: (noise: number) => {
             const imageMin = 50;
             const imageMax = 200;
@@ -32,9 +32,6 @@ export const Scenario1PropertiesGenerator = (
             noise -= imageMin;
             const step = (imageMax - imageMin) / (groundTiles.length - 1);
             const imageIndex = Math.floor(noise / step);
-            if (imageIndex > 6) {
-                console.log(imageIndex, noise);
-            }
             return groundTiles[imageIndex];
         },
         getDetailTile: () => null,

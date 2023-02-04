@@ -49,8 +49,8 @@ export const initGame = () => {
     });
 
     const mapNoise = generateLevel(
-        isoMap.tileWidth,
-        isoMap.tileHeight,
+        isoMap.columns,
+        isoMap.rows,
         props.resolution,
         props.zValue
     );
