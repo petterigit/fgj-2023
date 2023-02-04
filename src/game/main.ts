@@ -6,7 +6,7 @@ import { createScenes } from './scenes/createScenes';
 import { SceneKeys } from './scenes/gamescenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
-import { IsometricMap, TileMap, vec } from 'excalibur';
+import { TileMap, vec } from 'excalibur';
 import { generateLevel as generateNoise } from './generators/worldGenerator';
 import { TileProperties, UseDevUtils } from 'consts';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';

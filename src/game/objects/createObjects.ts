@@ -1,6 +1,7 @@
-import { Engine } from 'excalibur';
-import { createDuck } from 'game/objects/duck';
+import { Animation, Engine } from 'excalibur';
 import { Resources } from 'game/types';
+import { createDuck } from './duck';
+import { Player } from './player/Player';
 
 /**
  * Create game objects.
@@ -12,6 +13,57 @@ import { Resources } from 'game/types';
 
 export const createObjects = (game: Engine, resources: Resources) => {
     const duck = createDuck(resources);
+    const player = new Player({
+        animations: {
+            idle: new Animation({
+                frames: [
+                    {
+                        graphic: resources.images.branch1.toSprite(),
+                        duration: 1000,
+                    },
+                    {
+                        graphic: resources.images.branch2.toSprite(),
+                        duration: 1000,
+                    },
+                ],
+            }),
+            left: new Animation({
+                frames: [
+                    {
+                        graphic: resources.images.pebble1.toSprite(),
+                        duration: 1000,
+                    },
+                ],
+            }),
+            right: new Animation({
+                frames: [
+                    {
+                        graphic: resources.images.brick1.toSprite(),
+                        duration: 1000,
+                    },
+                ],
+            }),
+            up: new Animation({
+                frames: [
+                    {
+                        graphic: resources.images.fire1.toSprite(),
+                        duration: 1000,
+                    },
+                ],
+            }),
+            down: new Animation({
+                frames: [
+                    {
+                        graphic: resources.images.flower1.toSprite(),
+                        duration: 1000,
+                    },
+                ],
+            }),
+        },
+    });
+
     game.add(duck);
-    return { duck: duck };
+    game.add(player);
+
+    return { duck, player };
 };

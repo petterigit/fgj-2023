@@ -1,4 +1,4 @@
-import { randomInRange, randomIntInRange } from 'excalibur';
+import { randomIntInRange } from 'excalibur';
 import { Resources, SceneProperties } from '../game/types';
 
 export const Scenario1PropertiesGenerator = (
@@ -18,7 +18,7 @@ export const Scenario1PropertiesGenerator = (
         resources.images.leaf2,
         resources.images.leaf3,
     ];
-    const colliderTiles = [];
+    // const colliderTiles = [];
 
     return {
         width: 100,
