@@ -132,6 +132,8 @@ export class Player extends Actor {
 
         if (this.dashCooldown > 0) {
             this.dashCooldown -= delta;
+        } else {
+            this.rotation = 0;
         }
 
         if (this.meleeAttackCurrentCooldown > 0) {
@@ -175,6 +177,9 @@ export class Player extends Actor {
             const boundDash = dash.bind(this);
             boundDash();
             this.dashCooldown = 500;
+            this.animation == PlayerAnimation.Left
+                ? (this.rotation = (3 * pi) / 2)
+                : (this.rotation = pi / 2);
         }
 
         if (
