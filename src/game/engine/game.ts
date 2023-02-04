@@ -1,4 +1,4 @@
-import { DisplayMode, Engine, Resolution } from 'excalibur';
+import { Color, DisplayMode, Engine, Resolution } from 'excalibur';
 import { GameCanvasID } from 'consts';
 
 /**
@@ -12,6 +12,7 @@ export const createGame = () => {
         displayMode: DisplayMode.FitScreen,
         resolution: Resolution.Standard,
         canvasElementId: canvasElementId,
+        backgroundColor: Color.fromHex('#ffffff'),
     });
 
     return game;
