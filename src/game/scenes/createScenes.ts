@@ -1,12 +1,19 @@
 import { ActorArgs, CollisionType, Vector } from 'excalibur';
+import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { GameProps, GameScene } from 'game/types';
+import {
+    Scenario1PropertiesGenerator,
+    Scenario2PropertiesGenerator,
+} from 'scenes/sceneProperties';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
 import { createLevelScene } from './levelScene';
 import { createMenu } from './menu';
 
 export const createScenes = (props: GameProps): GameScene[] => {
-    const menu = createMenu(props);
+    const sounds = AudioManager.getSounds();
+
+    const menu = createMenu(props, sounds.menuMusicLoop);
     const playerDefaultProps: ActorArgs = {
         collisionType: CollisionType.Active,
     };
@@ -34,10 +41,12 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterTryhard.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
+    const scene1Props = Scenario1PropertiesGenerator(props);
     const level1 = {
         key: SceneKeys.Level1,
         scene: createLevelScene(
@@ -46,13 +55,15 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 pos: new Vector(16 * 20, 16 * 20),
             }),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
-            props
+            props,
+            scene1Props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -60,29 +71,33 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
             ['The bad teacher did something bad', 'Time to take revenge'],
-            props.resources.images.characterTryhard.toSprite(),
+            props.resources.images.portraitBob.toSprite(),
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
+    const scene2Props = Scenario2PropertiesGenerator(props);
     const level2 = {
         key: SceneKeys.Level2,
         scene: createLevelScene(
-            props.objects.characters.Berry({
+            props.objects.characters.Bob({
                 ...playerDefaultProps,
                 pos: new Vector(16 * 20, 16 * 20),
             }),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
-            props
+            props,
+            scene2Props,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -94,7 +109,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.characterBerry.toSprite(),
             SceneKeys.Level1,
             props.game,
-            props.resources
+            props.resources,
+            sounds.gameMusicLoop
         ),
     };
 
@@ -103,13 +119,15 @@ export const createScenes = (props: GameProps): GameScene[] => {
         scene: createLevelScene(
             props.objects.characters.Berry(),
             [
-                props.objects.characters.Blondie({ name: 'enemy' }),
-                props.objects.characters.Bob({ name: 'enemy' }),
-                props.objects.characters.Furry({ name: 'enemy' }),
-                props.objects.characters.Shroom({ name: 'enemy' }),
+                props.objects.characters.Blondie,
+                props.objects.characters.Bob,
+                props.objects.characters.Furry,
+                props.objects.characters.Shroom,
             ],
             undefined,
-            props
+            props,
+            scene1Props,
+            sounds.gameMusicLoop
         ),
     };
 

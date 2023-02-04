@@ -7,6 +7,7 @@ import {
     Label,
     Scene,
     ScreenElement,
+    Sound,
     TextAlign,
     vec,
     Vector,
@@ -15,7 +16,7 @@ import { createNextButton } from 'game/objects/ui-components/NextButton';
 import { GameProps, GameScene } from 'game/types';
 import { SceneKeys } from './gamescenes';
 
-export const createMenu = (props: GameProps) => {
+export const createMenu = (props: GameProps, sound?: Sound) => {
     const { canvasHeight, canvasWidth } = props.game;
 
     const scene: GameScene = {
@@ -105,6 +106,15 @@ export const createMenu = (props: GameProps) => {
     );
 
     scene.scene.add(nextButton);
+
+    if (sound) {
+        scene.scene.on('activate', () => {
+            sound.play();
+        });
+        scene.scene.on('deactivate', () => {
+            sound.pause();
+        });
+    }
 
     return scene;
 };

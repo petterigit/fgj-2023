@@ -1,4 +1,4 @@
-import { Engine, Scene, Sprite, Vector } from 'excalibur';
+import { Actor, Engine, Scene, Sprite, Vector } from 'excalibur';
 import { createAnimations } from './animations/createAnimations';
 import { createObjects } from './objects/createObjects';
 import { Player } from './objects/player/Player';
@@ -19,8 +19,9 @@ export interface SceneProperties {
     zValue: number;
     detailZValue: number;
     getGroundTile(noise: number): Sprite | null;
-    getDetailTile(noise: number): Sprite | null;
+    getDetailTile(pos: Vector): Actor | null;
     getColliderTile(noise: number): Sprite | null;
+    onDeath?: SceneKeys;
 }
 
 export type Resources = {
@@ -80,6 +81,8 @@ export interface AnimatedPlayer {
     up: Animation;
     down: Animation;
 }
+
+export type PlayerPreUpdateLogicGenerator = () => PlayerPreUpdateLogic;
 
 export type PlayerPreUpdateLogic = (
     this: Player,

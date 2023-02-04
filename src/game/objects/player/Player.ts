@@ -12,7 +12,11 @@ import {
 import { dash } from 'game/actions/dash';
 import { meleeAttack } from 'game/actions/meleeAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
-import { CreateAnimations, PlayerPreUpdateLogic } from 'game/types';
+import {
+    CreateAnimations,
+    PlayerPreUpdateLogic,
+    PlayerPreUpdateLogicGenerator,
+} from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -30,12 +34,13 @@ export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
     protected animationProps: CreateAnimations;
-    private preUpdateLogic: PlayerPreUpdateLogic | null = null;
+    private preUpdateLogic:
+        | PlayerPreUpdateLogic
+        | PlayerPreUpdateLogicGenerator
+        | null = null;
     public currentDirection: Vector = Vector.Down;
     public dashTime = 0;
     public dashCooldown = 0;
-    public timer = 0;
-    public player: Actor | undefined = undefined;
 
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
@@ -49,7 +54,7 @@ export class Player extends Actor {
         super({
             name: 'Player',
             collider: collider,
-            collisionType: CollisionType.Passive,
+            collisionType: CollisionType.Active,
             ...config,
         });
 
@@ -91,6 +96,10 @@ export class Player extends Actor {
         this.preUpdateLogic = logic;
     }
 
+    public AddStatefulLogic(logic: PlayerPreUpdateLogicGenerator | null) {
+        this.preUpdateLogic = logic?.() ?? null;
+    }
+
     public onInitialize() {
         const animation = this.animations[this.animation];
         this.graphics.use(animation);
@@ -113,7 +122,11 @@ export class Player extends Actor {
     onPreUpdate(engine: Engine, delta: number) {
         super.onPreUpdate(engine, delta);
 
-        const props = this.preUpdateLogic?.(engine, delta);
+        let props = this.preUpdateLogic?.(engine, delta);
+        if (typeof props === 'function') {
+            const boundProps = props.bind(this);
+            props = boundProps?.(engine, delta);
+        }
 
         if (!props) return;
 

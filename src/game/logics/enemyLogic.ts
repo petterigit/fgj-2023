@@ -1,65 +1,120 @@
-import { Engine, vec } from 'excalibur';
+import { EnemyLogic } from 'consts';
+import { Engine, randomInRange, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
-import { PlayerPreUpdateLogicProps } from 'game/types';
+import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
 
-export function enemyLogic(
-    this: Player,
-    engine: Engine,
-    delta: number
-): PlayerPreUpdateLogicProps | null {
-    this.timer++;
-    let meleeAttack = false;
-    const dash = false;
-    if (!this.player) {
-        this.player = this.scene.actors.find(actor => actor.name === 'Player');
-    }
+export function newEnemyLogic(): PlayerPreUpdateLogic {
+    let player: Player | undefined | null = null;
+    let battleMode = false;
 
-    this.player = this.player as Player;
+    const changeStateCooldown = randomInRange(
+        EnemyLogic.minStateChangeCooldown,
+        EnemyLogic.maxStateChangeCooldown
+    );
+    let currentChangeStateCooldown = changeStateCooldown;
 
-    let x = this.player.pos.x - this.pos.x;
-    let y = this.player.pos.y - this.pos.y;
+    const meleeAttackCooldown = randomInRange(
+        EnemyLogic.minAttackCooldown,
+        EnemyLogic.maxAttackCooldown
+    );
+    let currentAttackCooldown = meleeAttackCooldown;
 
-    if (isPlayerVeryClose(x, y)) {
-        if (this.timer % 50 == 0) {
-            this.meleeAttackReset = true;
+    const wanderCooldown = randomInRange(
+        EnemyLogic.minAttackCooldown,
+        EnemyLogic.maxAttackCooldown
+    );
+    let currentWanderCooldown = wanderCooldown;
+
+    return function (
+        this: Player,
+        engine: Engine,
+        delta: number
+    ): PlayerPreUpdateLogicProps | null {
+        let meleeAttack = false;
+        const dash = false;
+
+        // Get player from scene
+        if (!player) {
+            const foundPlayer = this.scene.actors.find(
+                actor => actor.name === 'Player'
+            );
+            if (foundPlayer) {
+                player = foundPlayer as Player;
+            }
         }
-        meleeAttack = true;
-        return {
-            input: getDirection(x, y),
-            actions: { meleeAttack, dash },
-            speed: 75,
-        };
-    }
+        if (!player) return null;
 
-    if (isPlayerClose(x, y)) {
-        return {
-            input: getDirection(x, y),
-            actions: { meleeAttack, dash },
-            speed: 75,
-        };
-    }
+        let x = player.pos.x - this.pos.x;
+        let y = player.pos.y - this.pos.y;
 
-    if (this.timer % 50 != 0) return null;
-    const angle = Math.random() * Math.PI * 2;
-    x = Math.cos(angle) * 10;
-    y = Math.sin(angle) * 10;
+        // Decrease cooldowns
+        if (currentChangeStateCooldown > 0) {
+            currentChangeStateCooldown -= delta;
+        }
+        if (currentAttackCooldown > 0) {
+            currentAttackCooldown -= delta;
+        }
+        if (currentWanderCooldown > 0) {
+            currentWanderCooldown -= delta;
+        }
 
-    return {
-        input: getDirection(x, y),
-        actions: { meleeAttack, dash },
-        speed: 30,
+        // Switch modes
+        if (currentChangeStateCooldown < 0) {
+            if (isPlayerClose(x, y, EnemyLogic.detectionRange)) {
+                battleMode = true;
+                currentChangeStateCooldown = changeStateCooldown;
+            } else {
+                currentChangeStateCooldown = changeStateCooldown;
+                battleMode = false;
+            }
+        }
+
+        // Handle battle mode
+        if (battleMode) {
+            if (
+                currentAttackCooldown < 0 &&
+                isPlayerClose(x, y, EnemyLogic.hitRange)
+            ) {
+                currentAttackCooldown = meleeAttackCooldown;
+                this.meleeAttackReset = true;
+                meleeAttack = true;
+            }
+            return {
+                input: getDirection(x, y),
+                actions: { meleeAttack, dash },
+                speed: EnemyLogic.chaseSpeed,
+            };
+        }
+
+        // Handle wander
+        if (currentWanderCooldown > 0) {
+            return null;
+        } else {
+            currentWanderCooldown = wanderCooldown;
+
+            if (Math.random() < EnemyLogic.chanceToStayStill) {
+                return {
+                    input: Vector.Zero,
+                    actions: { meleeAttack, dash },
+                    speed: 0,
+                };
+            }
+
+            const angle = Math.random() * Math.PI * 2;
+            x = Math.cos(angle) * 10;
+            y = Math.sin(angle) * 10;
+
+            return {
+                input: getDirection(x, y),
+                actions: { meleeAttack, dash },
+                speed: 30,
+            };
+        }
     };
 }
 
-function isPlayerClose(x: number, y: number) {
-    if (Math.abs(x) < 100 && Math.abs(y) < 150) {
-        return true;
-    }
-    return false;
-}
-
-function isPlayerVeryClose(x: number, y: number) {
-    if (Math.abs(x) < 20 && Math.abs(y) < 20) {
+function isPlayerClose(x: number, y: number, distance: number) {
+    if (Math.abs(x) < distance && Math.abs(y) < distance) {
         return true;
     }
     return false;

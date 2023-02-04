@@ -24,5 +24,25 @@ export const MeleeAttack = {
 export const PlayerDefaultStats = {
     health: 100,
     attack: 10,
-    speed: 200,
+    speed: 100,
+};
+
+export const EnemyDefaultStats = {
+    health: 30,
+    attack: 10,
+    speed: 30,
+};
+
+export const EnemyLogic = {
+    minStateChangeCooldown: 0,
+    maxStateChangeCooldown: 5000,
+    minAttackCooldown: 50,
+    maxAttackCooldown: 5000,
+    minWanderCooldown: 50,
+    maxWanderCooldown: 5000,
+    chanceToStayStill: 0.3,
+    chaseSpeed: 75,
+    normalSpeed: 30,
+    detectionRange: 150,
+    hitRange: 20,
 };

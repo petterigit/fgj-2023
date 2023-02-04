@@ -42,10 +42,20 @@ export function meleeAttack(
             return;
         }
 
+        const blood = new Actor({
+            pos: attackPosition,
+            scale: vec(0.5, 0.5),
+        });
+        blood.graphics.use(animations.blood());
+        blood.actions.delay(500).die();
+
         console.log('Hitted', event.other.id);
         AudioManager.playSound('viisKauttaViis');
+        // this.scene.camera.shake(5, 10, 500);
         const target = event.other as Player;
         target.stats.health -= this.stats.attack;
+        blood.pos = target.center;
+        engine.currentScene.add(blood);
     });
 
     swoosh.actions.delay(MeleeAttack.duration).die();
