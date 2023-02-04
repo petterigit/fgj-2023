@@ -43,6 +43,9 @@ export const createLevelScene = (
 
     if (sound) {
         sound.play();
+        scene.on('deactivate', () => {
+            sound?.stop();
+        });
     }
 
     // Placeholder end level func

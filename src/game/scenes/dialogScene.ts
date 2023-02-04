@@ -26,5 +26,12 @@ export const createDialogScene = (
 
     scene.add(dialogueBox);
 
+    if (sound) {
+        sound.play();
+        scene.on('deactivate', () => {
+            sound?.stop();
+        });
+    }
+
     return scene;
 };
