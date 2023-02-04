@@ -11,6 +11,22 @@ export type Game = Engine;
 export type CreateSpriteSheets = ReturnType<typeof createSpriteSheets>;
 export type CreateAnimations = ReturnType<typeof createAnimations>;
 
+export enum ColliderPos {
+    sideMiddle,
+    sideTop,
+    sideBottom,
+    verticalMiddle,
+    verticalLeft,
+    verticalTopLeft,
+    verticalBottomLeft,
+    verticalBottom,
+    verticalBottomRight,
+    verticalRight,
+    verticalTopRight,
+    verticalTop
+
+}
+
 export interface SceneProperties {
     width: number;
     height: number;
@@ -20,7 +36,7 @@ export interface SceneProperties {
     detailZValue: number;
     getGroundTile(noise: number): Sprite | null;
     getDetailTile(pos: Vector): Actor | null;
-    getColliderTile(noise: number): Sprite | null;
+    getColliderTile(pos: ColliderPos): Sprite | null;
     onDeath?: SceneKeys;
 }
 
