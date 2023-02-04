@@ -54,7 +54,7 @@ export class Player extends Actor {
      * @returns A level up message for what stats was incresed & how much
      */
     public LevelUp() {
-        let random = Math.random() * 3;
+        const random = Math.random() * 3;
 
         // Todo: Level up by x amount of previous stat instead of fixed
         if (1 > random && random > 0) {
@@ -73,9 +73,9 @@ export class Player extends Actor {
             const speedIncrease = 15;
             this.stats.speed = this.stats.speed + speedIncrease;
             return 'Speed was increased by 15!';
+        } else {
+            return 'Level up!';
         }
-
-        return;
     }
 
     public AddLogic(logic: PlayerPreUpdateLogic) {
