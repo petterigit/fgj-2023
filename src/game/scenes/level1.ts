@@ -4,6 +4,7 @@ import { GameProps, GameScene } from 'game/types';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 import { SceneKeys } from './gamescenes';
 import { generateNoise } from '../generators/worldGenerator';
+import { playerLogic } from 'game/logics/playerLogic';
 
 export const createLevel1 = (gameProps: GameProps) => {
     const scene: GameScene = {
@@ -51,6 +52,8 @@ export const createLevel1 = (gameProps: GameProps) => {
     }
 
     const child = gameProps.objects.characters.Berry();
+    console.log(child);
+    child.AddLogic(playerLogic);
     scene.scene.add(child);
     scene.scene.camera.strategy.elasticToActor(child, 0.1, 0.1);
     scene.scene.camera.zoom = 4;

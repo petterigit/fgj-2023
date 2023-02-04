@@ -28,7 +28,7 @@ export class Player extends Actor {
     protected animation: PlayerAnimation;
     private dashTime = 0;
     private dashCooldown = 0;
-    private preUpdateLogic: PlayerPreUpdateLogic | null;
+    private preUpdateLogic: PlayerPreUpdateLogic | null = null;
 
     constructor(config: PlayerArgs) {
         super({
@@ -78,28 +78,6 @@ export class Player extends Actor {
         if (this.dashTime > 0) {
             this.dashTime -= delta;
         }
-
-        // let newX = 0;
-        // let newY = 0;
-        //
-        // newX = 0;
-        // newY = 0;
-        //
-        // if (engine.input.keyboard.isHeld(Input.Keys.Left)) {
-        //     newX = -1;
-        // }
-        //
-        // if (engine.input.keyboard.isHeld(Input.Keys.Right)) {
-        //     newX = 1;
-        // }
-        //
-        // if (engine.input.keyboard.isHeld(Input.Keys.Up)) {
-        //     newY = -1;
-        // }
-        //
-        // if (engine.input.keyboard.isHeld(Input.Keys.Down)) {
-        //     newY = 1;
-        // }
 
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
