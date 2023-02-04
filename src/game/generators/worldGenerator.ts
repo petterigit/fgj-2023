@@ -1,6 +1,6 @@
 import * as noise from 'quick-perlin-noise-js';
 
-interface Rgb {
+export interface Rgb {
     r: number;
     g: number;
     b: number;
