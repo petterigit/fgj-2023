@@ -11,3 +11,14 @@ export const createMelee = (resources: Resources) =>
             spriteWidth: 35,
         },
     });
+
+export const createBlood = (resources: Resources) =>
+    SpriteSheet.fromImageSource({
+        image: resources.images.blood,
+        grid: {
+            rows: 4,
+            columns: 6,
+            spriteHeight: 100,
+            spriteWidth: 100,
+        },
+    });

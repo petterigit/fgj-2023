@@ -1,8 +1,8 @@
 import { TileProperties } from 'consts';
-import { Engine, Scene, Sound, TileMap, vec } from 'excalibur';
+import { ActorArgs, Engine, Scene, Sound, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
-import { newEnemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
+import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
 import { GameProps, Resources, SceneProperties } from 'game/types';
@@ -12,7 +12,7 @@ import { SceneKeys } from './gamescenes';
 // Tile map theme === Enum
 export const createLevelScene = (
     player: Player,
-    enemyType: Player[],
+    enemyType: ((args?: ActorArgs | undefined) => Player)[],
     tileMapTheme: unknown,
     gameProps: GameProps,
     sceneProps: SceneProperties,
@@ -36,12 +36,7 @@ export const createLevelScene = (
 
     // Create enemies function here
     for (const enemy of enemyType) {
-        scene.add(enemy);
-        enemy.pos = vec(
-            Math.floor(Math.random() * (500 - 0 + 1) + 0),
-            Math.floor(Math.random() * (500 - 0 + 1) + 0)
-        );
-        enemy.AddStatefulLogic(newEnemyLogic);
+        createEnemy(enemy, 5, scene);
     }
 
     if (sound) {
