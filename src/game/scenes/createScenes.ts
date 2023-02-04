@@ -1,5 +1,6 @@
 import { ActorArgs, CollisionType, Vector } from 'excalibur';
 import { GameProps, GameScene } from 'game/types';
+import { Scenario1PropertiesGenerator, Scenario2PropertiesGenerator } from 'scenes/sceneProperties';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
 import { createLevelScene } from './levelScene';
@@ -38,6 +39,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
         ),
     };
 
+    const scene1Props = Scenario1PropertiesGenerator(props);
     const level1 = {
         key: SceneKeys.Level1,
         scene: createLevelScene(
@@ -52,7 +54,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            scene1Props
         ),
     };
 
@@ -68,6 +71,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
         ),
     };
 
+    const scene2Props = Scenario2PropertiesGenerator(props);
     const level2 = {
         key: SceneKeys.Level2,
         scene: createLevelScene(
@@ -82,7 +86,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            scene2Props
         ),
     };
 
@@ -109,7 +114,8 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 props.objects.characters.Shroom({ name: 'enemy' }),
             ],
             undefined,
-            props
+            props,
+            scene1Props
         ),
     };
 
