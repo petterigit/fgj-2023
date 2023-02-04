@@ -15,6 +15,7 @@ export const createTrees = (spritesheets: CreateSpriteSheets) => {
                     collisionType: CollisionType.Fixed
                 })
             tree.graphics.use(sprites!)
+            tree.z = 69;
             return tree;
 
         }
