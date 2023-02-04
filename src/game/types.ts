@@ -1,5 +1,6 @@
-import { Engine, Scene, Sprite } from 'excalibur';
+import { Engine, Scene, Sprite, Vector } from 'excalibur';
 import { createObjects } from './objects/createObjects';
+import { Player } from './objects/player/Player';
 import { createGraphics } from './resources/graphics/graphics';
 import { createImages } from './resources/images/images';
 import { createSounds } from './resources/sounds/sounds';
@@ -56,4 +57,14 @@ export interface AnimatedPlayer {
     right: Animation;
     up: Animation;
     down: Animation;
+}
+
+export type PlayerPreUpdateLogic = (
+    this: Player,
+    engine: Engine,
+    delta: number
+) => PlayerPreUpdateLogicProps;
+
+export interface PlayerPreUpdateLogicProps {
+    input: Vector;
 }

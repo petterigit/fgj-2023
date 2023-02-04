@@ -1,16 +1,40 @@
 import { TileProperties } from 'consts';
 import { Scene, TileMap, vec } from 'excalibur';
-import { GameProps, GameScene } from 'game/types';
+import { generateNoise } from 'game/generators/worldGenerator';
+import { playerLogic } from 'game/logics/playerLogic';
+import { Player } from 'game/objects/player/Player';
+import { GameProps } from 'game/types';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
-import { SceneKeys } from './gamescenes';
-import { generateNoise } from '../generators/worldGenerator';
 
-export const createLevel1 = (gameProps: GameProps) => {
-    const scene: GameScene = {
-        key: SceneKeys.Level1,
-        scene: new Scene(),
-    };
+// enemyType === Enum
+// Tile map theme === Enum
+export const createLevelScene = (
+    player: Player,
+    enemyType: unknown,
+    tileMapTheme: unknown,
+    gameProps: GameProps
+) => {
+    const scene = new Scene();
 
+    // Change this function to create Tile map
+    const isoMap = createTileMap(gameProps);
+
+    scene.add(isoMap);
+
+    // Add player function here (if needed)
+    scene.add(player);
+    player.AddLogic(playerLogic);
+    scene.camera.strategy.elasticToActor(player, 0.1, 0.1);
+    scene.camera.zoom = 4;
+
+    // Create enemies function here
+
+    // Scene add enemies here
+
+    return scene;
+};
+
+const createTileMap = (gameProps: GameProps) => {
     const props = Scenario1PropertiesGenerator(gameProps);
 
     const isoMap = new TileMap({
@@ -34,8 +58,6 @@ export const createLevel1 = (gameProps: GameProps) => {
         props.detailZValue
     );
 
-    scene.scene.add(isoMap);
-
     for (let i = 0; i < isoMap.tiles.length; i++) {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
@@ -50,7 +72,5 @@ export const createLevel1 = (gameProps: GameProps) => {
         }
     }
 
-    scene.scene.add(gameProps.objects.characters.Bob());
-
-    return scene;
+    return isoMap;
 };
