@@ -51,7 +51,7 @@ export function meleeAttack(
 
         console.log('Hitted', event.other.id);
         AudioManager.playSound('viisKauttaViis');
-        this.scene.camera.shake(
+        engine.currentScene.camera.shake(
             MeleeAttack.screenshakeDistance,
             MeleeAttack.screenshakeDistance,
             MeleeAttack.screenshakeDuration
