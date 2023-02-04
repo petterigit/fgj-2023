@@ -1,5 +1,13 @@
 import { TileProperties } from 'consts';
-import { ActorArgs, Engine, Scene, Sound, TileMap, vec } from 'excalibur';
+import {
+    ActorArgs,
+    Color,
+    Engine,
+    Scene,
+    Sound,
+    TileMap,
+    vec,
+} from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
 import { createBoss } from 'game/objects/enemy/createBoss';
@@ -141,10 +149,11 @@ const createTileMap = (
         const rgb = mapNoise[i];
         const currentCol = i % sceneProps.width;
         const currentRow = Math.floor(i / sceneProps.width);
-        tile.addGraphic(
-            sceneProps.getGroundTile(rgb.r) ??
-                gameProps.resources.images.duckImage.toSprite()
-        );
+        const tileGraphic =
+            sceneProps.getGroundTile(rgb.r)?.clone() ??
+            gameProps.resources.images.duckImage.toSprite();
+        tileGraphic.tint = Color.fromRGB(rgb.r, rgb.g, rgb.b, 1).lighten(1.5);
+        tile.addGraphic(tileGraphic);
 
         if (
             (currentRow === 19 ||
