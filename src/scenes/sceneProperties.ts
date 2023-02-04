@@ -4,7 +4,7 @@ export const Scenario1PropertiesGenerator = (
     props: GameProps
 ): SceneProperties => {
     const groundTiles = props.spriteSheets.ground;
-    const detailTiles = props.spriteSheets.trees;
+    //const detailTiles = props.spriteSheets.trees;
     const imageMin = 50;
     const imageMax = 200;
     const step = (imageMax - imageMin) / (2);
@@ -24,9 +24,6 @@ export const Scenario1PropertiesGenerator = (
             return groundTiles.getSprite(imageIndex * 11 + 1, 1);
         },
         getDetailTile: (noise: number) => {
-            if (noise > 200) {
-                return detailTiles.getSprite(3, 0);
-            }
             return null;
         },
         getColliderTile: () => null,

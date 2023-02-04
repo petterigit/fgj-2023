@@ -1,9 +1,8 @@
 import { CreateSpriteSheets, TreeType } from "game/types";
-import { Player } from './player/Player';
 import { Actor, CollisionType, Shape, Vector } from "excalibur";
 
 export const createTrees = (spritesheets: CreateSpriteSheets) => {
-    const trees: Record<string, (pos: Vector) => Player> = {};
+    const trees: Record<string, (pos: Vector) => Actor> = {};
     Object.entries(spritesheets.trees).forEach(([name, sprites]) => {
         trees[name] = (pos: Vector) => {
             const collider = Shape.Box(20, 20);
