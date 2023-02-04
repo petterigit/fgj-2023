@@ -1,4 +1,4 @@
-import { Scene } from 'excalibur';
+import { Scene, Vector } from 'excalibur';
 import { createNextButton } from 'game/objects/ui-components/NextButton';
 import { GameProps, GameScene } from 'game/types';
 import { SceneKeys } from './gamescenes';
@@ -13,8 +13,8 @@ export const createMenu = (props: GameProps) => {
 
     const nextButton = createNextButton(
         props.resources,
-        props.game,
-        SceneKeys.Level1
+        () => props.game.goToScene(SceneKeys.Level1),
+        new Vector(500, 500)
     );
 
     scene.scene.add(nextButton);
