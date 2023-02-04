@@ -112,7 +112,7 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
             sound.play();
         });
         scene.scene.on('deactivate', () => {
-            sound.stop();
+            sound.pause();
         });
     }
 

@@ -1,3 +1,4 @@
+import { EnemyDefaultStats } from 'consts';
 import { ActorArgs, randomInRange, Scene, vec } from 'excalibur';
 import { enemyLogic } from 'game/logics/enemyLogic';
 import { Player } from '../player/Player';
@@ -10,6 +11,7 @@ export const createEnemy = (
     for (let i = 0; i < amount; i++) {
         const enemy = enemyType({ name: 'enemy' });
         scene.add(enemy);
+        enemy.stats = { ...EnemyDefaultStats };
         enemy.pos = vec(
             Math.floor(randomInRange(500, 1000)),
             Math.floor(randomInRange(500, 1000))

@@ -44,7 +44,7 @@ export const createLevelScene = (
             sound.play();
         });
         scene.on('deactivate', () => {
-            sound.stop();
+            sound.pause();
         });
     }
 

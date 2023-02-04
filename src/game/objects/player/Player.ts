@@ -54,7 +54,7 @@ export class Player extends Actor {
         super({
             name: 'Player',
             collider: collider,
-            collisionType: CollisionType.Passive,
+            collisionType: CollisionType.Active,
             ...config,
         });
 
