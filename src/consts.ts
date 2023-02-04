@@ -11,4 +11,11 @@ export const TileProperties = {
 };
 
 export const CharacterAnimationSpeed = 100; // milliseconds per frame
-export const ACTOR_SPEED = 200;
+export const ActorSpeed = 200;
+
+export const MeleeAttack = {
+    offset: 50,
+    width: 200,
+    height: 200,
+    duration: 10,
+};

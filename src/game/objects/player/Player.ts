@@ -1,4 +1,4 @@
-import { ACTOR_SPEED } from 'consts';
+import { ActorSpeed } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -8,7 +8,7 @@ import {
     Vector,
 } from 'excalibur';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
-import { PlayerPreUpdateLogic } from 'game/types';
+import { LookDirection, PlayerPreUpdateLogic } from 'game/types';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -25,6 +25,7 @@ const enum PlayerAnimation {
 export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
+    public currentDirection: Vector = Vector.Down;
     private dashTime = 0;
     private dashCooldown = 0;
     private preUpdateLogic: PlayerPreUpdateLogic | null = null;
@@ -50,7 +51,7 @@ export class Player extends Actor {
         this.graphics.use(animation);
     }
 
-    normalizeAndSetVelocity(velocity: Vector, length = ACTOR_SPEED) {
+    normalizeAndSetVelocity(velocity: Vector, length = ActorSpeed) {
         const normalizedVector = normalizeAndScale(
             velocity.x,
             velocity.y,
@@ -91,12 +92,16 @@ export class Player extends Actor {
             this.animation = PlayerAnimation.Idle;
         } else if (angle > -pi / 4 && angle < pi / 4) {
             this.animation = PlayerAnimation.Right;
+            this.currentDirection = Vector.Right;
         } else if (angle > (-3 * pi) / 4 && angle < -pi / 4) {
             this.animation = PlayerAnimation.Up;
+            this.currentDirection = Vector.Up;
         } else if (angle < (-3 * pi) / 4 || angle > (3 * pi) / 4) {
             this.animation = PlayerAnimation.Left;
+            this.currentDirection = Vector.Left;
         } else if (angle > pi / 4 && angle < (3 * pi) / 4) {
             this.animation = PlayerAnimation.Down;
+            this.currentDirection = Vector.Down;
         }
 
         if (oldAnimation !== this.animation) {
