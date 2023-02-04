@@ -1,7 +1,16 @@
 import { TileProperties } from 'consts';
-import { ActorArgs, Engine, Scene, Sound, TileMap, vec } from 'excalibur';
+import {
+    ActorArgs,
+    Color,
+    Engine,
+    Scene,
+    Sound,
+    TileMap,
+    vec,
+} from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
+import { createBoss } from 'game/objects/enemy/createBoss';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
@@ -13,9 +22,11 @@ import { SceneKeys } from './gamescenes';
 export const createLevelScene = (
     player: Player,
     enemyType: ((args?: ActorArgs | undefined) => Player)[],
+    bossType: (args?: ActorArgs | undefined) => Player,
     tileMapTheme: unknown,
     gameProps: GameProps,
     sceneProps: SceneProperties,
+    nextScene: SceneKeys,
     sound?: Sound
 ) => {
     const scene = new Scene();
@@ -38,6 +49,15 @@ export const createLevelScene = (
     for (const enemy of enemyType) {
         createEnemy(enemy, 5, scene);
     }
+
+    createBoss(
+        bossType,
+        scene,
+        nextScene,
+        player,
+        gameProps.game,
+        gameProps.resources
+    );
 
     if (sound) {
         scene.on('activate', () => {
@@ -129,10 +149,11 @@ const createTileMap = (
         const rgb = mapNoise[i];
         const currentCol = i % sceneProps.width;
         const currentRow = Math.floor(i / sceneProps.width);
-        tile.addGraphic(
-            sceneProps.getGroundTile(rgb.r) ??
-                gameProps.resources.images.duckImage.toSprite()
-        );
+        const tileGraphic =
+            sceneProps.getGroundTile(rgb.r)?.clone() ??
+            gameProps.resources.images.duckImage.toSprite();
+        tileGraphic.tint = Color.fromRGB(rgb.r, rgb.g, rgb.b, 1).lighten(1.5);
+        tile.addGraphic(tileGraphic);
 
         if (
             (currentRow === 19 ||
@@ -144,7 +165,9 @@ const createTileMap = (
             currentCol >= 19 &&
             currentCol <= 119
         ) {
-            tile.addGraphic(sceneProps.getColliderTile(ColliderPos.sideBottom)!);
+            tile.addGraphic(
+                sceneProps.getColliderTile(ColliderPos.sideBottom)!
+            );
             tile.solid = true;
         }
     }

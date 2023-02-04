@@ -25,8 +25,8 @@ export const createDialogBox = (
         pos: new Vector(400, 800),
         scale: new Vector(1, 1),
         color: Color.LightGray,
-        width: 1200,
-        height: 1200,
+        width: 1500,
+        height: 600,
     });
 
     const dialogTexts = dialogs.map(
@@ -34,18 +34,12 @@ export const createDialogBox = (
             new Text({
                 text: text,
                 font: new Font({
-                    size: 20,
+                    size: 25,
                     family: 'sans-serif',
                     style: FontStyle.Oblique,
                     bold: false,
                     textAlign: TextAlign.Left,
                     baseAlign: BaseAlign.Top,
-                    lineWidth: 100,
-                    shadow: {
-                        blur: 2,
-                        offset: new Vector(3, 3),
-                        color: Color.Black,
-                    },
                 }),
             })
     );
@@ -99,7 +93,7 @@ export const createDialogBox = (
 
             dialogTextContainer.graphics.use(dialogTexts[textIndex]);
         },
-        new Vector(900, 75)
+        new Vector(1200, 75)
     );
 
     element.addChild(motiveElement);
