@@ -68,6 +68,7 @@ export class Player extends Actor {
         super.onPreUpdate(engine, delta);
 
         const props = this.preUpdateLogic?.(engine, delta);
+
         if (!props) return;
 
         if (this.dashCooldown > 0) {
@@ -85,15 +86,15 @@ export class Player extends Actor {
 
         const oldAnimation = this.animation;
         const angle = this.vel.toAngle();
-        const pi = 3.14;
+        const pi = Math.PI;
 
         if (this.vel.x === 0 && this.vel.y === 0) {
             this.animation = PlayerAnimation.Idle;
-        } else if (angle > -pi / 4 && angle < pi / 4) {
+        } else if (angle >= -pi / 4 && angle <= pi / 4) {
             this.animation = PlayerAnimation.Right;
         } else if (angle > (-3 * pi) / 4 && angle < -pi / 4) {
             this.animation = PlayerAnimation.Up;
-        } else if (angle < (-3 * pi) / 4 || angle > (3 * pi) / 4) {
+        } else if (angle <= (-3 * pi) / 4 || angle >= (3 * pi) / 4) {
             this.animation = PlayerAnimation.Left;
         } else if (angle > pi / 4 && angle < (3 * pi) / 4) {
             this.animation = PlayerAnimation.Down;
