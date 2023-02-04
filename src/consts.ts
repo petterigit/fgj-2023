@@ -23,6 +23,14 @@ export const MeleeAttack = {
     screenshakeDuration: 100,
 };
 
+export const RangedAttack = {
+    width: 5,
+    height: 5,
+    velocity: 200,
+    duration: 1000,
+    cooldown: 1500,
+};
+
 export const PlayerDefaultStats = {
     health: 100,
     attack: 10,

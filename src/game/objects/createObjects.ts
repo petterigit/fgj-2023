@@ -3,6 +3,7 @@ import { Engine } from 'excalibur';
 import { CreateAnimations, CreateSpriteSheets, Resources } from 'game/types';
 import { createCharacters } from './characters';
 import { createDuck } from './duck';
+import { createRocks } from './environment/rocks';
 import { createTrees } from './environment/trees';
 
 /**
@@ -22,5 +23,6 @@ export const createObjects = (
     const duck = createDuck(resources);
     const characters = createCharacters(spritesheets, animations);
     const trees = createTrees(spritesheets);
-    return { duck, characters, trees } as const;
+    const rocks = createRocks(spritesheets);
+    return { duck, characters, trees, rocks } as const;
 };
