@@ -10,7 +10,5 @@
             { "blankLine": "always", "prev": "var", "next": "return" }
         ]
     },
-    "ignorePatterns": [
-        "vite.config.ts"
-    ]
+    "ignorePatterns": ["vite.config.ts"]
 }

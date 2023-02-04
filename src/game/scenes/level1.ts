@@ -50,5 +50,7 @@ export const createLevel1 = (gameProps: GameProps) => {
         }
     }
 
+    scene.scene.add(gameProps.objects.characters.Bob());
+
     return scene;
 };

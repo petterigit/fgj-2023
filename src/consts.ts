@@ -11,3 +11,4 @@ export const TileProperties = {
 };
 
 export const CharacterAnimationSpeed = 100; // milliseconds per frame
+export const ACTOR_SPEED = 200;

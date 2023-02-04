@@ -1,3 +1,4 @@
+import { ACTOR_SPEED } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -44,7 +45,7 @@ export class Player extends Actor {
         this.graphics.use(animation);
     }
 
-    normalizeAndSetVelocity(velocity: Vector, length = 350) {
+    normalizeAndSetVelocity(velocity: Vector, length = ACTOR_SPEED) {
         const normalizedVector = normalizeAndScale(
             velocity.x,
             velocity.y,
