@@ -35,4 +35,19 @@ export class AudioManager {
 
         randomHit.play();
     }
+
+    static playRandomWhooshSound() {
+        const whooshSounds = [
+            this.sounds.whoosh1,
+            this.sounds.whoosh2,
+            this.sounds.whoosh3,
+            this.sounds.whoosh4,
+        ];
+
+        const randomIndex = Math.floor(Math.random() * 4);
+
+        const randomWhoosh = whooshSounds[randomIndex];
+
+        randomWhoosh.play();
+    }
 }

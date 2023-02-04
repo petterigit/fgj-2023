@@ -65,5 +65,6 @@ export function meleeAttack(
 
     swoosh.actions.delay(MeleeAttack.duration).die();
 
+    AudioManager.playRandomWhooshSound();
     engine.currentScene.add(swoosh);
 }
