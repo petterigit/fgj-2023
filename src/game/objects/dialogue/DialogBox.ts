@@ -6,6 +6,7 @@ export const createDialogBox = (
     dialogs: string[],
     onEnd: () => void,
     characterSprite: Sprite,
+    motiveSprite: Sprite,
     resources: Resources
 ) => {
     let textIndex = 0;
