@@ -1,5 +1,5 @@
 import { ActorArgs, randomInRange, Scene, vec } from 'excalibur';
-import { newEnemyLogic } from 'game/logics/enemyLogic';
+import { enemyLogic } from 'game/logics/enemyLogic';
 import { Player } from '../player/Player';
 
 export const createEnemy = (
@@ -14,6 +14,6 @@ export const createEnemy = (
             Math.floor(randomInRange(500, 1000)),
             Math.floor(randomInRange(500, 1000))
         );
-        enemy.AddStatefulLogic(newEnemyLogic);
+        enemy.AddStatefulLogic(enemyLogic);
     }
 };
