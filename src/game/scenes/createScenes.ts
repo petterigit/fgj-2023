@@ -1,3 +1,4 @@
+import { CollisionType, Vector } from 'excalibur';
 import { GameProps, GameScene } from 'game/types';
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
@@ -22,7 +23,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
     const level1 = {
         key: SceneKeys.Level1,
         scene: createLevelScene(
-            props.objects.characters.Berry(),
+            props.objects.characters.Berry({collisionType: CollisionType.Active, pos: new Vector(16*20, 16*20)}),
             [
                 props.objects.characters.Blondie({ name: 'enemy' }),
                 props.objects.characters.Bob({ name: 'enemy' }),

@@ -1,5 +1,5 @@
 import { TileProperties } from 'consts';
-import { Engine, Scene, TileMap, vec } from 'excalibur';
+import { Engine, Scene, Shape, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { enemyLogic } from 'game/logics/enemyLogic';
 import { playerLogic } from 'game/logics/playerLogic';
@@ -117,10 +117,20 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
     for (let i = 0; i < isoMap.tiles.length; i++) {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
+        const currentCol = i % props.width;
+        const currentRow = Math.floor(i / props.width);
         tile.addGraphic(
             props.getGroundTile(rgb.r) ??
                 gameProps.resources.images.duckImage.toSprite()
         );
+
+        if ((currentRow === 19 || currentRow === 119 || currentCol === 19 || currentCol === 119) &&
+            currentRow >= 19 && currentRow <= 119 &&
+            currentCol >= 19 && currentCol <= 119
+            ) {
+            tile.addGraphic(props.getColliderTile(rgb.r)!)
+            tile.solid = true;
+        }
     }
 
     const detailIndexes = detailNoise.reduce(

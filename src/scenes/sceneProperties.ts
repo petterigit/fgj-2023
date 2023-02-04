@@ -10,8 +10,8 @@ export const Scenario1PropertiesGenerator = (
     const step = (imageMax - imageMin) / (2);
 
     return {
-        width: 100,
-        height: 100,
+        width: 140,
+        height: 140,
         resolution: 10,
         detailResolution: 2,
         zValue: 10,
@@ -26,6 +26,6 @@ export const Scenario1PropertiesGenerator = (
         getDetailTile: (noise: number) => {
             return null;
         },
-        getColliderTile: () => null,
+        getColliderTile: () => groundTiles.getSprite(20, 1),
     };
 };
