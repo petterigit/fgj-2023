@@ -11,7 +11,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
         key: SceneKeys.Dialog1,
         scene: createDialogScene(
             ['Somebody took my lollypop', 'Time to take revenge'],
-            props.resources.images.characterBerry.toSprite(),
+            props.resources.images.portraitBerry.toSprite(),
             props.resources.images.characterTryhard.toSprite(),
             SceneKeys.Level1,
             props.game,

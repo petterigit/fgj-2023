@@ -32,9 +32,9 @@ export const createDialogBox = (
      * Made for duck image :] (change the scale with correctly sized sprites)
      */
     const characterElement = new ScreenElement({
-        pos: new Vector(470.59, -442.5882352941),
+        pos: new Vector(550, -721),
 
-        scale: new Vector(0.5882352941, 0.7352941176),
+        scale: new Vector(1.2, 1.2),
     });
 
     characterElement.graphics.use(characterSprite);
