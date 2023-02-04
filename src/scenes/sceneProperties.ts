@@ -1,3 +1,4 @@
+import { randomInRange, randomIntInRange } from 'excalibur';
 import { Resources, SceneProperties } from '../game/types';
 
 export const Scenario1PropertiesGenerator = (
@@ -23,7 +24,9 @@ export const Scenario1PropertiesGenerator = (
         width: 100,
         height: 100,
         resolution: 5,
+        detailResolution: 2,
         zValue: 10,
+        detailZValue: 6,
         getGroundTile: (noise: number) => {
             const imageMin = 50;
             const imageMax = 200;
@@ -34,7 +37,12 @@ export const Scenario1PropertiesGenerator = (
             const imageIndex = Math.floor(noise / step);
             return groundTiles[imageIndex];
         },
-        getDetailTile: () => null,
+        getDetailTile: (noise: number) => {
+            if (noise > 180) {
+                return detailTiles[randomIntInRange(0, detailTiles.length)];
+            }
+            return null;
+        },
         getColliderTile: () => null,
     };
 };

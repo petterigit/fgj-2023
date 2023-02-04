@@ -8,7 +8,9 @@ export interface SceneProperties {
     width: number;
     height: number;
     resolution: number;
+    detailResolution: number;
     zValue: number;
+    detailZValue: number;
     getGroundTile(noise: number): ImageSource | null;
     getDetailTile(noise: number): ImageSource | null;
     getColliderTile(noise: number): ImageSource | null;

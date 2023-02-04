@@ -5,7 +5,7 @@ import { useDevUtils } from './devutils';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { IsometricMap, TileMap, vec } from 'excalibur';
-import { generateLevel } from './generators/worldGenerator';
+import { generateLevel as generateNoise } from './generators/worldGenerator';
 import { TileProperties, UseDevUtils } from 'consts';
 import { Scenario1PropertiesGenerator } from 'scenes/sceneProperties';
 
@@ -48,11 +48,17 @@ export const initGame = () => {
         rows: props.width,
     });
 
-    const mapNoise = generateLevel(
+    const mapNoise = generateNoise(
         isoMap.columns,
         isoMap.rows,
         props.resolution,
         props.zValue
+    );
+    const detailNoise = generateNoise(
+        isoMap.columns,
+        isoMap.rows,
+        props.detailResolution,
+        props.detailZValue
     );
 
     game.currentScene.add(isoMap);
@@ -60,9 +66,14 @@ export const initGame = () => {
     for (let i = 0; i < isoMap.tiles.length; i++) {
         const tile = isoMap.tiles[i];
         const rgb = mapNoise[i];
+        const detailRgb = detailNoise[i];
         tile.addGraphic(
             (props.getGroundTile(rgb.r) ?? resources.images.tile1).toSprite()
         );
+        const detailTile = props.getDetailTile(detailRgb.b);
+        if (detailTile) {
+            tile.addGraphic(detailTile.toSprite());
+        }
     }
 
     game.start(loader);
