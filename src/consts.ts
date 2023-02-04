@@ -50,7 +50,7 @@ export const EnemyLogic = {
     detectionRange: 150,
     hitRange: 20,
     dashChance: 0.01,
-    minDashCooldown: 50,
-    maxDashCooldown: 5000,
+    minDashCooldown: 2000,
+    maxDashCooldown: 10000,
     dashSpeed: 5000,
 };

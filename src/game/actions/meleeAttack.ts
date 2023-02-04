@@ -49,7 +49,6 @@ export function meleeAttack(
         blood.graphics.use(animations.blood());
         blood.actions.delay(500).die();
 
-        console.log('Hitted', event.other.id);
         AudioManager.playSound('viisKauttaViis');
         engine.currentScene.camera.shake(
             MeleeAttack.screenshakeDistance,
