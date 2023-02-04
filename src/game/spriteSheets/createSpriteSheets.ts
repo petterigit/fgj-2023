@@ -1,7 +1,7 @@
 import { Resources } from 'game/types';
 import { createCharacter } from './characters';
-import { createBlood, createCliffs } from './cliffs';
-import { createMelee } from './effects';
+import { createCliffs } from './cliffs';
+import { createBlood, createMelee } from './effects';
 import { createTrees } from './forestTrees';
 import { createGround } from './ground';
 
