@@ -43,11 +43,10 @@ export const createLevelScene = (
     // Placeholder end level func
 
     // Idk where it goes, uncomment to test
-    /*
+
     scene.once('predraw', () =>
         endLevel(player, gameProps.game, SceneKeys.Level2, gameProps.resources)
     );
-    */
 
     return scene;
 };
@@ -124,11 +123,17 @@ const createTileMap = (gameProps: GameProps, scene: Scene) => {
                 gameProps.resources.images.duckImage.toSprite()
         );
 
-        if ((currentRow === 19 || currentRow === 119 || currentCol === 19 || currentCol === 119) &&
-            currentRow >= 19 && currentRow <= 119 &&
-            currentCol >= 19 && currentCol <= 119
-            ) {
-            tile.addGraphic(props.getColliderTile(rgb.r)!)
+        if (
+            (currentRow === 19 ||
+                currentRow === 119 ||
+                currentCol === 19 ||
+                currentCol === 119) &&
+            currentRow >= 19 &&
+            currentRow <= 119 &&
+            currentCol >= 19 &&
+            currentCol <= 119
+        ) {
+            tile.addGraphic(props.getColliderTile(rgb.r)!);
             tile.solid = true;
         }
     }
