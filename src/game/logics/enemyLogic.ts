@@ -141,7 +141,7 @@ export function enemyLogic(): PlayerPreUpdateLogic {
             return {
                 input: getDirection(x, y),
                 actions: { meleeAttack, dash },
-                speed: 30,
+                speed: EnemyLogic.normalSpeed,
             };
         }
     };
@@ -157,20 +157,25 @@ function isPlayerClose(x: number, y: number, distance: number) {
 function getDirection(x: number, y: number) {
     let newX = 0;
     let newY = 0;
-    if (x < 0) {
+    if (x < EnemyLogic.navigationDirectionThreshold) {
         newX = -1;
     }
-
-    if (x >= 0) {
-        newX = 1;
+    if (x >= -EnemyLogic.navigationDirectionThreshold) {
+        if (newX === -1) {
+            newX = 0;
+        } else {
+            newX = 1;
+        }
     }
 
-    if (y < 0) {
+    if (y < EnemyLogic.navigationDirectionThreshold) {
         newY = -1;
-    }
-
-    if (y >= 0) {
-        newY = 1;
+    } else if (y >= -EnemyLogic.navigationDirectionThreshold) {
+        if (newY === -1) {
+            newY = 0;
+        } else {
+            newY = 1;
+        }
     }
     return vec(newX, newY);
 }
