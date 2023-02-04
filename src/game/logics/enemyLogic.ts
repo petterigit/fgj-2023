@@ -11,6 +11,7 @@ export function enemyLogic(
     let x: number;
     let y: number;
     let meleeAttack = false;
+    let dash = false;
     if (!this.player) {
         this.player = this.scene.actors.find(actor => actor.name === 'Player')!;
     }
@@ -21,7 +22,7 @@ export function enemyLogic(
         meleeAttack = true;
         return {
             input: getDirection(x, y),
-            actions: { meleeAttack },
+            actions: { meleeAttack, dash },
             speed: 75,
         };
     }
@@ -32,7 +33,11 @@ export function enemyLogic(
     x = Math.cos(angle) * 10;
     y = Math.sin(angle) * 10;
 
-    return { input: getDirection(x, y), actions: { meleeAttack }, speed: 30 };
+    return {
+        input: getDirection(x, y),
+        actions: { meleeAttack, dash },
+        speed: 30,
+    };
 }
 
 function isPlayerClose(enemy: Player, player: Actor) {
