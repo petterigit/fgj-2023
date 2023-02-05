@@ -44,6 +44,7 @@ export class Player extends Actor {
     public currentDirection: Vector = Vector.Down;
     public dashTime = 0;
     public dashCooldown = 0;
+    public isAi = false;
 
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
@@ -223,7 +224,8 @@ export class Player extends Actor {
             boundRangedAttack(
                 engine,
                 this.animationProps,
-                this.spritesheetProps
+                this.spritesheetProps,
+                this.isAi
             );
             this.rangedAttackCurrentCooldown = this.rangedAttackCooldown;
             this.rangedAttackReset = false;
