@@ -9,12 +9,16 @@ export function rangedAttack(
     engine: Engine,
     animations: CreateAnimations,
     spritesheets: CreateSpriteSheets,
-    target?: Actor
+    autoAim?: boolean
 ) {
-    // AI Autoaim
     let velocity = this.currentDirection;
-    if (target) {
-        velocity = target.pos.sub(this.pos).normalize();
+    if (autoAim) {
+        const target = engine.currentScene.actors.find(
+            actor => actor.name === 'Player'
+        );
+        if (target) {
+            velocity = target.pos.sub(this.pos).normalize();
+        }
     }
 
     const projectile = new Actor({
@@ -35,7 +39,17 @@ export function rangedAttack(
             return;
         }
 
-        if (event.other.name === 'enemy' || event.other.name === 'boss') {
+        let targetHit = false;
+        if (autoAim && event.other.name === 'Player') {
+            targetHit = true;
+        } else if (
+            !autoAim &&
+            (event.other.name === 'enemy' || event.other.name === 'boss')
+        ) {
+            targetHit = true;
+        }
+
+        if (targetHit) {
             const blood = new Actor({
                 pos: event.other.center,
                 scale: vec(0.5, 0.5),
@@ -44,6 +58,11 @@ export function rangedAttack(
             blood.actions.delay(500).die();
             engine.currentScene.add(blood);
             AudioManager.playRandomHitSound();
+
+            const target = event.other as Player;
+            if (target.stats != null) {
+                target.stats.health -= this.stats.attack;
+            }
         }
 
         engine.currentScene.camera.shake(
@@ -51,11 +70,11 @@ export function rangedAttack(
             MeleeAttack.screenshakeDistance,
             MeleeAttack.screenshakeDuration
         );
-        const target = event.other as Player;
-        if (target.stats != null) {
-            target.stats.health -= this.stats.attack;
+
+        const treeHit = !['enemy', 'boss', 'Player'].includes(event.other.name);
+        if (treeHit || targetHit) {
+            projectile.kill();
         }
-        projectile.kill();
     });
 
     projectile.actions

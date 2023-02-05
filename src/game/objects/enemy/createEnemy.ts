@@ -10,6 +10,7 @@ export const createEnemy = (
 ) => {
     for (let i = 0; i < amount; i++) {
         const enemy = enemyType({ name: 'enemy' });
+        enemy.isAi = true;
         scene.add(enemy);
         enemy.stats = { ...EnemyDefaultStats };
         enemy.pos = vec(
