@@ -34,7 +34,6 @@ class Game extends Engine {
     }
 
     public start(loader: Loader) {
-        // add custom scenes
         return super.start(loader).then(() => {
             this.goToScene(SceneKeys.Menu);
             // custom start-up

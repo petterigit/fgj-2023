@@ -14,6 +14,7 @@ import {
 } from 'excalibur';
 import { createNextButton } from 'game/objects/ui-components/NextButton';
 import { GameProps, GameScene } from 'game/types';
+import { createDialog1 } from './createScenes';
 import { SceneKeys } from './gamescenes';
 
 export const createMenu = (props: GameProps, sound?: Sound) => {
@@ -101,7 +102,11 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
 
     const nextButton = createNextButton(
         props.resources,
-        () => props.game.goToScene(SceneKeys.Dialog1),
+        () => {
+            const dialog1 = createDialog1(props);
+            props.game.addScene(dialog1.key, dialog1.scene);
+            props.game.goToScene(SceneKeys.Dialog1);
+        },
         new Vector(700, 800)
     );
 

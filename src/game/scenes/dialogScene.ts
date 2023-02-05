@@ -1,6 +1,7 @@
-import { Sprite, Engine, Scene, Sound } from 'excalibur';
+import { Sprite, Scene, Sound } from 'excalibur';
 import { createDialogBox } from 'game/objects/dialogue/DialogBox';
-import { Resources } from 'game/types';
+import { GameProps } from 'game/types';
+import { createLevel1, createLevel2, createLevel3 } from './createScenes';
 import { SceneKeys } from './gamescenes';
 
 export const createDialogScene = (
@@ -8,8 +9,7 @@ export const createDialogScene = (
     dialogSprite: Sprite,
     dialogMotiveSprite: Sprite,
     nextScene: SceneKeys,
-    game: Engine,
-    resources: Resources,
+    gameProps: GameProps,
     sound?: Sound
 ) => {
     const scene = new Scene();
@@ -17,11 +17,30 @@ export const createDialogScene = (
     const dialogueBox = createDialogBox(
         dialogTexts,
         () => {
-            game.goToScene(nextScene);
+            console.log(nextScene);
+            switch (nextScene) {
+                case SceneKeys.Level1: {
+                    const level1 = createLevel1(gameProps);
+                    gameProps.game.addScene(level1.key, level1.scene);
+                    break;
+                }
+                case SceneKeys.Level2: {
+                    console.log('create level2');
+                    const level2 = createLevel2(gameProps);
+                    gameProps.game.addScene(level2.key, level2.scene);
+                    break;
+                }
+                case SceneKeys.Level3: {
+                    const level3 = createLevel3(gameProps);
+                    gameProps.game.addScene(level3.key, level3.scene);
+                    break;
+                }
+            }
+            gameProps.game.goToScene(nextScene);
         },
         dialogSprite,
         dialogMotiveSprite,
-        resources
+        gameProps.resources
     );
 
     scene.add(dialogueBox);

@@ -1,20 +1,13 @@
 import { TileProperties } from 'consts';
-import {
-    ActorArgs,
-    Color,
-    Engine,
-    Scene,
-    Sound,
-    TileMap,
-    vec,
-} from 'excalibur';
+import { ActorArgs, Color, Scene, Sound, TileMap, vec } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
 import { createBoss } from 'game/objects/enemy/createBoss';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
-import { ColliderPos, GameProps, Resources, SceneProperties } from 'game/types';
+import { ColliderPos, GameProps, SceneProperties } from 'game/types';
+import { createDialog1, createDialog2, createDialog3 } from './createScenes';
 import { SceneKeys } from './gamescenes';
 
 // enemyType === Enum
@@ -42,22 +35,14 @@ export const createLevelScene = (
     scene.camera.strategy.elasticToActor(player, 0.1, 0.1);
     scene.camera.zoom = 4;
 
-    player.onPostKill = _scene =>
-        handleEndGame(gameProps.game, gameProps.resources, sceneProps.onDeath);
+    player.onPostKill = _scene => handleEndGame(gameProps, sceneProps.onDeath);
 
     // Create enemies function here
     for (const enemy of enemyType) {
         createEnemy(enemy, 5, scene);
     }
 
-    createBoss(
-        bossType,
-        scene,
-        nextScene,
-        player,
-        gameProps.game,
-        gameProps.resources
-    );
+    createBoss(bossType, scene, nextScene, player, gameProps);
 
     if (sound) {
         scene.on('activate', () => {
@@ -82,11 +67,10 @@ export const createLevelScene = (
 };
 
 export const handleEndGame = (
-    game: Engine,
-    resources: Resources,
+    gameProps: GameProps,
     nextScene: SceneKeys = SceneKeys.Menu
 ) => {
-    game.goToScene(nextScene);
+    gameProps.game.goToScene(nextScene);
 };
 
 /**
@@ -97,9 +81,8 @@ export const handleEndGame = (
  */
 export const endLevel = (
     player: Player,
-    game: Engine,
-    nextScene: SceneKeys,
-    resources: Resources
+    gameProps: GameProps,
+    nextScene: SceneKeys
 ) => {
     /* Ei ole koskaan ollut näin helppoa pysäyttää sceneä
     
@@ -110,7 +93,7 @@ export const endLevel = (
         )
         
     */
-    game.currentScene.entities.forEach(entity => {
+    gameProps.game.currentScene.entities.forEach(entity => {
         entity.active = false;
     });
     const levelUpMessage = player.LevelUp();
@@ -120,12 +103,31 @@ export const endLevel = (
         vec(200, 100),
         levelUpMessage,
         () => {
-            game.goToScene(nextScene);
+            console.log(nextScene);
+            switch (nextScene) {
+                case SceneKeys.Dialog1: {
+                    const dialog1 = createDialog1(gameProps);
+                    gameProps.game.addScene(dialog1.key, dialog1.scene);
+                    break;
+                }
+                case SceneKeys.Dialog2: {
+                    console.log('create dialog 2');
+                    const dialog2 = createDialog2(gameProps);
+                    gameProps.game.addScene(dialog2.key, dialog2.scene);
+                    break;
+                }
+                case SceneKeys.Dialog3: {
+                    const dialog3 = createDialog3(gameProps);
+                    gameProps.game.addScene(dialog3.key, dialog3.scene);
+                    break;
+                }
+            }
+            gameProps.game.goToScene(nextScene);
             levelUpElement.kill();
         },
-        resources
+        gameProps.resources
     );
-    game.currentScene.add(levelUpElement);
+    gameProps.game.currentScene.add(levelUpElement);
 };
 
 const createTileMap = (

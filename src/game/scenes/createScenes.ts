@@ -9,17 +9,14 @@ import {
 import { createDialogScene } from './dialogScene';
 import { SceneKeys } from './gamescenes';
 import { createLevelScene } from './levelScene';
-import { createMenu } from './menu';
 
-export const createScenes = (props: GameProps): GameScene[] => {
+const playerDefaultProps: ActorArgs = {
+    collisionType: CollisionType.Active,
+};
+
+export const createDialog1 = (props: GameProps): GameScene => {
     const sounds = AudioManager.getSounds();
-
-    const menu = createMenu(props, sounds.menuMusicLoop);
-    const playerDefaultProps: ActorArgs = {
-        collisionType: CollisionType.Active,
-    };
-
-    const dialog1 = {
+    return {
         key: SceneKeys.Dialog1,
         scene: createDialogScene(
             [
@@ -41,14 +38,16 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.portraitBerry.toSprite(),
             props.resources.images.characterTryhard.toSprite(),
             SceneKeys.Level1,
-            props.game,
-            props.resources,
+            props,
             sounds.gameMusicLoop
         ),
     };
+};
 
+export const createLevel1 = (props: GameProps): GameScene => {
     const scene1Props = Scenario1PropertiesGenerator(props);
-    const level1 = {
+    const sounds = AudioManager.getSounds();
+    return {
         key: SceneKeys.Level1,
         scene: createLevelScene(
             props.objects.characters.Berry({
@@ -72,8 +71,11 @@ export const createScenes = (props: GameProps): GameScene[] => {
             sounds.gameMusicLoop
         ),
     };
+};
 
-    const dialog2 = {
+export const createDialog2 = (props: GameProps): GameScene => {
+    const sounds = AudioManager.getSounds();
+    return {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
             [
@@ -95,14 +97,16 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.portraitBob.toSprite(),
             props.resources.images.characterTeacher.toSprite(),
             SceneKeys.Level2,
-            props.game,
-            props.resources,
+            props,
             sounds.gameMusicLoop
         ),
     };
+};
 
+export const createLevel2 = (props: GameProps): GameScene => {
     const scene2Props = Scenario2PropertiesGenerator(props);
-    const level2 = {
+    const sounds = AudioManager.getSounds();
+    return {
         key: SceneKeys.Level2,
         scene: createLevelScene(
             props.objects.characters.Bob({
@@ -126,8 +130,11 @@ export const createScenes = (props: GameProps): GameScene[] => {
             sounds.gameMusicLoop
         ),
     };
+};
 
-    const dialog3 = {
+export const createDialog3 = (props: GameProps): GameScene => {
+    const sounds = AudioManager.getSounds();
+    return {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
             [
@@ -141,14 +148,16 @@ export const createScenes = (props: GameProps): GameScene[] => {
             props.resources.images.portraitKala.toSprite(),
             props.resources.images.characterBerry.toSprite(),
             SceneKeys.Level3,
-            props.game,
-            props.resources,
+            props,
             sounds.gameMusicLoop
         ),
     };
+};
 
+export const createLevel3 = (props: GameProps): GameScene => {
     const scene3Props = Scenario3PropertiesGenerator(props);
-    const level3 = {
+    const sounds = AudioManager.getSounds();
+    return {
         key: SceneKeys.Level3,
         scene: createLevelScene(
             props.objects.characters.Gobbo({
@@ -172,6 +181,4 @@ export const createScenes = (props: GameProps): GameScene[] => {
             sounds.gameMusicLoop
         ),
     };
-
-    return [menu, level1, dialog1, level2, dialog2, level3, dialog3];
 };
