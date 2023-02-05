@@ -14,6 +14,7 @@ export class StatsManager {
     public static enemyStats: Stats;
     public static bossStats: Stats;
     public static playerStats: Stats;
+    public static maxHP: number = PlayerDefaultStats.health;
 
     constructor() {
         StatsManager.Init();
@@ -90,6 +91,7 @@ export class StatsManager {
                 StatsManager.playerStats.health * 1.5
             );
             StatsManager.playerStats.health += healthIncrease;
+            StatsManager.maxHP = StatsManager.playerStats.health;
             return `Health was increased by ${healthIncrease}!`;
         }
 
@@ -102,5 +104,10 @@ export class StatsManager {
         } else {
             return 'Level up!';
         }
+    }
+
+    static GetHpDifferenceFromMax() {
+        const difference = StatsManager.maxHP - StatsManager.playerStats.health;
+        return difference;
     }
 }

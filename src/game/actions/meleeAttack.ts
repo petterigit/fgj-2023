@@ -1,6 +1,7 @@
 import { MeleeAttack } from 'consts';
 import { Actor, CollisionType, Engine, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
+import { StatsManager } from 'game/objects/player/statsmanager';
 import { AudioManager } from 'game/resources/sounds/audiomanager';
 import { CreateAnimations } from 'game/types';
 import { vectorDirectionToRadians } from '../engine/physics/vectors';
@@ -35,7 +36,12 @@ export function meleeAttack(
     swoosh.graphics.use(animation);
 
     swoosh.on('collisionstart', event => {
-        if (
+        if (event.other.name === 'treeboy') {
+            const difference = StatsManager.GetHpDifferenceFromMax();
+            this.changeHealth(difference);
+            event.other.kill();
+            return;
+        } else if (
             event.other.id === this.id ||
             (event.other.name !== 'Player' &&
                 event.other.name !== 'enemy' &&
