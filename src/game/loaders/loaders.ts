@@ -16,7 +16,6 @@ export const createLoader = (props: Resources) => {
      */
     const resources = Object.values({ ...sounds, ...images });
     const loader = new Loader(resources);
-    loader.suppressPlayButton = true;
 
     return loader;
 };
