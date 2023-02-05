@@ -2,13 +2,14 @@ import { createGame } from './engine/game';
 import { createObjects } from './objects/createObjects';
 import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
-import { createScenes } from './scenes/createScenes';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
 import { createSpriteSheets } from './spriteSheets/createSpriteSheets';
 import { UseDevUtils } from 'consts';
 import { SceneKeys } from './scenes/gamescenes';
 import { createAnimations } from './animations/createAnimations';
+import { createMenu } from './scenes/menu';
+import { AudioManager } from './resources/sounds/audiomanager';
 //import { PostProcessor } from './postProcessor';
 
 /**
@@ -42,11 +43,8 @@ export const initGame = () => {
         useDevUtils(gameProps);
     }
 
-    const scenes = createScenes(gameProps);
-
-    scenes.forEach(gameScene => {
-        game.add(gameScene.key, gameScene.scene);
-    });
+    const menu = createMenu(gameProps, AudioManager.getSounds().menuMusicLoop);
+    game.addScene(menu.key, menu.scene);
 
     // game.graphicsContext.addPostProcessor(new PostProcessor());
     /* game.goToScene can be used to change scenes *wink* *wink* */

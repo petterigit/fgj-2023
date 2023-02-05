@@ -1,9 +1,9 @@
 import { BossDefaultStats } from 'consts';
-import { ActorArgs, Scene, vec, randomInRange, Engine } from 'excalibur';
+import { ActorArgs, Scene, vec, randomInRange } from 'excalibur';
 import { bossLogic } from 'game/logics/enemyLogic';
 import { SceneKeys } from 'game/scenes/gamescenes';
 import { endLevel } from 'game/scenes/levelScene';
-import { Resources } from 'game/types';
+import { GameProps } from 'game/types';
 import { Player } from '../player/Player';
 
 export const createBoss = (
@@ -11,8 +11,7 @@ export const createBoss = (
     scene: Scene,
     nextScene: SceneKeys,
     player: Player,
-    game: Engine,
-    resources: Resources
+    gameProps: GameProps
 ) => {
     const boss = enemyType({ name: 'boss' });
     boss.isAi = true;
@@ -24,6 +23,6 @@ export const createBoss = (
     );
     boss.AddStatefulLogic(bossLogic);
     boss.on('kill', () => {
-        endLevel(player, game, nextScene, resources);
+        endLevel(player, gameProps, nextScene);
     });
 };
