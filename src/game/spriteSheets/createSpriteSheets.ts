@@ -6,11 +6,13 @@ import { createTrees } from './forestTrees';
 import { createGround } from './ground';
 import { createHouse } from './house';
 import { createRocks } from './rocks';
+import { createTreeBoy } from './treeBoy';
 
 export const createSpriteSheets = (resources: Resources) => {
     const groundSheet = createGround(resources);
     const treesSheet = createTrees(resources);
     const cliffSheet = createCliffs(resources);
+    const treeBoy = createTreeBoy(resources);
     const house = createHouse(resources);
     const melee = createMelee(resources);
     const rocks = createRocks(resources);
@@ -29,6 +31,7 @@ export const createSpriteSheets = (resources: Resources) => {
         ground: groundSheet,
         cliff: cliffSheet,
         house,
+        treeBoy,
         effects: {
             melee,
             blood,

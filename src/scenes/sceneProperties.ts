@@ -13,6 +13,7 @@ export const Scenario1PropertiesGenerator = (
     const imageMax = 200;
     const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
+    let addedTreeBoy = false;
 
     const greenTrees = [
         props.objects.trees.Green1,
@@ -39,6 +40,10 @@ export const Scenario1PropertiesGenerator = (
             return groundTiles.getSprite(imageIndex * 11 + 1, 1);
         },
         getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 225 && !addedTreeBoy) {
+                addedTreeBoy = true;
+                return props.objects.treeBoy(pos);
+            }
             if (noise.b > 200) {
                 return sample(greenTrees)(pos);
             }
@@ -71,6 +76,7 @@ export const Scenario2PropertiesGenerator = (
     const imageMax = 200;
     const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
+    let addedTreeBoy = false;
 
     const redTrees = [
         props.objects.trees.Red1,
@@ -97,6 +103,10 @@ export const Scenario2PropertiesGenerator = (
             return groundTiles.getSprite(imageIndex * 11 + 1, 11);
         },
         getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 225 && !addedTreeBoy) {
+                addedTreeBoy = true;
+                return props.objects.treeBoy(pos);
+            }
             if (noise.b > 200) {
                 return sample(redTrees)(pos);
             }
@@ -126,6 +136,7 @@ export const Scenario3PropertiesGenerator = (
     const imageMax = 200;
     const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
+    let addedTreeBoy = false;
 
     const yellowTrees = [
         props.objects.trees.Yellow1,
@@ -152,6 +163,10 @@ export const Scenario3PropertiesGenerator = (
             return groundTiles.getSprite(imageIndex * 11 + 1, 6);
         },
         getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 225 && !addedTreeBoy) {
+                addedTreeBoy = true;
+                return props.objects.treeBoy(pos);
+            }
             if (noise.b > 200) {
                 return sample(yellowTrees)(pos);
             }
