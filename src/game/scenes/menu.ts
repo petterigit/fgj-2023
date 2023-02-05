@@ -78,10 +78,11 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
     });
 
     const keysLabel = new Label({
-        text: 'Esc returns to menu',
-        pos: new Vector(640, 1045),
+        text: 'Esc returns to menu\nWASD/Arrows to move\nSpace to attack\nE to throw rock\nShift to dash',
+        pos: new Vector(1150, 970),
         font: new Font({
             size: 20,
+            padding: 10,
             family: 'sans-serif',
             style: FontStyle.Normal,
             bold: false,
