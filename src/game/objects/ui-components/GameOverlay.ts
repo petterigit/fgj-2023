@@ -1,5 +1,14 @@
 import { GameUI } from 'consts';
-import { Color, Engine, Font, ScreenElement, Text, vec } from 'excalibur';
+import {
+    Color,
+    Engine,
+    ExcaliburGraphicsContextWebGL,
+    Font,
+    ScreenElement,
+    Text,
+    vec,
+} from 'excalibur';
+import { PostProcessor } from 'game/postProcessor';
 import { Resources } from 'game/types';
 import { StatsManager } from '../player/statsmanager';
 

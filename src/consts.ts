@@ -80,4 +80,5 @@ export const GameUI = {
     fontSize: 40,
     z: 1000,
     fontZ: 1001,
+    lowHealthLevel: 30,
 };
