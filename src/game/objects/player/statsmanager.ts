@@ -1,7 +1,6 @@
 import {
     BossDefaultStats,
     EnemyDefaultStats,
-    GameUI,
     PlayerDefaultStats,
 } from 'consts';
 
