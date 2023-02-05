@@ -105,8 +105,14 @@ export class Player extends Actor {
         this.graphics.use(this.animations[this.animation]);
     }
 
+    public changeHealth(amount: number) {
+        this.stats.health += amount;
+        if (!this.isAi) {
+            StatsManager.playerStats.health += amount;
+        }
+    }
+
     onPreUpdate(engine: Engine, delta: number) {
-        console.log(this.stats);
         super.onPreUpdate(engine, delta);
 
         let props = this.preUpdateLogic?.(engine, delta);
