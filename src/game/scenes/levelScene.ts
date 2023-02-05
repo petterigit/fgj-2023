@@ -1,10 +1,11 @@
 import { TileProperties } from 'consts';
-import { ActorArgs, Color, Scene, Sound, TileMap, vec } from 'excalibur';
+import { ActorArgs, Sound, Scene, vec, TileMap, Color } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
 import { createBoss } from 'game/objects/enemy/createBoss';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
+import { StatsManager } from 'game/objects/player/statsmanager';
 import { createGameOverlay } from 'game/objects/ui-components/GameOverlay';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
 import { ColliderPos, GameProps, SceneProperties } from 'game/types';
@@ -97,7 +98,8 @@ export const endLevel = (
     gameProps.game.currentScene.entities.forEach(entity => {
         entity.active = false;
     });
-    const levelUpMessage = player.LevelUp();
+
+    const levelUpMessage = StatsManager.LevelUp();
 
     // Show level up message here
     const levelUpElement = createLevelUpDialog(

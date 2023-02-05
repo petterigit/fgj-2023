@@ -1,7 +1,7 @@
-import { EnemyDefaultStats } from 'consts';
-import { ActorArgs, Scene, vec } from 'excalibur';
+import { ActorArgs, randomInRange, Scene, vec } from 'excalibur';
 import { enemyLogic } from 'game/logics/enemyLogic';
 import { Player } from '../player/Player';
+import { StatsManager } from '../player/statsmanager';
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -23,7 +23,11 @@ export const createEnemy = (
         const enemy = enemyType({ name: 'enemy' });
         enemy.isAi = true;
         scene.add(enemy);
-        enemy.stats = { ...EnemyDefaultStats };
+        enemy.stats = { ...StatsManager.enemyStats };
+        enemy.pos = vec(
+            Math.floor(randomInRange(300, 1900)),
+            Math.floor(randomInRange(300, 1900))
+        );
         enemy.pos = vec(getRandomInt(X_MIN, X_MAX), getRandomInt(Y_MIN, Y_MAX));
         console.log(enemy.pos.x, ' : ', enemy.pos.y);
 

@@ -1,6 +1,5 @@
 import { createGame } from './engine/game';
 import { createObjects } from './objects/createObjects';
-import { initGameEvents } from './events/gameEvents';
 import { useDevUtils } from './devutils';
 import { createLoader } from './loaders/loaders';
 import { createResources } from './resources';
@@ -34,8 +33,6 @@ export const initGame = () => {
     const objects = createObjects(game, resources, spriteSheets, animations);
 
     const gameProps = { game, objects, resources, spriteSheets, animations };
-
-    initGameEvents(gameProps);
 
     const loader = createLoader(resources);
 
