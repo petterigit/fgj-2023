@@ -11,7 +11,7 @@ export const Scenario1PropertiesGenerator = (
     const imageMin = 50;
     const rocks = props.objects.rocks;
     const imageMax = 200;
-    const step = (imageMax - imageMin) / (2);
+    const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
 
     const greenTrees = [
@@ -33,7 +33,7 @@ export const Scenario1PropertiesGenerator = (
         onDeath: SceneKeys.Menu,
         getGroundTile: (noise: number) => {
             if (noise <= imageMin) noise = imageMin;
-            if (noise >= imageMax) noise = (imageMax - 1);
+            if (noise >= imageMax) noise = imageMax - 1;
             noise -= imageMin;
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 1);
@@ -53,9 +53,9 @@ export const Scenario1PropertiesGenerator = (
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
                 case ColliderPos.sideBottom:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
                 default:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
             }
         },
     };
@@ -69,10 +69,8 @@ export const Scenario2PropertiesGenerator = (
     const rocks = props.objects.rocks;
     const imageMin = 50;
     const imageMax = 200;
-    const step = (imageMax - imageMin) / (2);
+    const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
-
-
 
     const redTrees = [
         props.objects.trees.Red1,
@@ -93,7 +91,7 @@ export const Scenario2PropertiesGenerator = (
         onDeath: SceneKeys.Menu,
         getGroundTile: (noise: number) => {
             if (noise <= imageMin) noise = imageMin;
-            if (noise >= imageMax) noise = (imageMax - 1);
+            if (noise >= imageMax) noise = imageMax - 1;
             noise -= imageMin;
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 11);
@@ -110,9 +108,9 @@ export const Scenario2PropertiesGenerator = (
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
                 case ColliderPos.sideBottom:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
                 default:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
             }
         },
     };
@@ -126,10 +124,8 @@ export const Scenario3PropertiesGenerator = (
     //const detailTiles = props.spriteSheets.trees;
     const imageMin = 50;
     const imageMax = 200;
-    const step = (imageMax - imageMin) / (2);
+    const step = (imageMax - imageMin) / 2;
     const cliff = props.spriteSheets.cliff;
-
-
 
     const yellowTrees = [
         props.objects.trees.Yellow1,
@@ -150,7 +146,7 @@ export const Scenario3PropertiesGenerator = (
         onDeath: SceneKeys.Menu,
         getGroundTile: (noise: number) => {
             if (noise <= imageMin) noise = imageMin;
-            if (noise >= imageMax) noise = (imageMax - 1);
+            if (noise >= imageMax) noise = imageMax - 1;
             noise -= imageMin;
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 6);
@@ -167,15 +163,13 @@ export const Scenario3PropertiesGenerator = (
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
                 case ColliderPos.sideBottom:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
                 default:
-                    return cliff.getSprite(2, 1)!
+                    return cliff.getSprite(2, 1)!;
             }
         },
     };
 };
-
-
 
 const sample = <T>(arr: Array<T>) =>
     arr[Math.floor(Math.random() * arr.length)];

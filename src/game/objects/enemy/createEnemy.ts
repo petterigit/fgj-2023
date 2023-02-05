@@ -9,10 +9,10 @@ function getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
-const X_MIN = 300;
-const X_MAX = 1900;
-const Y_MIN = 300;
-const Y_MAX = 1900;
+const X_MIN = 350;
+const X_MAX = 1850;
+const Y_MIN = 350;
+const Y_MAX = 1850;
 
 export const createEnemy = (
     enemyType: (args?: ActorArgs | undefined) => Player,

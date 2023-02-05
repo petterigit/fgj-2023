@@ -63,7 +63,7 @@ export type RockType =
     | 'Rock3'
     | 'Rock4'
     | 'Rock5'
-    | 'Rock6'
+    | 'Rock6';
 
 export type TreeType =
     | 'Yellow1'
