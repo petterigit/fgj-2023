@@ -45,6 +45,9 @@ export const Scenario1PropertiesGenerator = (
             if (noise.r > 200) {
                 return sample(Object.values(rocks))(pos);
             }
+            if (noise.g > 220) {
+                return props.objects.house(pos);
+            }
             return null;
         },
         getColliderTile: (pos: ColliderPos) => {
