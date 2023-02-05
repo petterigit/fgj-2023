@@ -19,6 +19,7 @@ export const createDialog1 = (props: GameProps): GameScene => {
     return {
         key: SceneKeys.Dialog1,
         scene: createDialogScene(
+            'Berry',
             [
                 "I can't believe it, just a few moments ago I was enjoying my lollipop in the park.",
                 'Then a stranger came and took it away from me, just like that.',
@@ -36,7 +37,7 @@ export const createDialog1 = (props: GameProps): GameScene => {
                 "And when I find you, you'll regret ever taking my lollipop.",
             ],
             props.resources.images.portraitBerry.toSprite(),
-            props.resources.images.characterTryhard.toSprite(),
+            props.resources.images.berryMotive.toSprite(),
             SceneKeys.Level1,
             props,
             sounds.gameMusicLoop
@@ -78,6 +79,7 @@ export const createDialog2 = (props: GameProps): GameScene => {
     return {
         key: SceneKeys.Dialog2,
         scene: createDialogScene(
+            'Bobby',
             [
                 'Allow me to introduce myself, I am Bobby.',
                 'A man of simple origins but with a steadfast resolve.',
@@ -95,7 +97,7 @@ export const createDialog2 = (props: GameProps): GameScene => {
                 'And when I find him, he shall rue the day he ever thought to threaten the innocent.',
             ],
             props.resources.images.portraitBob.toSprite(),
-            props.resources.images.characterTeacher.toSprite(),
+            props.resources.images.bobbyMotive.toSprite(),
             SceneKeys.Level2,
             props,
             sounds.gameMusicLoop
@@ -134,9 +136,12 @@ export const createLevel2 = (props: GameProps): GameScene => {
 
 export const createDialog3 = (props: GameProps): GameScene => {
     const sounds = AudioManager.getSounds();
+    const fishManMotive = props.resources.images.fishManMotive.toSprite();
+    fishManMotive.scale = vec(0.55, 0.55);
     return {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
+            'Fish man',
             [
                 "I'm the fish man, fierce and grand, Ruler of the seas and ocean land.",
                 "A pearl was stolen, this I can't condone,  And I'll make sure the thief atones.",
@@ -146,7 +151,7 @@ export const createDialog3 = (props: GameProps): GameScene => {
                 "For thieving's wrong, and this you'll learn,  And regret will be your constant yearn.",
             ],
             props.resources.images.portraitKala.toSprite(),
-            props.resources.images.characterBerry.toSprite(),
+            fishManMotive,
             SceneKeys.Level3,
             props,
             sounds.gameMusicLoop

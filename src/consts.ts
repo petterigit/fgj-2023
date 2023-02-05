@@ -23,6 +23,14 @@ export const MeleeAttack = {
     screenshakeDuration: 100,
 };
 
+export const RangedAttack = {
+    width: 5,
+    height: 5,
+    velocity: 200,
+    cooldown: 1500,
+    rotateSpeed: Math.PI * 4, // Two rounds in 1 second
+};
+
 export const PlayerDefaultStats = {
     health: 100,
     attack: 10,
@@ -48,6 +56,8 @@ export const EnemyLogic = {
     maxMeleeAttackCooldown: 5000,
     minPreMeleeAttackWait: 500,
     maxPreMeleeAttackWait: 2000,
+    minRangedAttackCooldown: 50,
+    maxRangedAttackCooldown: 5000,
     minWanderCooldown: 50,
     maxWanderCooldown: 5000,
     chanceToStayStill: 0.3,
@@ -56,6 +66,7 @@ export const EnemyLogic = {
     detectionRange: 150,
     hitRange: 20,
     dashChance: 0.01,
+    rangedAttackChance: 0.01,
     minDashCooldown: 2000,
     maxDashCooldown: 10000,
     dashSpeed: 5000,

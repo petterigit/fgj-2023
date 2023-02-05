@@ -13,6 +13,7 @@ import { Resources } from 'game/types';
 import { createNextButton } from '../ui-components/NextButton';
 
 export const createDialogBox = (
+    characterName: string,
     dialogs: string[],
     onEnd: () => void,
     characterSprite: Sprite,
@@ -27,6 +28,18 @@ export const createDialogBox = (
         color: Color.LightGray,
         width: 1500,
         height: 600,
+    });
+
+    const name = new Text({
+        text: characterName,
+        font: new Font({
+            size: 40,
+            family: 'sans-serif',
+            style: FontStyle.Normal,
+            bold: true,
+            textAlign: TextAlign.Left,
+            baseAlign: BaseAlign.Alphabetic,
+        }),
     });
 
     const dialogTexts = dialogs.map(
@@ -65,6 +78,12 @@ export const createDialogBox = (
 
     motiveElement.graphics.opacity = 0;
 
+    const characterNameContainer = new ScreenElement({
+        pos: new Vector(30, 55),
+    });
+
+    characterNameContainer.graphics.use(name);
+
     const dialogTextContainer = new ScreenElement({
         pos: new Vector(30, 120),
     });
@@ -98,6 +117,7 @@ export const createDialogBox = (
 
     element.addChild(motiveElement);
     element.addChild(characterElement);
+    element.addChild(characterNameContainer);
     element.addChild(dialogTextContainer);
     element.addChild(nextButton);
 

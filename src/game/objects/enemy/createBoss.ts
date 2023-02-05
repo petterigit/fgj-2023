@@ -14,6 +14,7 @@ export const createBoss = (
     gameProps: GameProps
 ) => {
     const boss = enemyType({ name: 'boss' });
+    boss.isAi = true;
     scene.add(boss);
     boss.stats = { ...BossDefaultStats };
     boss.pos = vec(

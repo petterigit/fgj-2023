@@ -183,20 +183,8 @@ const createTileMap = (
             );
             tile.solid = true;
         }
-    }
-
-    const detailIndexes = detailNoise.reduce(
-        (arr, next, i) => {
-            return next.b > 200 ? [...arr, i] : arr;
-        },
-        [0]
-    );
-
-    for (const index of detailIndexes) {
-        const tile = isoMap.tiles[index];
-        const detail = sceneProps.getDetailTile(tile.pos);
+        const detail = sceneProps.getDetailTile(detailNoise[i], tile.pos);
         if (detail) {
-            detail.z = 100;
             scene.add(detail);
         }
     }

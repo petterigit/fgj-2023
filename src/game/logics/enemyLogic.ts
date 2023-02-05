@@ -1,5 +1,5 @@
-import { EnemyLogic } from 'consts';
-import { Engine, randomInRange, vec, Vector } from 'excalibur';
+import { EnemyLogic, RangedAttack } from 'consts';
+import { Engine, randomInRange, Ray, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
 
@@ -19,13 +19,19 @@ export function enemyLogic(): PlayerPreUpdateLogic {
         EnemyLogic.minMeleeAttackCooldown,
         EnemyLogic.maxMeleeAttackCooldown
     );
-    let currentAttackCooldown = meleeAttackCooldown;
+    let currentMeleeAttackCooldown = meleeAttackCooldown;
 
     const meleeAttackWaitDuration = randomInRange(
         EnemyLogic.minPreMeleeAttackWait,
         EnemyLogic.maxPreMeleeAttackWait
     );
     let currentMeleeAttackWaitDuration = meleeAttackWaitDuration;
+
+    const rangedAttackCooldown = randomInRange(
+        EnemyLogic.minRangedAttackCooldown,
+        EnemyLogic.maxRangedAttackCooldown
+    );
+    let currentRangedAttackCooldown = rangedAttackCooldown;
 
     const wanderCooldown = randomInRange(
         EnemyLogic.minMeleeAttackCooldown,
@@ -44,8 +50,9 @@ export function enemyLogic(): PlayerPreUpdateLogic {
         engine: Engine,
         delta: number
     ): PlayerPreUpdateLogicProps | null {
-        let meleeAttack = false;
-        let dash = false;
+        let meleeAttack = false,
+            rangedAttack = false,
+            dash = false;
 
         // Get player from scene
         if (!player) {
@@ -65,8 +72,11 @@ export function enemyLogic(): PlayerPreUpdateLogic {
         if (currentChangeStateCooldown > 0) {
             currentChangeStateCooldown -= delta;
         }
-        if (currentAttackCooldown > 0) {
-            currentAttackCooldown -= delta;
+        if (currentMeleeAttackCooldown > 0) {
+            currentMeleeAttackCooldown -= delta;
+        }
+        if (currentRangedAttackCooldown > 0) {
+            currentRangedAttackCooldown -= delta;
         }
         if (currentWanderCooldown > 0) {
             currentWanderCooldown -= delta;
@@ -89,15 +99,29 @@ export function enemyLogic(): PlayerPreUpdateLogic {
         // Handle battle mode
         if (battleMode) {
             const isInMeleeRange = isPlayerClose(x, y, EnemyLogic.hitRange);
+
+            // Handle attack wait timer
             if (
                 !isInMeleeRange &&
                 currentMeleeAttackWaitDuration < meleeAttackWaitDuration
             ) {
                 currentMeleeAttackWaitDuration += delta;
             }
-            if (currentAttackCooldown < 0 && isInMeleeRange) {
+
+            // Handle ranged attack
+            if (
+                !isInMeleeRange &&
+                currentRangedAttackCooldown < 0 &&
+                Math.random() < EnemyLogic.rangedAttackChance
+            ) {
+                rangedAttack = true;
+                currentRangedAttackCooldown = rangedAttackCooldown;
+            }
+
+            // Handle melee attack
+            if (currentMeleeAttackCooldown < 0 && isInMeleeRange) {
                 if (currentMeleeAttackWaitDuration < 0) {
-                    currentAttackCooldown = meleeAttackCooldown;
+                    currentMeleeAttackCooldown = meleeAttackCooldown;
                     this.meleeAttackReset = true;
                     meleeAttack = true;
                 } else {
@@ -115,7 +139,7 @@ export function enemyLogic(): PlayerPreUpdateLogic {
             }
             return {
                 input: getDirection(x, y),
-                actions: { meleeAttack, dash },
+                actions: { meleeAttack, dash, rangedAttack },
                 speed: dash ? EnemyLogic.dashSpeed : EnemyLogic.chaseSpeed,
             };
         }
@@ -129,7 +153,7 @@ export function enemyLogic(): PlayerPreUpdateLogic {
             if (Math.random() < EnemyLogic.chanceToStayStill) {
                 return {
                     input: Vector.Zero,
-                    actions: { meleeAttack, dash },
+                    actions: { meleeAttack, dash, rangedAttack },
                     speed: 0,
                 };
             }
@@ -140,7 +164,7 @@ export function enemyLogic(): PlayerPreUpdateLogic {
 
             return {
                 input: getDirection(x, y),
-                actions: { meleeAttack, dash },
+                actions: { meleeAttack, dash, rangedAttack },
                 speed: EnemyLogic.normalSpeed,
             };
         }

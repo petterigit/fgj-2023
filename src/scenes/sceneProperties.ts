@@ -1,4 +1,5 @@
 import { Vector } from 'excalibur';
+import { Rgb } from 'game/generators/worldGenerator';
 import { SceneKeys } from 'game/scenes/gamescenes';
 import { ColliderPos, GameProps, SceneProperties } from '../game/types';
 
@@ -8,6 +9,7 @@ export const Scenario1PropertiesGenerator = (
     const groundTiles = props.spriteSheets.ground;
     //const detailTiles = props.spriteSheets.trees;
     const imageMin = 50;
+    const rocks = props.objects.rocks;
     const imageMax = 200;
     const step = (imageMax - imageMin) / (2);
     const cliff = props.spriteSheets.cliff;
@@ -36,8 +38,14 @@ export const Scenario1PropertiesGenerator = (
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 1);
         },
-        getDetailTile: (pos: Vector) => {
-            return sample(greenTrees)(pos);
+        getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 200) {
+                return sample(greenTrees)(pos);
+            }
+            if (noise.r > 200) {
+                return sample(Object.values(rocks))(pos);
+            }
+            return null;
         },
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
@@ -55,6 +63,7 @@ export const Scenario2PropertiesGenerator = (
 ): SceneProperties => {
     const groundTiles = props.spriteSheets.ground;
     //const detailTiles = props.spriteSheets.trees;
+    const rocks = props.objects.rocks;
     const imageMin = 50;
     const imageMax = 200;
     const step = (imageMax - imageMin) / (2);
@@ -86,8 +95,14 @@ export const Scenario2PropertiesGenerator = (
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 11);
         },
-        getDetailTile: (pos: Vector) => {
-            return sample(redTrees)(pos);
+        getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 200) {
+                return sample(redTrees)(pos);
+            }
+            if (noise.r > 200) {
+                return sample(Object.values(rocks))(pos);
+            }
+            return null;
         },
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
@@ -104,6 +119,7 @@ export const Scenario3PropertiesGenerator = (
     props: GameProps
 ): SceneProperties => {
     const groundTiles = props.spriteSheets.ground;
+    const rocks = props.objects.rocks;
     //const detailTiles = props.spriteSheets.trees;
     const imageMin = 50;
     const imageMax = 200;
@@ -136,8 +152,14 @@ export const Scenario3PropertiesGenerator = (
             const imageIndex = Math.floor(noise / step);
             return groundTiles.getSprite(imageIndex * 11 + 1, 6);
         },
-        getDetailTile: (pos: Vector) => {
-            return sample(yellowTrees)(pos);
+        getDetailTile: (noise: Rgb, pos: Vector) => {
+            if (noise.b > 200) {
+                return sample(yellowTrees)(pos);
+            }
+            if (noise.r > 200) {
+                return sample(Object.values(rocks))(pos);
+            }
+            return null;
         },
         getColliderTile: (pos: ColliderPos) => {
             switch (pos) {
@@ -149,6 +171,8 @@ export const Scenario3PropertiesGenerator = (
         },
     };
 };
+
+
 
 const sample = <T>(arr: Array<T>) =>
     arr[Math.floor(Math.random() * arr.length)];

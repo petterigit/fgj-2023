@@ -5,6 +5,7 @@ import { createLevel1, createLevel2, createLevel3 } from './createScenes';
 import { SceneKeys } from './gamescenes';
 
 export const createDialogScene = (
+    characterName: string,
     dialogTexts: string[],
     dialogSprite: Sprite,
     dialogMotiveSprite: Sprite,
@@ -15,6 +16,7 @@ export const createDialogScene = (
     const scene = new Scene();
 
     const dialogueBox = createDialogBox(
+        characterName,
         dialogTexts,
         () => {
             console.log(nextScene);

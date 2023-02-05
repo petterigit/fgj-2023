@@ -1,4 +1,4 @@
-import { MeleeAttack, PlayerDefaultStats } from 'consts';
+import { MeleeAttack, PlayerDefaultStats, RangedAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -11,9 +11,11 @@ import {
 } from 'excalibur';
 import { dash } from 'game/actions/dash';
 import { meleeAttack } from 'game/actions/meleeAttack';
+import { rangedAttack } from 'game/actions/rangedAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
 import {
     CreateAnimations,
+    CreateSpriteSheets,
     PlayerPreUpdateLogic,
     PlayerPreUpdateLogicGenerator,
 } from 'game/types';
@@ -34,6 +36,7 @@ export class Player extends Actor {
     protected animations: PlayerArgs['animations'];
     protected animation: PlayerAnimation;
     protected animationProps: CreateAnimations;
+    protected spritesheetProps: CreateSpriteSheets;
     private preUpdateLogic:
         | PlayerPreUpdateLogic
         | PlayerPreUpdateLogicGenerator
@@ -41,13 +44,23 @@ export class Player extends Actor {
     public currentDirection: Vector = Vector.Down;
     public dashTime = 0;
     public dashCooldown = 0;
+    public isAi = false;
 
     public meleeAttackCooldown = MeleeAttack.cooldown;
     public meleeAttackCurrentCooldown = 0;
     public meleeAttackReset = true;
+
+    public rangedAttackCooldown = RangedAttack.cooldown;
+    public rangedAttackCurrentCooldown = 0;
+    public rangedAttackReset = true;
+
     public stats = { ...PlayerDefaultStats };
 
-    constructor(config: PlayerArgs, animations: CreateAnimations) {
+    constructor(
+        config: PlayerArgs,
+        animations: CreateAnimations,
+        spritesheets: CreateSpriteSheets
+    ) {
         const collider = Shape.Circle(10);
         collider.offset = new Vector(0, 16);
 
@@ -61,6 +74,7 @@ export class Player extends Actor {
         this.animations = config.animations;
         this.animation = PlayerAnimation.Left;
         this.animationProps = animations;
+        this.spritesheetProps = spritesheets;
     }
 
     /**
@@ -140,6 +154,18 @@ export class Player extends Actor {
             this.meleeAttackCurrentCooldown -= delta;
         }
 
+        if (this.rangedAttackCurrentCooldown > 0) {
+            this.rangedAttackCurrentCooldown -= delta;
+        }
+
+        if (!props.actions.meleeAttack) {
+            this.meleeAttackReset = true;
+        }
+
+        if (!props.actions.rangedAttack) {
+            this.rangedAttackReset = true;
+        }
+
         this.normalizeAndSetVelocity(
             vec(props.input.x, props.input.y),
             props.speed
@@ -169,10 +195,6 @@ export class Player extends Actor {
             this.setAnimation();
         }
 
-        if (!props.actions.meleeAttack) {
-            this.meleeAttackReset = true;
-        }
-
         if (props.actions.dash && this.dashCooldown <= 0) {
             const boundDash = dash.bind(this);
             boundDash();
@@ -191,6 +213,22 @@ export class Player extends Actor {
             boundMeleeAttack(engine, this.animationProps);
             this.meleeAttackCurrentCooldown = this.meleeAttackCooldown;
             this.meleeAttackReset = false;
+        }
+
+        if (
+            props.actions.rangedAttack &&
+            this.rangedAttackReset &&
+            this.rangedAttackCurrentCooldown <= 0
+        ) {
+            const boundRangedAttack = rangedAttack.bind(this);
+            boundRangedAttack(
+                engine,
+                this.animationProps,
+                this.spritesheetProps,
+                this.isAi
+            );
+            this.rangedAttackCurrentCooldown = this.rangedAttackCooldown;
+            this.rangedAttackReset = false;
         }
     }
 

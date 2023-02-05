@@ -8,6 +8,7 @@ import backwardActive from 'assets/images/backward-active.png';
 import groundSet from 'assets/tilesets/Forest/Ground Tileset.png';
 import treeSet from 'assets/tilesets/Forest/Trees.png';
 import cliffSet from 'assets/tilesets/Forest/Cliff.png';
+import rockSet from 'assets/tilesets/Forest/Rocks.png';
 import character1 from 'assets/characters/Fantasy/Character_001.png';
 import character2 from 'assets/characters/Fantasy/Character_002.png';
 import character3 from 'assets/characters/Fantasy/Character_003.png';
@@ -24,6 +25,9 @@ import melee from 'assets/images/Melee/melee.png';
 import dark from 'assets/images/dark.png';
 import blood from 'assets/images/blood.png';
 import portraitKala from 'assets/images/kala.png';
+import berryMotive from 'assets/images/bad_bobby.png';
+import fishManMotive from 'assets/images/bad_berry.png';
+import bobbyMotive from 'assets/images/bad_fishman.png';
 
 /**
  * Create images. Probably same process for other static assets.
@@ -38,6 +42,7 @@ export const createImages = () => {
         backwardActive: new ImageSource(backwardActive),
         groundSet: new ImageSource(groundSet),
         cliffSet: new ImageSource(cliffSet),
+        rockSet: new ImageSource(rockSet),
         treeSet: new ImageSource(treeSet),
         characterLavender: new ImageSource(character1),
         characterShroom: new ImageSource(character2),
@@ -55,6 +60,9 @@ export const createImages = () => {
         melee: new ImageSource(melee),
         dark: new ImageSource(dark),
         blood: new ImageSource(blood),
+        berryMotive: new ImageSource(berryMotive),
+        fishManMotive: new ImageSource(fishManMotive),
+        bobbyMotive: new ImageSource(bobbyMotive),
     } as const;
 
     return images;
