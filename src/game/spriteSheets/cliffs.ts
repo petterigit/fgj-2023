@@ -1,4 +1,3 @@
-
 import { SpriteSheet } from 'excalibur';
 import { Resources } from 'game/types';
 
