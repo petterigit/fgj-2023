@@ -5,6 +5,7 @@ import { createCharacters } from './characters';
 import { createDuck } from './duck';
 import { createHouse } from './environment/house';
 import { createRocks } from './environment/rocks';
+import { createTreeBoy } from './environment/treeBoy';
 import { createTrees } from './environment/trees';
 
 /**
@@ -25,6 +26,7 @@ export const createObjects = (
     const characters = createCharacters(spritesheets, animations);
     const house = createHouse(spritesheets);
     const trees = createTrees(spritesheets);
+    const treeBoy = createTreeBoy(spritesheets);
     const rocks = createRocks(spritesheets);
-    return { duck, characters, trees, rocks, house } as const;
+    return { duck, characters, trees, rocks, house, treeBoy } as const;
 };
