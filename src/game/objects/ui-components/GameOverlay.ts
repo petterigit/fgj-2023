@@ -10,9 +10,9 @@ export const createGameOverlay = (
     const height = engine.drawHeight;
     const element = new ScreenElement({
         name: 'gameUI',
-        pos: vec(0, height - GameUI.height),
+        pos: vec(-50, height - GameUI.height),
         color: Color.LightGray,
-        width: width,
+        width: width + 50,
         height: GameUI.height,
         z: GameUI.z,
     });
