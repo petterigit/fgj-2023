@@ -1,4 +1,4 @@
-import { MeleeAttack, RangedAttack } from 'consts';
+import { GameUI, MeleeAttack, RangedAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -13,6 +13,7 @@ import { dash } from 'game/actions/dash';
 import { meleeAttack } from 'game/actions/meleeAttack';
 import { rangedAttack } from 'game/actions/rangedAttack';
 import { normalizeAndScale } from 'game/engine/physics/vectors';
+import { PostProcessor } from 'game/postProcessor';
 import {
     CreateAnimations,
     CreateSpriteSheets,
@@ -105,8 +106,23 @@ export class Player extends Actor {
         this.graphics.use(this.animations[this.animation]);
     }
 
+    public changeHealth(amount: number) {
+        const previousHealth = this.stats.health;
+        this.stats.health += amount;
+        if (!this.isAi) {
+            StatsManager.playerStats.health += amount;
+            if (
+                this.stats.health <= GameUI.lowHealthLevel &&
+                previousHealth > GameUI.lowHealthLevel
+            ) {
+                this.scene.engine.graphicsContext.addPostProcessor(
+                    new PostProcessor()
+                );
+            }
+        }
+    }
+
     onPreUpdate(engine: Engine, delta: number) {
-        console.log(this.stats);
         super.onPreUpdate(engine, delta);
 
         let props = this.preUpdateLogic?.(engine, delta);

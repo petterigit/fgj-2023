@@ -58,7 +58,7 @@ export function meleeAttack(
             MeleeAttack.screenshakeDuration
         );
         const target = event.other as Player;
-        target.stats.health -= this.stats.attack;
+        target.changeHealth(-this.stats.attack);
         blood.pos = target.center;
         engine.currentScene.add(blood);
     });

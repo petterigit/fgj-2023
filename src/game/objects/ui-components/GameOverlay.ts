@@ -1,6 +1,16 @@
 import { GameUI } from 'consts';
-import { Color, Engine, Font, ScreenElement, Text, vec } from 'excalibur';
+import {
+    Color,
+    Engine,
+    ExcaliburGraphicsContextWebGL,
+    Font,
+    ScreenElement,
+    Text,
+    vec,
+} from 'excalibur';
+import { PostProcessor } from 'game/postProcessor';
 import { Resources } from 'game/types';
+import { StatsManager } from '../player/statsmanager';
 
 export const createGameOverlay = (
     engine: Engine,
@@ -23,7 +33,7 @@ export const createGameOverlay = (
     });
 
     const healthCounter = new Text({
-        text: 'Health: 150',
+        text: '',
         font: new Font({ size: GameUI.fontSize }),
     });
 
@@ -33,7 +43,7 @@ export const createGameOverlay = (
     });
 
     const attackText = new Text({
-        text: 'Attack: 150',
+        text: '',
         font: new Font({ size: GameUI.fontSize }),
     });
 
@@ -43,8 +53,14 @@ export const createGameOverlay = (
     });
 
     const movementSpeedText = new Text({
-        text: 'Movement: 150',
+        text: '',
         font: new Font({ size: GameUI.fontSize }),
+    });
+
+    element.on('postupdate', event => {
+        healthCounter.text = `Health: ${StatsManager.playerStats.health}`;
+        attackText.text = `Attack: ${StatsManager.playerStats.attack}`;
+        movementSpeedText.text = `Movement: ${StatsManager.playerStats.speed}`;
     });
 
     healthCounterElement.graphics.use(healthCounter);

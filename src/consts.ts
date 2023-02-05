@@ -11,6 +11,7 @@ export const TileProperties = {
 };
 
 export const CharacterAnimationSpeed = 100; // milliseconds per frame
+export const TreeBoyAnimationSpeed = 700;
 export const ActorSpeed = 100;
 
 export const MeleeAttack = {
@@ -80,4 +81,5 @@ export const GameUI = {
     fontSize: 40,
     z: 1000,
     fontZ: 1001,
+    lowHealthLevel: 30,
 };

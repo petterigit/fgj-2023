@@ -61,7 +61,7 @@ export function rangedAttack(
 
             const target = event.other as Player;
             if (target.stats != null) {
-                target.stats.health -= this.stats.attack;
+                target.changeHealth(-this.stats.attack);
             }
         }
 

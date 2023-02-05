@@ -29,7 +29,6 @@ export const createEnemy = (
             Math.floor(randomInRange(300, 1900))
         );
         enemy.pos = vec(getRandomInt(X_MIN, X_MAX), getRandomInt(Y_MIN, Y_MAX));
-        console.log(enemy.pos.x, ' : ', enemy.pos.y);
 
         enemy.AddStatefulLogic(enemyLogic);
     }

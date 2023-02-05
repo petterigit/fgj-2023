@@ -1,4 +1,4 @@
-import { TileProperties } from 'consts';
+import { GameUI, TileProperties } from 'consts';
 import { ActorArgs, Sound, Scene, vec, TileMap, Color } from 'excalibur';
 import { generateNoise } from 'game/generators/worldGenerator';
 import { playerLogic } from 'game/logics/playerLogic';
@@ -99,7 +99,15 @@ export const endLevel = (
         entity.active = false;
     });
 
+    const previousHealth = StatsManager.playerStats.health;
     const levelUpMessage = StatsManager.LevelUp();
+
+    if (
+        previousHealth <= GameUI.lowHealthLevel &&
+        StatsManager.playerStats.health > GameUI.lowHealthLevel
+    ) {
+        gameProps.game.graphicsContext.clearPostProcessors();
+    }
 
     // Show level up message here
     const levelUpElement = createLevelUpDialog(
