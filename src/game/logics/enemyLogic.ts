@@ -1,5 +1,5 @@
-import { EnemyLogic, RangedAttack } from 'consts';
-import { Engine, randomInRange, Ray, vec, Vector } from 'excalibur';
+import { EnemyLogic } from 'consts';
+import { Engine, randomInRange, vec, Vector } from 'excalibur';
 import { Player } from 'game/objects/player/Player';
 import { PlayerPreUpdateLogic, PlayerPreUpdateLogicProps } from 'game/types';
 
