@@ -40,7 +40,7 @@ export const createDialog1 = (props: GameProps): GameScene => {
             props.resources.images.berryMotive.toSprite(),
             SceneKeys.Level1,
             props,
-            sounds.gameMusicLoop
+            sounds.menuMusicLoop
         ),
     };
 };
@@ -100,7 +100,7 @@ export const createDialog2 = (props: GameProps): GameScene => {
             props.resources.images.bobbyMotive.toSprite(),
             SceneKeys.Level2,
             props,
-            sounds.gameMusicLoop
+            sounds.menuMusicLoop
         ),
     };
 };
@@ -154,7 +154,7 @@ export const createDialog3 = (props: GameProps): GameScene => {
             fishManMotive,
             SceneKeys.Level3,
             props,
-            sounds.gameMusicLoop
+            sounds.menuMusicLoop
         ),
     };
 };

@@ -1,14 +1,5 @@
 import { GameUI } from 'consts';
-import {
-    Color,
-    Engine,
-    ExcaliburGraphicsContextWebGL,
-    Font,
-    ScreenElement,
-    Text,
-    vec,
-} from 'excalibur';
-import { PostProcessor } from 'game/postProcessor';
+import { Color, Engine, Font, ScreenElement, Text, vec } from 'excalibur';
 import { Resources } from 'game/types';
 import { StatsManager } from '../player/statsmanager';
 
@@ -20,9 +11,9 @@ export const createGameOverlay = (
     const height = engine.drawHeight;
     const element = new ScreenElement({
         name: 'gameUI',
-        pos: vec(0, height - GameUI.height),
+        pos: vec(-200, height - GameUI.height),
         color: Color.LightGray,
-        width: width,
+        width: width + 200,
         height: GameUI.height,
         z: GameUI.z,
     });
