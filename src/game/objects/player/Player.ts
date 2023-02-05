@@ -1,4 +1,4 @@
-import { MeleeAttack, PlayerDefaultStats, RangedAttack } from 'consts';
+import { MeleeAttack, RangedAttack } from 'consts';
 import {
     Actor,
     ActorArgs,
@@ -19,6 +19,7 @@ import {
     PlayerPreUpdateLogic,
     PlayerPreUpdateLogicGenerator,
 } from 'game/types';
+import { StatsManager } from './statsmanager';
 
 interface PlayerArgs extends ActorArgs {
     animations: Record<PlayerAnimation, Animation>;
@@ -54,7 +55,7 @@ export class Player extends Actor {
     public rangedAttackCurrentCooldown = 0;
     public rangedAttackReset = true;
 
-    public stats = { ...PlayerDefaultStats };
+    public stats = { ...StatsManager.playerStats };
 
     constructor(
         config: PlayerArgs,
@@ -75,35 +76,6 @@ export class Player extends Actor {
         this.animation = PlayerAnimation.Left;
         this.animationProps = animations;
         this.spritesheetProps = spritesheets;
-    }
-
-    /**
-     * Levels character up. Should be called after each level (or whenever wanted..)
-     * @returns A level up message for what stats was incresed & how much
-     */
-    public LevelUp() {
-        const random = Math.random() * 3;
-
-        // Todo: Level up by x amount of previous stat instead of fixed
-        if (1 > random && random > 0) {
-            const attackIncrease = 1;
-            this.stats.attack = this.stats.attack + attackIncrease;
-            return 'Attack was increased by 1!';
-        }
-
-        if (2 > random && random > 1) {
-            const healthIncrease = 10;
-            this.stats.health = this.stats.health + healthIncrease;
-            return 'Health was increased by 10!';
-        }
-
-        if (3 > random && random > 2) {
-            const speedIncrease = 15;
-            this.stats.speed = this.stats.speed + speedIncrease;
-            return 'Speed was increased by 15!';
-        } else {
-            return 'Level up!';
-        }
     }
 
     public AddLogic(logic: PlayerPreUpdateLogic | null) {
@@ -134,6 +106,7 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine: Engine, delta: number) {
+        console.log(this.stats);
         super.onPreUpdate(engine, delta);
 
         let props = this.preUpdateLogic?.(engine, delta);
