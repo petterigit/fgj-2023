@@ -19,7 +19,6 @@ export const createDialogScene = (
         characterName,
         dialogTexts,
         () => {
-            console.log(nextScene);
             switch (nextScene) {
                 case SceneKeys.Level1: {
                     const level1 = createLevel1(gameProps);
@@ -27,7 +26,6 @@ export const createDialogScene = (
                     break;
                 }
                 case SceneKeys.Level2: {
-                    console.log('create level2');
                     const level2 = createLevel2(gameProps);
                     gameProps.game.addScene(level2.key, level2.scene);
                     break;

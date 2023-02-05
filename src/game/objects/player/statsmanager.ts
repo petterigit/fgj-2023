@@ -21,9 +21,9 @@ export class StatsManager {
     }
 
     static Init() {
-        StatsManager.enemyStats = EnemyDefaultStats;
-        StatsManager.bossStats = BossDefaultStats;
-        StatsManager.playerStats = PlayerDefaultStats;
+        StatsManager.enemyStats = { ...EnemyDefaultStats };
+        StatsManager.bossStats = { ...BossDefaultStats };
+        StatsManager.playerStats = { ...PlayerDefaultStats };
     }
 
     static Reset() {

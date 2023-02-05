@@ -11,6 +11,7 @@ import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
 import { ColliderPos, GameProps, SceneProperties } from 'game/types';
 import { createDialog1, createDialog2, createDialog3 } from './createScenes';
 import { SceneKeys } from './gamescenes';
+import { createMenu } from './menu';
 
 // enemyType === Enum
 // Tile map theme === Enum
@@ -72,6 +73,13 @@ export const handleEndGame = (
     gameProps: GameProps,
     nextScene: SceneKeys = SceneKeys.Menu
 ) => {
+    StatsManager.Reset();
+    gameProps.game.graphicsContext.clearPostProcessors();
+    Object.values(gameProps.game.scenes).forEach(scene =>
+        gameProps.game.removeScene(scene)
+    );
+    const menu = createMenu(gameProps);
+    gameProps.game.addScene(menu.key, menu.scene);
     gameProps.game.goToScene(nextScene);
 };
 
@@ -114,7 +122,6 @@ export const endLevel = (
         vec(200, 100),
         levelUpMessage,
         () => {
-            console.log(nextScene);
             switch (nextScene) {
                 case SceneKeys.Dialog1: {
                     const dialog1 = createDialog1(gameProps);
@@ -122,7 +129,6 @@ export const endLevel = (
                     break;
                 }
                 case SceneKeys.Dialog2: {
-                    console.log('create dialog 2');
                     const dialog2 = createDialog2(gameProps);
                     gameProps.game.addScene(dialog2.key, dialog2.scene);
                     break;

@@ -9,6 +9,8 @@ import { SceneKeys } from './scenes/gamescenes';
 import { createAnimations } from './animations/createAnimations';
 import { createMenu } from './scenes/menu';
 import { AudioManager } from './resources/sounds/audiomanager';
+import { KeyEvent } from 'excalibur/build/dist/Input/Keyboard';
+import { handleEndGame } from './scenes/levelScene';
 //import { PostProcessor } from './postProcessor';
 
 /**
@@ -42,6 +44,12 @@ export const initGame = () => {
 
     const menu = createMenu(gameProps, AudioManager.getSounds().menuMusicLoop);
     game.addScene(menu.key, menu.scene);
+
+    game.input.keyboard.on('press', (event: KeyEvent) => {
+        if (event.key === 'Escape') {
+            handleEndGame(gameProps, SceneKeys.Menu);
+        }
+    });
 
     // game.graphicsContext.addPostProcessor(new PostProcessor());
     /* game.goToScene can be used to change scenes *wink* *wink* */
