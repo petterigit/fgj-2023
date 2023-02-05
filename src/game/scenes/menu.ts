@@ -79,7 +79,7 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
 
     const keysLabel = new Label({
         text: 'Esc returns to menu\nWASD/Arrows to move\nSpace to attack\nE to throw rock\nShift to dash',
-        pos: new Vector(1150, 970),
+        pos: new Vector(150, 20),
         font: new Font({
             size: 20,
             padding: 10,
@@ -97,9 +97,18 @@ export const createMenu = (props: GameProps, sound?: Sound) => {
         }),
     });
 
+    const keysBackdrop = new ScreenElement({
+        pos: new Vector(1000, 825),
+        width: 300,
+        height: 125,
+        color: Color.DarkGray,
+    });
+
+    keysBackdrop.addChild(keysLabel);
+
     scene.scene.add(titleLabel);
     scene.scene.add(startGameLabel);
-    scene.scene.add(keysLabel);
+    scene.scene.add(keysBackdrop);
 
     const nextButton = createNextButton(
         props.resources,
