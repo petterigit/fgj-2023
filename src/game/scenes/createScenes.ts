@@ -129,6 +129,10 @@ export const createScenes = (props: GameProps): GameScene[] => {
         ),
     };
 
+    const fishManMotive = props.resources.images.fishManMotive.toSprite();
+
+    fishManMotive.scale = vec(0.55, 0.55);
+
     const dialog3 = {
         key: SceneKeys.Dialog3,
         scene: createDialogScene(
@@ -142,7 +146,7 @@ export const createScenes = (props: GameProps): GameScene[] => {
                 "For thieving's wrong, and this you'll learn,  And regret will be your constant yearn.",
             ],
             props.resources.images.portraitKala.toSprite(),
-            props.resources.images.characterBerry.toSprite(),
+            fishManMotive,
             SceneKeys.Level3,
             props.game,
             props.resources,
