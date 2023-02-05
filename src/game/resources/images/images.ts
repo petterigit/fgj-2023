@@ -20,6 +20,7 @@ import character8 from 'assets/characters/Fantasy/Character_008.png';
 import character9 from 'assets/characters/Fantasy/Character_009.png';
 import character10 from 'assets/characters/Fantasy/Character_010.png';
 import berry from 'assets/images/berry.png';
+import house from 'assets/images/talo.png';
 import bob from 'assets/images/bobby.png';
 import melee from 'assets/images/Melee/melee.png';
 import dark from 'assets/images/dark.png';
@@ -36,6 +37,7 @@ import bobbyMotive from 'assets/images/bad_fishman.png';
 export const createImages = () => {
     const images = {
         duckImage: new ImageSource(duckImage),
+        house: new ImageSource(house),
         forward: new ImageSource(forward),
         forwardActive: new ImageSource(forwardActive),
         backward: new ImageSource(backward),

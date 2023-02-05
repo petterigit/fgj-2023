@@ -6,6 +6,7 @@ import { createBoss } from 'game/objects/enemy/createBoss';
 import { createEnemy } from 'game/objects/enemy/createEnemy';
 import { Player } from 'game/objects/player/Player';
 import { StatsManager } from 'game/objects/player/statsmanager';
+import { createGameOverlay } from 'game/objects/ui-components/GameOverlay';
 import { createLevelUpDialog } from 'game/objects/ui-components/LevelUp';
 import { ColliderPos, GameProps, SceneProperties } from 'game/types';
 import { createDialog1, createDialog2, createDialog3 } from './createScenes';
@@ -190,6 +191,9 @@ const createTileMap = (
             scene.add(detail);
         }
     }
+
+    const gameUI = createGameOverlay(gameProps.game, gameProps.resources);
+    scene.add(gameUI);
 
     return isoMap;
 };

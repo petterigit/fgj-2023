@@ -72,3 +72,12 @@ export const EnemyLogic = {
     dashSpeed: 5000,
     navigationDirectionThreshold: 5,
 };
+
+export const GameUI = {
+    height: 75,
+    textYOffset: 50,
+    fieldWidth: 400,
+    fontSize: 40,
+    z: 1000,
+    fontZ: 1001,
+};

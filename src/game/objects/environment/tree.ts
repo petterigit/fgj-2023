@@ -1,4 +1,3 @@
-
 import { Actor, Sprite, Vector } from 'excalibur';
 
 export const createTree = (treeSprite: Sprite): Actor => {
