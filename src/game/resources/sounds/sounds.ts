@@ -24,7 +24,7 @@ export const createSounds = () => {
 
     const menuMusicLoop = new Sound(menuMusic);
     menuMusicLoop.loop = true;
-    menuMusicLoop.volume = 0.2;
+    menuMusicLoop.volume = 0.3;
 
     const sounds = {
         viisKauttaViis: new Sound(viiskauttaviis),
