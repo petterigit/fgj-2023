@@ -19,7 +19,7 @@ export const createGame = () => {
 class Game extends Engine {
     constructor() {
         super({
-            displayMode: DisplayMode.FitScreenAndFill,
+            displayMode: DisplayMode.FitScreen,
             resolution: Resolution.Standard,
             canvasElementId: GameCanvasID,
             backgroundColor: Color.fromHex('#ffffff'),
